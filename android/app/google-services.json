@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "223218594988",
+    "firebase_url": "https://nextword3659.firebaseio.com",
+    "project_id": "nextword3659",
+    "storage_bucket": "nextword3659.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223218594988:android:2e7013169d829d986adb09",
+        "android_client_info": {
+          "package_name": "com.nextword_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223218594988-4d1qkm4dcrni55tbse3vvljlmk84v7e0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextword_mobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "223218594988-ljds3b83etd5p0mnblinnj8ibegcridt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextword_mobile",
+            "certificate_hash": "1f0a680973db21447996abdfb43b5932a7ba95d1"
+          }
+        },
+        {
+          "client_id": "223218594988-d5tumpoesu3ipedgopvm45laa4irbvcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmg3TBpJiyknVPexR_EmfZ3l6fm1wtUPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223218594988-d5tumpoesu3ipedgopvm45laa4irbvcn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223218594988-ud6g4jflr5bml0kn9elqsphbkbm92fnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nextword3659"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
