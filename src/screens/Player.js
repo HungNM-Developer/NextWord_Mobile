@@ -15,7 +15,7 @@ class Player extends Component {
       };
       setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
-      };
+    };
     render() {
         const { navigate } = this.props.navigation;
         const { modalVisible } = this.state;
@@ -41,7 +41,7 @@ class Player extends Component {
                                 color: "#FFF",
 
                             }}>
-                            Game ID:
+                            Game ID: 2175173
                     </Text>
                         <Text
                             style={{
@@ -50,7 +50,7 @@ class Player extends Component {
                                 color: "#FFF",
 
                             }}>
-                            1 player
+                            5/10 player
                     </Text>
                     </View>
 
@@ -96,6 +96,11 @@ class Player extends Component {
                             }}
                         />
                          <ListCard
+                            onPress={() => {
+                                this.setModalVisible(true);
+                            }}
+                        />
+                        <ListCard
                             onPress={() => {
                                 this.setModalVisible(true);
                             }}

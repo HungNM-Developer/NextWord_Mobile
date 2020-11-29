@@ -53,7 +53,7 @@ export default class ModalCard extends React.Component{
                        textAlign:"center",
                        fontSize:18
                    }}>
-                       Check Out
+                       Cancel
                    </Text>
                </TouchableHighlight>
 

@@ -6,12 +6,10 @@ export default class ListCard extends React.Component {
     return (
       <TouchableOpacity
         onPress={this.props.onPress}
-        style={{
-          paddingHorizontal: 32,
+        style={{         
           alignSelf: "center",
           marginTop: 20,
           backgroundColor: "#FFF",
-          
           elevation: 1,
           width: '90%',
           borderRadius: 15,
@@ -20,7 +18,7 @@ export default class ListCard extends React.Component {
         <View
           style={{
             flexDirection: "row",
-            paddingVertical:20,
+            paddingVertical:10,
             alignSelf: "center",
           }}
         >
@@ -46,7 +44,7 @@ export default class ListCard extends React.Component {
             }}
           >
             {" "}
-            - - - - - - - - - -
+            - - - - - - - - 
           </Text>
           <Text
             style={{
