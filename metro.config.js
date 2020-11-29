@@ -5,9 +5,12 @@
  * @format
  */
 
-module.exports = {
+module.exports = {  
   transformer: {
     getTransformOptions: async () => ({
+      "assets":[
+        "fonts"
+      ],
       transform: {
         experimentalImportSupport: false,
         inlineRequires: false,
