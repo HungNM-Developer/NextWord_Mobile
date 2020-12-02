@@ -29,7 +29,7 @@ export default class ListCard extends React.Component {
           <Text
             style={{
               fontFamily: "RobotoBold",
-              color: "#4b3ca7",
+              color: "#5454bd",
               fontSize: 20,
             }}
           >

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground,Alert, Modal,Image,ScrollView,} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../screens/ListCard';
 import ModalCard from '../screens/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import MenuButton from '../Components/MenuButton';
 
 class Player extends Component {
     static navigationOptions = {
@@ -12,8 +12,8 @@ class Player extends Component {
     };
     state = {
         modalVisible: false,
-      };
-      setModalVisible = (visible) => {
+    };
+    setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     };
     render() {
@@ -23,29 +23,49 @@ class Player extends Component {
             <View style={styles.container}>
                 <ImageBackground
                     source={require("../images/back2.png")}
-                    style={{ width: "100%", height: "100%",}}>
-                    <View style={{ paddingHorizontal: 10, marginTop: 50 }}>
+                    style={{ width: "100%", height: "100%", }}>
+
+                    
+                        <View style={{flexDirection:"row", paddingHorizontal:50, 
+                        paddingVertical:20,justifyContent: "space-between",
+                        alignItems: "center",}}>
+                        <TouchableOpacity style={{     
+                                flexDirection: "row",
+                                color: "#5454bd",
+                                alignItems: "center",
+                            }}>
+                                <Image source={require("../images/17.png")} style={{ tintColor: "#fff",width:25,height:15 }} />
+                            </TouchableOpacity>
+                            {/* <Image
+                                source={require("../images/Layer1.png")}
+                                style={{ height: 40, width: 40, borderRadius: 30,  }}
+                            /> */}
+                            <MenuButton style={{ height: 40, width: 40, borderRadius: 30 }}>
+
+                            </MenuButton>
+                        </View>
+                    <View style={{alignItems: "center",}}>
                         <Text
                             style={{
-                                textAlign: "center",
+                                
                                 fontSize: 70,
                                 color: "#FFF",
                                 fontWeight: 'bold'
                             }}>
                             LOBBY
-                    </Text>
+                        </Text>
                         <Text
                             style={{
-                                textAlign: "center",
+                                
                                 fontSize: 30,
                                 color: "#FFF",
 
                             }}>
-                            Game ID: 2175173
+                            Game ID is 1999
                     </Text>
                         <Text
                             style={{
-                                textAlign: "center",
+                                
                                 fontSize: 25,
                                 color: "#FFF",
 
@@ -54,27 +74,17 @@ class Player extends Component {
                     </Text>
                     </View>
 
-
                     <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            paddingHorizontal: 70,
-            marginTop: 60,
-          }}
-        >
-          {/* <Image
-            source={require("../images/user2.png")}
-            style={{ width: 30, height: 30, color:'#FFF' }}
-          /> */}
-          <Icon name="ios-person" size={25} color="#5454bd"/>
-          <Icon name="ios-checkmark-circle" size={25} color="#5454bd" style={{marginLeft:220}}/>
-          {/* <Image
-            source={require("../images/status.png")}
-            style={{ marginLeft: 228, width: 24, height: 22 }}
-          /> */}
-        </View>
-                <ScrollView
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingHorizontal: 70,
+                            marginTop: 60,
+                        }}>
+                        <Icon name="ios-person" size={25} color="#5454bd" />
+                        <Icon name="ios-checkmark-circle" size={25} color="#5454bd" style={{ marginLeft: 220 }} />
+                    </View>
+                    <ScrollView
                         showsVerticalScrollIndicator={false}
                         style={{
                             marginVertical: 5,
@@ -95,7 +105,7 @@ class Player extends Component {
                                 this.setModalVisible(true);
                             }}
                         />
-                         <ListCard
+                        <ListCard
                             onPress={() => {
                                 this.setModalVisible(true);
                             }}
@@ -123,19 +133,19 @@ class Player extends Component {
                             </Modal>
                         </View>
                     </ScrollView>
-                    <Button 
-                        color="#5454bd" 
+                    <Button
+                        color="#5454bd"
                         icon={require('../images/finish.png')}
-                        mode="contained" 
-                                onPress={() => navigate(
-                                'New_Join_Game'
-                                )}>
-                                <Text style={{color: '#FFF',fontSize:25,}}>
-                                    Start
-                                </Text>                        
+                        mode="contained"
+                        onPress={() => navigate(
+                            'Play_Game'
+                        )}>
+                        <Text style={{ color: '#FFF', fontSize: 25, }}>
+                            Start
+                        </Text>
                     </Button>
                 </ImageBackground>
-                
+
             </View>
         );
     }

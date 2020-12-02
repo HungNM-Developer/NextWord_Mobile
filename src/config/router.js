@@ -21,17 +21,17 @@ const Tabs = createMaterialTopTabNavigator(
         ),
       },
     },
-    More: {
-      screen: More,
-      navigationOptions: {
-        tabBarLabel: ({tintColor}) => (
-          <View style={styles.iconCOntainer}>
-            <Icon name="ios-ellipsis-horizontal" color={tintColor} size={22} />
-            <Text style={{color: tintColor}}>More</Text>
-          </View>
-        ),
-      },
-    },
+    // More: {
+    //   screen: More,
+    //   navigationOptions: {
+    //     tabBarLabel: ({tintColor}) => (
+    //       <View style={styles.iconCOntainer}>
+    //         <Icon name="ios-ellipsis-horizontal" color={tintColor} size={22} />
+    //         <Text style={{color: tintColor}}>More</Text>
+    //       </View>
+    //     ),
+    //   },
+    // },
   },
   {
     initialRouteName: 'Player',

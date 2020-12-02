@@ -15,7 +15,11 @@ export default class Join_Game extends React.Component {
             <ImageBackground
                 source={require("../images/join6.png")}
                 style={{ height: "100%", width: "100%", }}>
-                <View style={{ paddingHorizontal: 30, marginTop: 130 }}>
+                <Image
+                    source={require("../images/Layer1.png")}
+                    style={{ height: 40, width: 40, borderRadius: 30, marginTop: 20, marginLeft: 320 }}
+                />
+                <View style={{ paddingHorizontal: 30, marginTop: 60 }}>
                     <Text
                         style={{
                             textAlign: "center",
@@ -33,7 +37,7 @@ export default class Join_Game extends React.Component {
                             borderBottomWidth: 2,
                             flexDirection: "row",
                             backgroundColor: "#fff",
-                            borderRadius: 40,        
+                            borderRadius: 40,
                             alignItems: "center",
                             paddingVertical: 10,
                             paddingHorizontal: 20,
@@ -45,7 +49,7 @@ export default class Join_Game extends React.Component {
                         />
                         <TextInput
                             placeholder="Game ID" type="number"
-                            style={{ paddingHorizontal: 20, fontSize: 28, color: '#fff', borderBottomColor:'#000' }}
+                            style={{ paddingHorizontal: 20, fontSize: 28, color: '#fff', borderBottomColor: '#000' }}
                         />
                     </View>
 
@@ -66,21 +70,21 @@ export default class Join_Game extends React.Component {
                 <View style={{
                     alignItems: "center",
                     justifyContent: "center",
-                    marginTop:120
+                    marginTop: 120
                 }}>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate("New_Join_Game")}
-                        style={{   
+                        style={{
                             borderLeftWidth: 2,
                             borderRightWidth: 2,
                             borderTopWidth: 2,
-                            borderBottomWidth: 2,                       
+                            borderBottomWidth: 2,
                             alignItems: "center",
                             justifyContent: "center",
                             height: 60,
                             width: 90,
                             borderRadius: 30,
-                            backgroundColor: "#fff",                          
+                            backgroundColor: "#fff",
                         }}>
                         <Image
                             source={require("../images/undo.png")}

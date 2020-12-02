@@ -1,9 +1,14 @@
 import React from "react";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, } from "react-native-gesture-handler";
 import { IconButton, Colors, Button } from 'react-native-paper';
-import { Text, View, Image, ImageBackground, TextInput, StyleSheet } from "react-native";
+// import { Text, View, Image, ImageBackground, TextInput, StyleSheet } from "react-native";
+import { Image, View, Dimensions, StyleSheet, Text, TouchableOpacity, ImageBackground, } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
+
 export default class Home extends React.Component {
     componentDidMount() {
 
@@ -35,7 +40,7 @@ export default class Home extends React.Component {
                 // operation (e.g. sign in) is in progress already
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 // play services not available or outdated
-               
+
             } else {
                 // some other error happened
             }
@@ -89,13 +94,22 @@ export default class Home extends React.Component {
                                 source={require("../images/logo1.png")}
                                 style={{ height: 220, width: 220, borderRadius: 200 }} />
                         </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.signIn}
+                        >
+                            <Image style={styles.icon_google} source={require('../images/google-symbol.png')}></Image>
+                            <Text style={styles.textLogin}>Sign in with Google</Text>
+
+                        </TouchableOpacity>
                     </View>
 
 
-                    <View style={{ paddingHorizontal: 20, marginTop: 20, }}>
+                    {/* <View style={{ paddingHorizontal: 20, marginTop: 20, }}>
                         <Button style={{ borderRadius: 30, padding: 10, }}
                             color="#fff"
-                            icon="google"
+                            icon={require('../images/google-symbol.png')}
                             mode="contained"
                             onPress={() => this.signIn()}>
                             <Text style={{ color: '#4b3ca7', fontSize: 20, }}>
@@ -103,7 +117,10 @@ export default class Home extends React.Component {
                                 </Text>
                         </Button>
 
-                    </View>
+                    </View> */}
+
+
+
 
                 </View>
             </ImageBackground>
@@ -111,3 +128,38 @@ export default class Home extends React.Component {
     }
 
 }
+
+const styles = StyleSheet.create({
+    button: {
+        shadowColor: "black",
+        marginTop: 80,
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
+
+        // shadowOffset: 6,
+        borderRadius: 30,
+        fontSize: 25,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        backgroundColor: "#ffffff",
+        width: width * 0.8,
+        height: height * 0.08,
+    },
+    icon_google: {
+        resizeMode: "stretch",
+        width: 30,
+        height: 30
+    },
+    textLogin: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+
+
+});
