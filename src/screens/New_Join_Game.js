@@ -3,12 +3,18 @@ import { View, Text, Alert, Modal, Image, ImageBackground } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { IconButton, Colors, Button } from 'react-native-paper';
+import { baseURL } from '../shared/baseURL';
 
 export default class New_Join_Game extends React.Component {
   static navigationOptions = {
     title: 'New_Join_Game',
   };
+  componentDidMount(){
+    console.log(baseURL);
+  }
+  
   render() {
+    
     const { navigate, state } = this.props.navigation;
     return (
       <ImageBackground
