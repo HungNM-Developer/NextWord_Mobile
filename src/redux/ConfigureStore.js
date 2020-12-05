@@ -2,11 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
-import { room } from './leaders';
+import {roomReducer } from './reducer/RoomReducer';
 
 export const ConfigureStore = () => {
   const store = createStore(
-    combineReducers({ leaders }),
+    combineReducers({roomReducer}),
     applyMiddleware(thunk, logger)
   );
   return store;

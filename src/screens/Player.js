@@ -5,8 +5,15 @@ import ListCard from '../screens/ListCard';
 import ModalCard from '../screens/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuButton from '../Components/MenuButton';
-
+import { connect } from 'react-redux';
+const mapStateToProps = state => {
+    return {
+        room: state.roomReducer.roomPin,
+    }
+}
 class Player extends Component {
+   
+
     static navigationOptions = {
         title: 'Player',
     };
@@ -25,29 +32,31 @@ class Player extends Component {
                     source={require("../images/back2.png")}
                     style={{ width: "100%", height: "100%", }}>
 
-                    
-                        <View style={{flexDirection:"row", paddingHorizontal:50, 
-                        paddingVertical:20,justifyContent: "space-between",
-                        alignItems: "center",}}>
-                        <TouchableOpacity style={{     
-                                flexDirection: "row",
-                                color: "#5454bd",
-                                alignItems: "center",
-                            }}>
-                                <Image source={require("../images/17.png")} style={{ tintColor: "#fff",width:25,height:15 }} />
-                            </TouchableOpacity>
-                            {/* <Image
+
+                    <View style={{
+                        flexDirection: "row", paddingHorizontal: 50,
+                        paddingVertical: 20, justifyContent: "space-between",
+                        alignItems: "center",
+                    }}>
+                        <TouchableOpacity style={{
+                            flexDirection: "row",
+                            color: "#5454bd",
+                            alignItems: "center",
+                        }}>
+                            <Image source={require("../images/17.png")} style={{ tintColor: "#fff", width: 25, height: 15 }} />
+                        </TouchableOpacity>
+                        {/* <Image
                                 source={require("../images/Layer1.png")}
                                 style={{ height: 40, width: 40, borderRadius: 30,  }}
                             /> */}
-                            <MenuButton style={{ height: 40, width: 40, borderRadius: 30 }}>
+                        <MenuButton style={{ height: 40, width: 40, borderRadius: 30 }}>
 
-                            </MenuButton>
-                        </View>
-                    <View style={{alignItems: "center",}}>
+                        </MenuButton>
+                    </View>
+                    <View style={{ alignItems: "center", }}>
                         <Text
                             style={{
-                                
+
                                 fontSize: 70,
                                 color: "#FFF",
                                 fontWeight: 'bold'
@@ -56,16 +65,16 @@ class Player extends Component {
                         </Text>
                         <Text
                             style={{
-                                
+
                                 fontSize: 30,
                                 color: "#FFF",
 
                             }}>
-                            Game ID is 1999
+                            Game ID is {this.props.room.roomPin}
                     </Text>
                         <Text
                             style={{
-                                
+
                                 fontSize: 25,
                                 color: "#FFF",
 
@@ -151,7 +160,7 @@ class Player extends Component {
     }
 }
 
-export default Player;
+export default connect(mapStateToProps)(Player);
 
 const styles = StyleSheet.create({
     container: {

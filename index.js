@@ -12,9 +12,9 @@ import { AppRegistry } from 'react-native';
 import { configureFonts, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { name as appName } from './app.json';
 import App from './src/App';
-const store = ConfigureStore();
-import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux/ConfigureStore';
+
+
+
 
 
 const fontConfig = {
@@ -41,10 +41,9 @@ const fontConfig = {
 export default function Main() {
   return (
     <PaperProvider>
-      <Provider store={store}>
         <App />
-      </Provider>
     </PaperProvider>
+
   );
 }
 
