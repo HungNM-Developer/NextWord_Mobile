@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { View, Text, Image, TouchableOpacity  } from 'react-native';
+import { View, Text, Image, TouchableOpacity,Dimensions } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
 
 class MenuButton extends React.PureComponent {
     constructor(props)
@@ -32,7 +35,7 @@ class MenuButton extends React.PureComponent {
                   uri:
                     this.props.avatarURL,
                 }}
-                style={{width: 45, height: 45, borderRadius: 30,}}
+                style={{width: width*0.11, height: height*0.067, borderRadius: 30,}}
               />
                 </TouchableOpacity>
         <Menu
@@ -42,13 +45,13 @@ class MenuButton extends React.PureComponent {
         // }
         >
         
-        <MenuItem onPress={this.hideMenu}>Menu item 1</MenuItem>
+        <MenuItem onPress={this.hideMenu}>Profile</MenuItem>
           <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
           <MenuItem onPress={this.hideMenu} disabled>
             Menu item 3
           </MenuItem>
           <MenuDivider />
-          <MenuItem onPress={this.hideMenu}>Menu item 4</MenuItem>
+          <MenuItem onPress={this.hideMenu}>Log Out</MenuItem>
          
         </Menu>
       </View>
