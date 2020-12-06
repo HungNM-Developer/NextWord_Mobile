@@ -24,13 +24,12 @@ export default class Join_Game extends React.Component {
                 <ImageBackground
                     source={require("../images/join9.png")}
                     style={styles.image}>
-
                     <View style={{
                         flex: 2,
-                        marginTop: height * 0.03,
-                        marginLeft: width * 0.77
+                        marginTop: height * 0.029,//20h
+                        marginLeft: width * 0.778,//320w
                     }}>
-
+                        
                         <MenuButton style={styles.menuAvatar}></MenuButton>
                     </View>
 
@@ -46,7 +45,7 @@ export default class Join_Game extends React.Component {
                             style={styles.ViewContent}>
                             <Image
                                 source={require("../images/search.png")}
-                                style={{ height: 15, width: 15 }}
+                                style={{ height: height*0.022, width: width*0.036 }}
                             />
                             <TextInput
                                 placeholder="Enter Game ID"
@@ -63,14 +62,15 @@ export default class Join_Game extends React.Component {
                         </Button>
                         <TouchableOpacity style={{
                             flexDirection: "row",
-                            justifyContent: "center", marginTop: height * 0.06
+                            justifyContent: "center", marginTop: height * 0.065,//45h
                         }}>
                             <Button
                                 onPress={() => navigate(
                                     'New_Join_Game')}
                                 style={styles.buttonStyleBack}
                                 mode="outlined">
-                                <Icon name="ios-arrow-back" size={height * 0.04} color="#ffff" />
+                                <Icon name="ios-arrow-back" size={height * 0.043//30h
+                                } color="#ffff" />
                             </Button>
                         </TouchableOpacity>
                     </View>
@@ -94,16 +94,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     Avatar: {
-        height: 40,
-        width: 40,
+        height: height*0.058,//40h
+        width: width*0.097,//40w
         borderRadius: 30,
-        marginTop: 20,
-        marginLeft: width * 0.77
+        marginTop: height * 0.029,//20h
+        marginLeft: width * 0.778,//320w
     },
 
     menuAvatar: {
-        height: 40,
-        width: 40,
+        height: height*0.058,//40h
+        width: width*0.097,//40w
         borderRadius: 30,
     },
     headerContent: {
@@ -111,59 +111,48 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     TextheaderContent: {
-        fontSize: height * 0.085,
+        fontSize: height * 0.087,//60h
         color: "#522289",
         fontWeight: 'bold'
     },
     Content: {
-        paddingHorizontal: width * 0.05,
+        paddingHorizontal: width * 0.048,//20w
         flex: 5,
-        marginTop: height * 0.1
+        marginTop: height * 0.109,//75h
     },
     ViewContent: {
+        elevation:10,
         flexDirection: "row",
         backgroundColor: "#FFF",
         borderRadius: 60,
         alignItems: "center",
-        paddingVertical: height * 0.015,
-        paddingHorizontal: width * 0.05,
+        paddingVertical: height * 0.014,//10h
+        paddingHorizontal: width * 0.048,//20w
     },
     TextInputContent: {
-        paddingHorizontal: width * 0.07,
-        fontSize: width * 0.05,
+        paddingHorizontal: width * 0.072,//30w
+        fontSize: width*0.06,//25
         color: "#522289",
         fontWeight: 'bold',
     },
-    Footer: {
-        marginVertical: 20,
-        alignItems: "center",
-        flex: 1,
-    },
-
+    
     buttonStyleBack: {
-
         width: width * 0.2433,
         borderRadius: 40,
-        padding: height * 0.01,
-        marginVertical: height * 0.05,
-        borderBottomWidth: width * 0.006,
-        borderTopWidth: width * 0.006,
-        borderStartWidth: width * 0.006,
-        borderEndWidth: width * 0.006,
-        borderBottomColor: '#fff',
-        borderTopColor: '#fff',
-        borderStartColor: '#fff',
-        borderEndColor: '#fff',
-        // backgroundColor: "#fff",
+        padding: height * 0.008,
+        marginVertical: height * 0.029,//20h
+        borderWidth: width * 0.006,
+        borderColor: '#ffffff',    
     },
     buttonStyle: {
         borderRadius: 50,
         backgroundColor: "#fff",
-        padding: height * 0.01,
-        marginVertical: height * 0.03,
+        padding: height * 0.014,
+        marginVertical: height * 0.029,//20h
+        elevation:10,
     },
     titleStyle: {
-        fontSize: height * 0.035,
+        fontSize: width*0.06,//25
         color: "#4b3ca7",
     },
 });

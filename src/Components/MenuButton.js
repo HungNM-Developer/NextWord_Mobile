@@ -35,7 +35,7 @@ class MenuButton extends React.PureComponent {
                   uri:
                     this.props.avatarURL,
                 }}
-                style={{width: width*0.11, height: height*0.067, borderRadius: 30,}}
+                style={{width:width*0.121, height:height*0.073, borderRadius: 30,}}
               />
                 </TouchableOpacity>
         <Menu

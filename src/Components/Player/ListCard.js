@@ -12,7 +12,7 @@ export default class ListCard extends React.Component {
           flex: 1,
           fontFamily: "RobotoBold",
           color: "#4dd163",
-          fontSize: width*0.05,
+          fontSize:width*0.053,//22w
         }}
       >
         You
@@ -24,7 +24,7 @@ export default class ListCard extends React.Component {
           flex: 1,
           fontFamily: "RobotoBold",
           color: "#4dd163",
-          fontSize: width*0.05,
+          fontSize: width*0.053,//22w
         }}
       >
         Friend
@@ -49,7 +49,7 @@ export default class ListCard extends React.Component {
       flex: 1,
       fontFamily: "RobotoBold",
       color: "#5454bd",
-      fontSize: width*0.05,
+      fontSize: width*0.053,//22w
     }}
   >
     {name}
@@ -73,39 +73,34 @@ export default class ListCard extends React.Component {
           style={{
             flex: 1,
             flexDirection: "row",
-            paddingVertical:height*0.014,
+            paddingVertical:height*0.014,//10h
             //paddingHorizontal: 20,
-            //alignSelf: "center",
-            justifyContent: "space-around",
+            alignSelf: "center",
+            // justifyContent: "space-around",
           }}
         >
           <View style={{flex: 1, paddingLeft:20}}>
              <Image
-            style={{ width: width*0.07, height: height*0.04, borderRadius: 30 }}
+            style={{ width: width*0.0729,
+               height: height*0.0439,               
+               borderRadius: 20 ,}}
             source={{ uri: this.props.item.photoURL }}
           />
           </View>
-
          {this.renderName()}
-         
-
           <Text
             style={{
               flex: 1,
-              fontSize: width*0.05,
+              fontSize: width*0.053,//22w
               color: "#a2a2db",
-              paddingHorizontal: 14,
+              paddingHorizontal: width*0.036,//15w
             }}
           >
-
-            - - - - - - - -
+            - - - - - - 
           </Text>
           {this.renderYou()}
 
         </View>
-
-
-
       </TouchableOpacity>
     );
   }

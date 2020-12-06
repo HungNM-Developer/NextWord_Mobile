@@ -28,6 +28,7 @@ import New_Game from './screens/New_Game';
 import More from './screens/More';
 import Player from './screens/Player';
 import Play_Game from './screens/Play_Game';
+import Rank_Game from './screens/Rank_Game';
 // import LoginPage from './screen/LoginPage';
 
 /**
@@ -69,6 +70,7 @@ function StackNavigatorScreen() {
       <StackNavigator.Screen name="Player" component={Player} />
       <StackNavigator.Screen name='More' component={More} />
       <StackNavigator.Screen name='Play_Game' component={Play_Game} />
+      <StackNavigator.Screen name='Rank_Game' component={Rank_Game} />
     </StackNavigator.Navigator>
   );
 }

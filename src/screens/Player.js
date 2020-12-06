@@ -59,7 +59,15 @@ class Player extends Component {
                     source={require("../images/back2.png")}
                     style={styles.image}>
                     <View style={styles.header}>
-                        <TouchableOpacity 
+                        <TouchableOpacity style={{
+                                backgroundColor: "#ff0000",
+                                width:width*0.1216,//50w
+                                height:height*0.0585,//40h
+                                borderRadius: 30,
+                                elevation: 3,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
                         onPress={() => this.props.navigation.navigate("New_Join_Game")}>
                             <Image source={require("../images/17.png")} style={styles.imageBack} />
                         </TouchableOpacity>
@@ -69,7 +77,7 @@ class Player extends Component {
                     <View style={styles.headerContent}>
                         <Text
                             style={{
-                                fontSize: 70,
+                                fontSize: width*0.1459,//60w
                                 color: "#FFF",
                                 fontWeight: 'bold'
                             }}>
@@ -78,7 +86,7 @@ class Player extends Component {
                         <View style={{flexDirection: "row",}}>
                         <Text
                             style={{
-                                fontSize: 30,
+                                fontSize: width*0.0973,//40w
                                 color: "#FFF",
                             }}>
                             Game ID is 
@@ -86,14 +94,14 @@ class Player extends Component {
                         <Text
                             style={{
 
-                                fontSize: 30,
+                                fontSize: width*0.0973,//40w
                                 color: "#FFF",
                             }}>
                             _
                         </Text>
                         <Text
                             style={{
-                                fontSize: 30,
+                                fontSize: width*0.0973,//40w
                                 color: "#f2c026",
                                 fontWeight: 'bold'
                             }}>
@@ -103,22 +111,22 @@ class Player extends Component {
                         
                         <Text
                             style={{
-                                fontSize: 25,
+                                fontSize: width*0.0608,
                                 color: "#b1a7b9",
                             }}>
                             {this.state.userInLobby.length}/10 player
-                    </Text>
+                        </Text>
                     </View>
 
                     <View
                         style={styles.Icon}>
-                        <Icon name="ios-person" size={height * 0.04} color="#5454bd" />
-                        <Icon name="ios-checkmark-circle" size={height * 0.04} color="#5454bd" />
+                        <Icon name="ios-person" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="ios-checkmark-circle" size={height * 0.0366} color="#5454bd" />
                     </View>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         style={{
-                            marginVertical: 5,
+                            marginVertical:height*0.0073,//5h
                         }}
                     >
                         {/* <ListCard
@@ -132,7 +140,7 @@ class Player extends Component {
 
                                 </ListCard>))
                         }
-                        <View>
+                        {/* <View>
                             <Modal
                                 animationType="slide"
                                 transparent={true}
@@ -147,7 +155,7 @@ class Player extends Component {
                                     }}
                                 />
                             </Modal>
-                        </View>
+                        </View> */}
                     </ScrollView>
                     <Button
                         color="#5454bd"
@@ -156,7 +164,7 @@ class Player extends Component {
                         onPress={() => navigate(
                             'Play_Game'
                         )}>
-                        <Text style={{ color: '#FFF', fontSize: height * 0.035, }}>
+                        <Text style={{ color: '#FFF', fontSize: width * 0.0608, }}>
                             Start
                         </Text>
                     </Button>
@@ -182,20 +190,22 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        flexDirection: "row", paddingHorizontal: width * 0.08,
-        paddingVertical: height * 0.03, justifyContent: "space-between",
+        flexDirection: "row", 
+        paddingHorizontal: width * 0.0729,
+        marginVertical: height * 0.029,//20h 
+        justifyContent: "space-between",
         alignItems: "center",
     },
 
     imageBack: {
         tintColor: "#fff",
-        width: width * 0.06,
-        height: height * 0.03
+        width:width*0.0729,//30w
+        height:height*0.0292,//20h
     },
     menuAvatar: {
         flex: 1,
-        height: height * 0.04,
-        width: width * 0.07,
+        width: width * 0.121,//50w
+        height: height * 0.073,//50h
         borderRadius: 100
     },
     headerContent: {
@@ -204,8 +214,9 @@ const styles = StyleSheet.create({
     Icon: {
         flex: 1,
         flexDirection: "row",
-        marginTop: height * 0.103, justifyContent: "space-between",
+        
+        justifyContent: "space-between",
         alignItems: "center",
-        paddingHorizontal: width * 0.1
+        paddingHorizontal: width * 0.0973
     }
 });

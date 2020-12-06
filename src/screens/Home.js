@@ -63,11 +63,13 @@ const mapDispatchToProps = dispatch => ({
                 style={{ width: "100%", height: "100%" }}>
                 
 
-                <View style={{ paddingHorizontal: 10, marginTop: height*0.08 }}>
+                <View style={{ paddingHorizontal:width*0.024,//10
+                 marginTop: height*0.095//65
+                 }}>
                     <Text
                         style={{
                             textAlign: "center",
-                            fontSize: height * 0.085,
+                            fontSize: height * 0.087,//60
                             color: "#522289",
                             fontWeight: 'bold'
                         }}>
@@ -77,14 +79,14 @@ const mapDispatchToProps = dispatch => ({
                     <View style={{
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: height * 0.07,
+                        padding: height * 0.073,//50
                         
                     }}>
                        
                         <Image
                             source={require("../images/logo-small.png")}
-                            style={{ height: height * 0.33, 
-                            width: width * 0.55, 
+                            style={{ height: height * 0.336,//230 
+                            width: width * 0.559,//230 
                             backgroundColor: "#fff", 
                             borderRadius: 200,}} />
                     
@@ -93,7 +95,8 @@ const mapDispatchToProps = dispatch => ({
                             style={styles.button}
                             onPress={this.signIn}
                         >
-                            <Image style={styles.icon_google} source={require('../images/google-symbol.png')}></Image>
+                            <Image style={styles.icon_google} 
+                            source={require('../images/google-symbol.png')}></Image>
                             <Text style={styles.textLogin}>Sign in with Google</Text>
 
                         </TouchableOpacity>
@@ -110,32 +113,23 @@ export default connect('',mapDispatchToProps)(Home);
 const styles = StyleSheet.create({
     button: {
         shadowColor: "#000",
-        marginTop: height * 0.1094,
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        elevation: 24,
-
-        // shadowOffset: 6,
+        marginTop: height * 0.117,//80
+        elevation: 10,
         borderRadius: 30,
-        fontSize: 25,
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
         backgroundColor: "#ffffff",
-        width: width * 0.8,
-        height: height * 0.08,
+        width: width * 0.802,//330
+        height: height * 0.087,//60
     },
     icon_google: {
         resizeMode: "stretch",
-        width: 30,
-        height: 30
+        width: width*0.072,
+        height: height*0.043
     },
     textLogin: {
-        fontSize: 20,
+        fontSize: width*0.06,//25
         fontWeight: "bold",
         color: "#5451bc"
     },

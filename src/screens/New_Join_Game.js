@@ -1,5 +1,5 @@
 import React from "react";
-import {  StyleSheet, Dimensions, View, Text, Alert, Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Alert, Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { IconButton, Colors, Button } from 'react-native-paper';
@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 // }
 var socket;
 class New_Join_Game extends React.Component {
-  
+
 
   static navigationOptions = {
     title: 'New_Join_Game',
@@ -55,8 +55,10 @@ class New_Join_Game extends React.Component {
     socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
     navigate('Player');
   }
-  
+
   render() {
+    console.log('height' + height)
+    console.log('width' + width)
     // console.log(this.props);
     const { navigate, state } = this.props.navigation;
     return (
@@ -68,7 +70,13 @@ class New_Join_Game extends React.Component {
           <View style={{ flex: 1 }}>
             <Image
               source={require("../images/Layer1.png")}
-              style={{ height: 40, width: 40, borderRadius: 30, marginTop: 20, marginLeft: width * 0.77 }}
+              style={{
+                width: width * 0.121,//50w
+                height: height * 0.073,//50h
+                borderRadius: 30,
+                marginTop: height * 0.029,//20h
+                marginLeft: width * 0.778,//320w 
+              }}
             />
           </View>
           <View style={styles.containerImage}>
@@ -77,30 +85,37 @@ class New_Join_Game extends React.Component {
               style={styles.stretch}
             />
           </View>
-       
-        <View style={styles.containerBtn}>
-          <Button onPress={() => this.createRoom(navigate)}
+
+          <View style={styles.containerBtn}>
+            <Button onPress={() => this.createRoom(navigate)}
               labelStyle={styles.titleStyle}
               style={styles.buttonStyle}
               type="outline">
               Create Game
           </Button>
-          <Button labelStyle={styles.titleStyle}
+            <Button labelStyle={styles.titleStyle}
               style={styles.buttonStyle}
               type="outline"
-            onPress={() => navigate(
-              'Join_Game'
-            )}>
-            <Text style={{ color: '#4b3ca7', fontSize: 25, }}>
-              Join Game
+              onPress={() => navigate(
+                'Join_Game'
+              )}>
+              <Text style={{
+                color: '#4b3ca7', fontSize: width * 0.06,//25w
+              }}>
+                Join Game
             </Text>
-          </Button>
+            </Button>
+            <TouchableOpacity onPress={() => navigate(
+                'Rank_Game'
+              )}>
+            <Text
+              style={styles.titleText}>
+              How To Play
+          </Text>
+            </TouchableOpacity>
+            
+          </View>
 
-        </View>
-        <Text
-          style={styles.titleText}>
-          How To Play
-        </Text>
 
 
         </ImageBackground>
@@ -113,7 +128,7 @@ class New_Join_Game extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
-export {socket};
+export { socket };
 
 const styles = StyleSheet.create({
   container: {
@@ -121,7 +136,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: 'center',
     alignContent: 'center',
-       
+
   },
   image: {
     flex: 1,
@@ -134,33 +149,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   stretch: {
-    height: height * 0.33,
-    width: width * 0.55,
+    height: height * 0.336,//230 
+    width: width * 0.559,//230 
     backgroundColor: "#fff",
     borderRadius: 200,
   },
 
   containerBtn: {
     flex: 3,
-    marginTop: height * 0.1
+    marginTop: height * 0.117,//80h
   },
   buttonStyle: {
-    borderRadius: 40, 
-    backgroundColor: "#fff", 
-    marginVertical: height * 0.02,
-    marginHorizontal: width * 0.06
+    borderRadius: 40,
+    backgroundColor: "#fff",
+    paddingVertical: height * 0.007,//5h
+    marginVertical: height * 0.0219,//15h
+    marginHorizontal: width * 0.0608,//25w
+    elevation:10,
   },
   titleStyle: {
-    fontSize: height * 0.035,
+    fontSize: width * 0.06,//25w
     color: "#4b3ca7",
   },
 
   titleText: {
     textAlign: "center",
-    fontSize: height * 0.035,
+    fontSize: width * 0.06,//25w
     color: "#b1a7b9",
-    marginTop: height * 0.055,
-
+    marginTop: height * 0.0439,//30h
   }
 
 });
