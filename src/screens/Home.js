@@ -53,21 +53,13 @@ export default class Home extends React.Component {
             <ImageBackground
                 source={require("../images/back.png")}
                 style={{ width: "100%", height: "100%" }}>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        marginTop: 40,
-                        alignItems: "center",
-                        paddingHorizontal: 40,
-                    }}>
+                
 
-                </View>
-
-                <View style={{ paddingHorizontal: 10, marginTop: 35 }}>
+                <View style={{ paddingHorizontal: 10, marginTop: height*0.08 }}>
                     <Text
                         style={{
                             textAlign: "center",
-                            fontSize: 55,
+                            fontSize: height * 0.085,
                             color: "#522289",
                             fontWeight: 'bold'
                         }}>
@@ -77,24 +69,18 @@ export default class Home extends React.Component {
                     <View style={{
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: 50
+                        padding: height * 0.07,
+                        
                     }}>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate("New_Join_Game")}
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                height: 260,
-                                width: 260,
-                                borderRadius: 200,
-                                backgroundColor: "#fff",
-                            }}>
-                            <Image
-                                source={require("../images/logo1.png")}
-                                style={{ height: 220, width: 220, borderRadius: 200 }} />
-                        </TouchableOpacity>
-
+                       
+                        <Image
+                            source={require("../images/logo-small.png")}
+                            style={{ height: height * 0.33, 
+                            width: width * 0.55, 
+                            backgroundColor: "#fff", 
+                            borderRadius: 200,}} />
+                    
+                        
                         <TouchableOpacity
                             style={styles.button}
                             onPress={this.signIn}
@@ -104,24 +90,6 @@ export default class Home extends React.Component {
 
                         </TouchableOpacity>
                     </View>
-
-
-                    {/* <View style={{ paddingHorizontal: 20, marginTop: 20, }}>
-                        <Button style={{ borderRadius: 30, padding: 10, }}
-                            color="#fff"
-                            icon={require('../images/google-symbol.png')}
-                            mode="contained"
-                            onPress={() => this.signIn()}>
-                            <Text style={{ color: '#4b3ca7', fontSize: 20, }}>
-                                Sign in with Google
-                                </Text>
-                        </Button>
-
-                    </View> */}
-
-
-
-
                 </View>
             </ImageBackground>
         );
@@ -131,15 +99,15 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
     button: {
-        shadowColor: "black",
-        marginTop: 80,
+        shadowColor: "#000",
+        marginTop: height * 0.1094,
         shadowOffset: {
             width: 0,
-            height: 0,
+            height: 12,
         },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
 
         // shadowOffset: 6,
         borderRadius: 30,
@@ -158,7 +126,8 @@ const styles = StyleSheet.create({
     },
     textLogin: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#5451bc"
     },
 
 

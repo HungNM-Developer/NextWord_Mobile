@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, 
+    ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../screens/ListCard';
 import ModalCard from '../screens/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuButton from '../Components/MenuButton';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
 
 class Player extends Component {
     static navigationOptions = {
@@ -23,66 +27,62 @@ class Player extends Component {
             <View style={styles.container}>
                 <ImageBackground
                     source={require("../images/back2.png")}
-                    style={{ width: "100%", height: "100%", }}>
+                    style={styles.image}>
+                    <View style={styles.header}>
+                        <TouchableOpacity 
+                        onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            <Image source={require("../images/17.png")} style={styles.imageBack} />
+                        </TouchableOpacity>
 
-                    
-                        <View style={{flexDirection:"row", paddingHorizontal:50, 
-                        paddingVertical:20,justifyContent: "space-between",
-                        alignItems: "center",}}>
-                        <TouchableOpacity style={{     
-                                flexDirection: "row",
-                                color: "#5454bd",
-                                alignItems: "center",
-                            }}>
-                                <Image source={require("../images/17.png")} style={{ tintColor: "#fff",width:25,height:15 }} />
-                            </TouchableOpacity>
-                            {/* <Image
-                                source={require("../images/Layer1.png")}
-                                style={{ height: 40, width: 40, borderRadius: 30,  }}
-                            /> */}
-                            <MenuButton style={{ height: 40, width: 40, borderRadius: 30 }}>
-
-                            </MenuButton>
-                        </View>
-                    <View style={{alignItems: "center",}}>
+                        <MenuButton style={styles.menuAvatar}></MenuButton>
+                    </View>
+                    <View style={styles.headerContent}>
                         <Text
                             style={{
-                                
-                                fontSize: 70,
+                                fontSize: height * 0.07,
                                 color: "#FFF",
                                 fontWeight: 'bold'
                             }}>
                             LOBBY
                         </Text>
+                        <View style={{flexDirection: "row",}}>
                         <Text
                             style={{
-                                
-                                fontSize: 30,
+                                fontSize: height * 0.06,
                                 color: "#FFF",
-
                             }}>
-                            Game ID is 1999
-                    </Text>
+                            Game ID is
+                        </Text>
                         <Text
                             style={{
-                                
-                                fontSize: 25,
+                                fontSize: height * 0.06,
                                 color: "#FFF",
-
+                            }}>
+                            _
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: height * 0.06,
+                                color: "#f2c026",
+                                fontWeight: 'bold'
+                            }}>
+                            AqBvd
+                        </Text>
+                        </View>
+                        
+                        <Text
+                            style={{
+                                fontSize: height * 0.038,
+                                color: "#b1a7b9",
                             }}>
                             5/10 player
-                    </Text>
+                        </Text>
                     </View>
 
                     <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingHorizontal: 70,
-                            marginTop: 60,
-                        }}>
-                        <Icon name="ios-person" size={25} color="#5454bd" />
-                        <Icon name="ios-checkmark-circle" size={25} color="#5454bd" style={{ marginLeft: 220 }} />
+                        style={styles.Icon}>
+                        <Icon name="ios-person" size={height * 0.04} color="#5454bd" />
+                        <Icon name="ios-checkmark-circle" size={height * 0.04} color="#5454bd" />
                     </View>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -140,7 +140,7 @@ class Player extends Component {
                         onPress={() => navigate(
                             'Play_Game'
                         )}>
-                        <Text style={{ color: '#FFF', fontSize: 25, }}>
+                        <Text style={{ color: '#FFF', fontSize: height * 0.035, }}>
                             Start
                         </Text>
                     </Button>
@@ -158,6 +158,38 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
-        alignItems: 'center',
+        flexDirection: "column"
     },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+    },
+    header: {
+        flexDirection: "row", paddingHorizontal: width * 0.08,
+        paddingVertical: height * 0.03, justifyContent: "space-between",
+        alignItems: "center",
+    },
+
+    imageBack: {
+        tintColor: "#fff",
+        width: width * 0.06,
+        height: height * 0.03
+    },
+    menuAvatar: {
+        flex: 1,
+        height: height * 0.04,
+        width: width * 0.07,
+        borderRadius: 100
+    },
+    headerContent: {
+        alignItems: "center",
+    },
+    Icon: {
+        flex: 1,
+        flexDirection: "row",
+        marginTop: height * 0.103, justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: width * 0.1
+    }
 });

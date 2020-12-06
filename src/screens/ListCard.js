@@ -1,5 +1,8 @@
 import React from "react";
-import { View, Text, TouchableOpacity,Image } from "react-native";
+import { View, Text, TouchableOpacity,Image,Dimensions } from "react-native";
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
 
 export default class ListCard extends React.Component {
   render() {
@@ -8,29 +11,30 @@ export default class ListCard extends React.Component {
         onPress={this.props.onPress}
         style={{         
           alignSelf: "center",
-          marginTop: 20,
+          marginTop: height*0.03,
           backgroundColor: "#FFF",
           elevation: 1,
           width: '90%',
           borderRadius: 15,
+          elevation: 10,
         }}
       >
         <View
           style={{
             flexDirection: "row",
-            paddingVertical:10,
+            paddingVertical:height*0.014,
             alignSelf: "center",
           }}
         >
         <Image
-        style={{width: 30, height: 30,}}
+        style={{width: width*0.07, height: height*0.04,}}
         source={require('../images/logo-small.png')}
         />
           <Text
             style={{
               fontFamily: "RobotoBold",
               color: "#5454bd",
-              fontSize: 20,
+              fontSize: width*0.05,
             }}
           >
             Name (You)
@@ -38,19 +42,19 @@ export default class ListCard extends React.Component {
 
           <Text
             style={{
-              fontSize: 20,
+              fontSize: width*0.05,
               color: "#a2a2db",
               paddingHorizontal: 14,
             }}
           >
             {" "}
-            - - - - - - - - 
+            - - - - - - - - - -
           </Text>
           <Text
             style={{
               fontFamily: "RobotoBold",
               color: "#4dd163",
-              fontSize: 20,
+              fontSize: width*0.05,
             }}
           >
             Ready
