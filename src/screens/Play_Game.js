@@ -1,8 +1,8 @@
 import React from "react";
 import {
     View, Alert, Modal, StyleSheet,
-    Image, ImageBackground, Dimensions, TextInput, ScrollView,TouchableHighlight
-    ,TouchableOpacity,
+    Image, ImageBackground, Dimensions, TextInput, ScrollView, TouchableHighlight
+    , TouchableOpacity,
 } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 // import { TouchableOpacity } from "react-native-gesture-handler";
@@ -72,15 +72,15 @@ export default class Play_Game extends React.Component {
                         marginTop: height * 0.04
                     }}>
                         <TouchableOpacity onPress={() => navigate(
-                                'New_Join_Game')} style={{
-                            backgroundColor: "#ff0000",
-                            height: height * 0.055, width: width * 0.122, borderRadius: 30,
-                            elevation: 3,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
+                            'New_Join_Game')} style={{
+                                backgroundColor: "#ff0000",
+                                height: height * 0.055, width: width * 0.122, borderRadius: 30,
+                                elevation: 3,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
                             <Image source={require("../images/17.png")}
-                            
+
                                 style={{
                                     tintColor: "#ffffff",
                                     width: width * 0.06,
@@ -88,10 +88,11 @@ export default class Play_Game extends React.Component {
                                 }} />
                         </TouchableOpacity>
                         <View>
-                            <Text style={{ 
-                                fontSize: width * 0.056, 
-                                color: "#1abc9c", 
-                                fontWeight: "bold", }}>4/5 Players</Text>
+                            <Text style={{
+                                fontSize: width * 0.056,
+                                color: "#1abc9c",
+                                fontWeight: "bold",
+                            }}>4/5 Players</Text>
                         </View>
                         <View>
                             <MenuButton style={styles.menuAvatar}></MenuButton>
@@ -160,16 +161,16 @@ export default class Play_Game extends React.Component {
 
                         />
                         <TouchableOpacity onPress={() => navigate(
-                                'New_Join_Game')}>
-                        <Image
-                            style={{ height: width * 0.06, width: width * 0.06, tintColor: '#6777ef' }}
-                            source={require('../images/enter.png')}
-                        />
+                            'New_Join_Game')}>
+                            <Image
+                                style={{ height: width * 0.06, width: width * 0.06, tintColor: '#6777ef' }}
+                                source={require('../images/enter.png')}
+                            />
                         </TouchableOpacity>
-                        
+
                     </View>
                     <View style={{}}>
-                    {/* <Button
+                        {/* <Button
                             onPress={() => navigate(
                                 'Player')}
                             labelStyle={styles.titleStyle}
@@ -179,43 +180,33 @@ export default class Play_Game extends React.Component {
                             </Button> */}
 
                         <List.AccordionGroup >
+                        <ScrollView >
                             <List.Accordion titleStyle={{
-                                color: '#5454bd', 
-                                marginHorizontal:width*0.05,
-                                backgroundColor: '#fff',elevation:10,
-                                borderRadius:50, 
-                                padding:width*0.04,fontWeight:'bold',
-                                fontSize:width*0.05}} title="Word list used" id="1">
-                                <View style={{height:height*0.4,width:width*0.9,}}>
-                                <ScrollView >
-                                <List.Item titleStyle={{color: '#f2c026',             
-                                padding:width*0.04,
-                                fontWeight:'bold',
-                                fontSize:width*0.055}} title="Beautiful" />
-                                <List.Item titleStyle={{color: '#f2c026',             
-                                padding:width*0.04,
-                                fontWeight:'bold',
-                                fontSize:width*0.055}} title="Beautiful" />
-                                <List.Item titleStyle={{color: '#f2c026',             
-                                padding:width*0.04,
-                                fontWeight:'bold',
-                                fontSize:width*0.055}} title="Beautiful" />
-                                <List.Item titleStyle={{color: '#f2c026',             
-                                padding:width*0.04,
-                                fontWeight:'bold',
-                                fontSize:width*0.055}} title="Beautiful" />
-                                <List.Item titleStyle={{color: '#f2c026',             
-                                padding:width*0.04,
-                                fontWeight:'bold',
-                                fontSize:width*0.055}} title="Beautiful" />
+                                color: '#5454bd',
+                                marginHorizontal: width * 0.05,
+                                backgroundColor: '#fff', elevation: 10,
+                                borderRadius: 50,
+                                padding: width * 0.04, fontWeight: 'bold',
+                                fontSize: width * 0.05
+                            }} title="Word list used" id="1">
                                 
-                                </ScrollView>
-                                </View>
-                                
-                                
+                                    
+                                        <List.Item titleStyle={{
+                                            color: '#f2c026',
+                                            paddingLeft: width * 0.08,
+                                            fontWeight: 'bold',
+                                            fontSize: width * 0.055
+                                        }} title="BeautifulBeautifulBeautiful" />
+                                        <List.Item titleStyle={{
+                                            color: '#f2c026',
+                                            padding: width * 0.08,
+                                            fontWeight: 'bold',
+                                            fontSize: width * 0.055
+                                        }} title="BeautifulBeautifulBeautiful" />
+                                        
                             </List.Accordion>
-                            
-                            
+                            </ScrollView>
+
                             {/* <View>
                                 <Text>
                                     List.Accordion can be wrapped because implementation uses React.Context.
