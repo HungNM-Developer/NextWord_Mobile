@@ -1,23 +1,63 @@
 import React from "react";
-import { View, Text, Alert, Modal, Image, ImageBackground, StyleSheet, Dimensions } from "react-native";
+import {  StyleSheet, Dimensions, View, Text, Alert, Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { IconButton, Colors, Button, } from 'react-native-paper';
-import { Card, ListItem, Input, } from 'react-native-elements';
+import { IconButton, Colors, Button } from 'react-native-paper';
+import { LoadingComponent } from '../Components/LoadingComponent';
 import { baseURL } from '../shared/baseURL';
+import { fetchRoomPin } from '../redux/action/RoomAction';
+import { connect } from "react-redux";
+import io from 'socket.io-client';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const mapDispatchToProps = dispatch => ({
+  fetchRoomPin: () => dispatch(fetchRoomPin())
+});
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user,
+    room: state.roomReducer.roomPin
+  }
+};
+// class Button_Create extends React.Component {
+//   render() {
+//     <Button style={{
+//       borderRadius: 30, padding: 5,
+//       backgroundColor: '#fff',
+//     }}
+//       color="#fff"
+//       mode="contained"
+//       onPress={() => this.props.fetchRoomPin()}>
+//        <Text style={{ color: '#4b3ca7', fontSize: 25, }}>Create Name</Text>
+//     </Button>
+//     if (!this.props.isLoading) {
+//       return <Text style={{ color: '#4b3ca7', fontSize: 25, }}>
+//       Create Game
+//     </Text>
+//     }
+//     else {
+//       return <LoadingComponent></LoadingComponent>;
+//     }
+//   }
+// }
+var socket;
+class New_Join_Game extends React.Component {
+  
 
-export default class New_Join_Game extends React.Component {
   static navigationOptions = {
     title: 'New_Join_Game',
   };
-  componentDidMount() {
-    console.log(baseURL);
+
+  async createRoom(navigate) {
+    await this.props.fetchRoomPin();
+    //console.log("check" + this.props.room.roomPin);
+    socket = io(baseURL);
+    socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
+    navigate('Player');
   }
-
+  
   render() {
-
+    // console.log(this.props);
     const { navigate, state } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -37,28 +77,30 @@ export default class New_Join_Game extends React.Component {
               style={styles.stretch}
             />
           </View>
-          <View style={styles.containerBtn}>
-            <Button
-              onPress={() => navigate(
-                'Player')}
+       
+        <View style={styles.containerBtn}>
+          <Button onPress={() => this.createRoom(navigate)}
               labelStyle={styles.titleStyle}
               style={styles.buttonStyle}
               type="outline">
               Create Game
-            </Button>
-            <Button
-              onPress={() => navigate(
-                'Join_Game')}
-              labelStyle={styles.titleStyle}
+          </Button>
+          <Button labelStyle={styles.titleStyle}
               style={styles.buttonStyle}
-              type="outline">
+              type="outline"
+            onPress={() => navigate(
+              'Join_Game'
+            )}>
+            <Text style={{ color: '#4b3ca7', fontSize: 25, }}>
               Join Game
-            </Button>
+            </Text>
+          </Button>
 
-            <Text style={styles.titleText} >
-              How To Play?
-          </Text>
-          </View>
+        </View>
+        <Text
+          style={styles.titleText}>
+          How To Play
+        </Text>
 
 
         </ImageBackground>
@@ -69,6 +111,9 @@ export default class New_Join_Game extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
+export {socket};
 
 const styles = StyleSheet.create({
   container: {

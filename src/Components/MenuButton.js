@@ -26,13 +26,14 @@ class MenuButton extends React.PureComponent {
   };
 
   render() {
+    //console.log('Check Avatar Menu Button ' + this.props.avatarURL);
     return (
       <View style={{}}>
           <TouchableOpacity onPress={() => this.showMenu()}>
                <Image
                 source={{
                   uri:
-                    'https://lh3.googleusercontent.com/ogw/ADGmqu_Xva5ZwgEiFxb4sj1x4DYHIFsrDX680Hz8Y8kC=s32-c-mo',
+                    this.props.avatarURL,
                 }}
                 style={{width: width*0.11, height: height*0.067, borderRadius: 30,}}
               />

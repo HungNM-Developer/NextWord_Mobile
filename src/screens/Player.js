@@ -2,25 +2,55 @@ import React, { Component } from 'react';
 import { Dimensions, View, Text, StyleSheet, 
     ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
-import ListCard from '../screens/ListCard';
-import ModalCard from '../screens/ModalCard';
+import ListCard from '../Components/Player/ListCard';
+import ModalCard from '../Components/Player/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuButton from '../Components/MenuButton';
+import { connect } from 'react-redux';
+import io from "socket.io-client";
+import { baseURL } from '../shared/baseURL';
+import { socket } from './New_Join_Game';
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer.user,
+        room: state.roomReducer.roomPin,
+    }
+}
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 
 class Player extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userInLobby: [],
+            
+        }
+    }
+
     static navigationOptions = {
         title: 'Player',
     };
     state = {
         modalVisible: false,
     };
-    setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
+    componentDidMount() {
+        socket.on('userInLobby', msg => {
+            //console.info(msg);
+            //msg is array user
+            this.setState({
+                userInLobby: msg,
+            })
+        });
     };
+    
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: false });
+    };
+
     render() {
+        console.log("user-player" + this.props.user.photo);
         const { navigate } = this.props.navigation;
         const { modalVisible } = this.state;
         return (
@@ -34,12 +64,12 @@ class Player extends Component {
                             <Image source={require("../images/17.png")} style={styles.imageBack} />
                         </TouchableOpacity>
 
-                        <MenuButton style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
                     </View>
                     <View style={styles.headerContent}>
                         <Text
                             style={{
-                                fontSize: height * 0.07,
+                                fontSize: 70,
                                 color: "#FFF",
                                 fontWeight: 'bold'
                             }}>
@@ -48,35 +78,36 @@ class Player extends Component {
                         <View style={{flexDirection: "row",}}>
                         <Text
                             style={{
-                                fontSize: height * 0.06,
+                                fontSize: 30,
                                 color: "#FFF",
                             }}>
-                            Game ID is
+                            Game ID is 
                         </Text>
                         <Text
                             style={{
-                                fontSize: height * 0.06,
+
+                                fontSize: 30,
                                 color: "#FFF",
                             }}>
                             _
                         </Text>
                         <Text
                             style={{
-                                fontSize: height * 0.06,
+                                fontSize: 30,
                                 color: "#f2c026",
                                 fontWeight: 'bold'
                             }}>
-                            AqBvd
+                            {this.props.room.roomPin}
                         </Text>
                         </View>
                         
                         <Text
                             style={{
-                                fontSize: height * 0.038,
+                                fontSize: 25,
                                 color: "#b1a7b9",
                             }}>
-                            5/10 player
-                        </Text>
+                            {this.state.userInLobby.length}/10 player
+                    </Text>
                     </View>
 
                     <View
@@ -90,32 +121,17 @@ class Player extends Component {
                             marginVertical: 5,
                         }}
                     >
-                        <ListCard
+                        {/* <ListCard
                             onPress={() => {
                                 this.setModalVisible(true);
                             }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
+                        /> */}
+                        {
+                            this.state.userInLobby.map((item, index) => (
+                                <ListCard key={index} you = {this.props.user.id} item = {item}>
 
+                                </ListCard>))
+                        }
                         <View>
                             <Modal
                                 animationType="slide"
@@ -151,7 +167,7 @@ class Player extends Component {
     }
 }
 
-export default Player;
+export default connect(mapStateToProps)(Player);
 
 const styles = StyleSheet.create({
     container: {

@@ -14,8 +14,8 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import CountdownBar from 'react-native-countdown-bar';
 import { StatusBar } from 'expo-status-bar';
 import MenuButton from '../Components/MenuButton';
-import ListCard from '../screens/ListCard';
-import ModalCard from '../screens/ModalCard';
+import ListCard from '../Components/Player/ListCard';
+import ModalCard from '../Components/Player/ModalCard';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 

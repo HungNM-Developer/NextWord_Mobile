@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground,Alert, Modal,Image,ScrollView,} from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
-import ListCard from '../screens/ListCard';
-import ModalCard from '../screens/ModalCard';
+import ListCard from '../Components/Player/ListCard';
+import ModalCard from '../Components/Player/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
