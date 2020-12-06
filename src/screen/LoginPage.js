@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, View, Dimensions, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
-import io from "socket.io-client";
+
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 

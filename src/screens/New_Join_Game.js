@@ -7,11 +7,14 @@ import { LoadingComponent } from '../Components/LoadingComponent';
 import { baseURL } from '../shared/baseURL';
 import { fetchRoomPin } from '../redux/action/RoomAction';
 import { connect } from "react-redux";
+import io from 'socket.io-client';
+
 const mapDispatchToProps = dispatch => ({
   fetchRoomPin: () => dispatch(fetchRoomPin())
 });
 const mapStateToProps = state => {
   return {
+    user: state.userReducer.user,
     room: state.roomReducer.roomPin
   }
 };
@@ -36,22 +39,20 @@ const mapStateToProps = state => {
 //     }
 //   }
 // }
-
+var socket;
 class New_Join_Game extends React.Component {
- 
+  
+
   static navigationOptions = {
     title: 'New_Join_Game',
   };
-  componentDidMount() {
-    console.log(baseURL);
-  }
+
   async createRoom(navigate) {
     await this.props.fetchRoomPin();
-    console.log("check" + this.props.room.roomPin);
-    if(this.props.room.roomPin.roomPin)
-    {
-      navigate('Player');
-    }
+    //console.log("check" + this.props.room.roomPin);
+    socket = io(baseURL);
+    socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
+    navigate('Player');
   }
   render() {
     // console.log(this.props);
@@ -136,3 +137,4 @@ class New_Join_Game extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
+export {socket}

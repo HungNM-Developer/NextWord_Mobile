@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
-import ListCard from '../screens/ListCard';
-import ModalCard from '../screens/ModalCard';
+import ListCard from '../Components/Player/ListCard';
+import ModalCard from '../Components/Player/ModalCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuButton from '../Components/MenuButton';
 import { connect } from 'react-redux';
+import io from "socket.io-client";
+import { baseURL } from '../shared/baseURL';
+import { socket } from './New_Join_Game';
 const mapStateToProps = state => {
     return {
+        user: state.userReducer.user,
         room: state.roomReducer.roomPin,
     }
 }
 class Player extends Component {
-   
+    constructor(props) {
+        super(props);
+        this.state = {
+            userInLobby: [],
+            
+        }
+    }
 
     static navigationOptions = {
         title: 'Player',
@@ -20,10 +30,22 @@ class Player extends Component {
     state = {
         modalVisible: false,
     };
+    componentDidMount() {
+        socket.on('userInLobby', msg => {
+            //console.info(msg);
+            //msg is array user
+            this.setState({
+                userInLobby: msg,
+            })
+        });
+    };
+    
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     };
+
     render() {
+        console.log("user-player" + this.props.user.photo);
         const { navigate } = this.props.navigation;
         const { modalVisible } = this.state;
         return (
@@ -49,7 +71,7 @@ class Player extends Component {
                                 source={require("../images/Layer1.png")}
                                 style={{ height: 40, width: 40, borderRadius: 30,  }}
                             /> */}
-                        <MenuButton style={{ height: 40, width: 40, borderRadius: 30 }}>
+                        <MenuButton avatarURL={this.props.user.photo} style={{ height: 40, width: 40, borderRadius: 30 }}>
 
                         </MenuButton>
                     </View>
@@ -71,7 +93,7 @@ class Player extends Component {
 
                             }}>
                             Game ID is {this.props.room.roomPin}
-                    </Text>
+                        </Text>
                         <Text
                             style={{
 
@@ -79,7 +101,7 @@ class Player extends Component {
                                 color: "#FFF",
 
                             }}>
-                            5/10 player
+                            {this.state.userInLobby.length}/10 player
                     </Text>
                     </View>
 
@@ -99,32 +121,17 @@ class Player extends Component {
                             marginVertical: 5,
                         }}
                     >
-                        <ListCard
+                        {/* <ListCard
                             onPress={() => {
                                 this.setModalVisible(true);
                             }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
-                        <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        />
+                        /> */}
+                        {
+                            this.state.userInLobby.map((item, index) => (
+                                <ListCard key={index} you = {this.props.user.id} item = {item}>
 
+                                </ListCard>))
+                        }
                         <View>
                             <Modal
                                 animationType="slide"
