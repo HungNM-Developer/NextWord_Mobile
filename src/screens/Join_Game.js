@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useState } from "react";
 import {
     View, Text, Alert, Modal, Image, TextInput,
     ImageBackground, Dimensions, StyleSheet
@@ -10,13 +10,33 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView, TouchableOpacity, TouchableHighlight } from "react-native-gesture-handler";
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import MenuButton from '../Components/MenuButton';
+import { socket } from './New_Join_Game';
+import { connect } from "react-redux";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const mapStateToProps = state => {
+    return {
+      user: state.userReducer.user
+    }
+  };
+class Join_Game extends React.Component {
+    
+    constructor(props) {  
+        super(props);  
+        this.state = {value: ''};  
+    }  
 
-export default class Join_Game extends React.Component {
+    joinClick()
+    {
+        // console.log("check " + this.state.value);
+        socket.emit('joinRoom', this.state.value, this.props.user);
+        this.props.navigation.navigate('Player');
+       
+    }
     static navigationOptions = {
         title: 'Join_Game',
     };
+
     render() {
         const { navigate, state } = this.props.navigation;
         return (
@@ -48,13 +68,13 @@ export default class Join_Game extends React.Component {
                                 style={{ height: height*0.022, width: width*0.036 }}
                             />
                             <TextInput
+                            onChangeText={(value) => this.setState({value})}
                                 placeholder="Enter Game ID"
                                 style={styles.TextInputContent}
                             />
                         </View>
                         <Button
-                            onPress={() => navigate(
-                                'Player')}
+                            onPress={() => this.joinClick()}
                             labelStyle={styles.titleStyle}
                             style={styles.buttonStyle}
                             type="outline">
@@ -81,6 +101,8 @@ export default class Join_Game extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps)(Join_Game);
 const styles = StyleSheet.create({
     container: {
         flex: 1,

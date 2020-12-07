@@ -54,7 +54,7 @@ class Player extends Component {
     render() {
         console.log("user-player" + this.props.user.photo);
         const { navigate } = this.props.navigation;
-        const { modalVisible } = this.state;
+        // const { modalVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ImageBackground
