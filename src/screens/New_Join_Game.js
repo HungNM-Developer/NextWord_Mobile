@@ -8,6 +8,7 @@ import { baseURL } from '../shared/baseURL';
 import { fetchRoomPin } from '../redux/action/RoomAction';
 import { connect } from "react-redux";
 import io from 'socket.io-client';
+import MenuButton from "../Components/MenuButton";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapDispatchToProps = dispatch => ({
@@ -67,8 +68,8 @@ class New_Join_Game extends React.Component {
           source={require("../images/newjoin.png")}
           style={styles.image}
         >
-          <View style={{ flex: 1 }}>
-            <Image
+          <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", paddingTop: 30, paddingRight:30 }}>
+            {/* <Image
               source={require("../images/Layer1.png")}
               style={{
                 width: width * 0.121,//50w
@@ -77,7 +78,8 @@ class New_Join_Game extends React.Component {
                 marginTop: height * 0.029,//20h
                 marginLeft: width * 0.778,//320w 
               }}
-            />
+            /> */}
+            <MenuButton avatarURL={this.props.user.photo}></MenuButton>
           </View>
           <View style={styles.containerImage}>
             <Image

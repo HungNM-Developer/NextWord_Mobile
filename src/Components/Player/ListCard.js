@@ -66,7 +66,7 @@ export default class ListCard extends React.Component {
           elevation: 10,
           width: '90%',
           borderRadius: 15,
-          marginBottom: 1
+          marginBottom: 4
         }}
       >
         <View

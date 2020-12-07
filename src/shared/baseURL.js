@@ -1,1 +1,4 @@
-export const baseURL = "http://192.168.1.10:3000";
+//Hung IP
+// export const baseURL = "http://192.168.1.10:3000";
+//Cao IP
+export const baseURL = "http://192.168.0.102:3000";
