@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Text, StyleSheet, 
-    ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity } from 'react-native';
+    ImageBackground, Alert, Modal, Image, 
+    ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
-import Icon from 'react-native-vector-icons/Ionicons';
+// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MenuButton from '../Components/MenuButton';
 import { connect } from 'react-redux';
 import io from "socket.io-client";
@@ -60,19 +62,25 @@ class Player extends Component {
                     style={styles.image}>
                     <View style={styles.header}>
                         <TouchableOpacity style={{
-                                backgroundColor: "#ff0000",
-                                width:width*0.1216,//50w
-                                height:height*0.0585,//40h
-                                borderRadius: 30,
-                                elevation: 3,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                        onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            <Image source={require("../images/17.png")} style={styles.imageBack} />
+                            flexDirection: "row",
+                            alignItems: "center",
+                         }}
+                            onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            <Icon name="chevron-left" size={width*0.1094//45w
+                            } color="#ffffff" 
+                            />
+                            {/* <Text style={{
+                                color:'#ffffff',
+                                fontSize:width * 0.0486, 
+                                fontWeight:'bold'
+                                }}>
+                                Back
+                            </Text> */}
                         </TouchableOpacity>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+
                     </View>
                     <View style={styles.headerContent}>
                         <Text
@@ -120,8 +128,8 @@ class Player extends Component {
 
                     <View
                         style={styles.Icon}>
-                        <Icon name="ios-person" size={height * 0.0366} color="#5454bd" />
-                        <Icon name="ios-checkmark-circle" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="account-circle" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="check-circle" size={height * 0.0366} color="#5454bd" />
                     </View>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -140,7 +148,7 @@ class Player extends Component {
 
                                 </ListCard>))
                         }
-                        {/* <View>
+                        <View>
                             <Modal
                                 animationType="slide"
                                 transparent={true}
@@ -155,7 +163,7 @@ class Player extends Component {
                                     }}
                                 />
                             </Modal>
-                        </View> */}
+                        </View>
                     </ScrollView>
                     <Button
                         color="#5454bd"
