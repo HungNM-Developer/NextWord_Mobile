@@ -16,10 +16,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import CountdownBar from 'react-native-countdown-bar';
 import { StatusBar } from 'expo-status-bar';
+
+
+//component
 import MenuButton from '../Components/MenuButton';
 import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
 import ModalCard from '../Components/Player/ModalCard';
-
+import TimeComponent from '../Components/playGame/TimeComponent';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -101,11 +104,7 @@ export default class Play_Game extends React.Component {
                     </View>
                     
                     <View style={styles.NextWord}>
-
-                        <Text
-                            style={styles.textCount}>
-                            Time: 08
-                        </Text>
+                        <TimeComponent></TimeComponent>
                         <View >
                             <Divider style={{
                                 backgroundColor: "#5454bd",
@@ -226,14 +225,7 @@ const styles = StyleSheet.create({
         width: width * 0.0729,//30w
         height: height * 0.0292,//20h
     },
-    textCount: {
-        fontSize: width * 0.0851,//35w
-        borderRadius: 100,
-        backgroundColor: "#fff",
-        color: "#5454bd",
-        padding: height * 0.0219,//15h
-        elevation: 5,
-    },
+   
     menuAvatar: {
         flex: 1,
         height: height * 0.04,

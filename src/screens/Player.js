@@ -143,7 +143,7 @@ class Player extends Component {
 
                                 </ListCard>))
                         }
-                        <View>
+                        {/* <View>
                             <Modal
                                 animationType="slide"
                                 transparent={true}
@@ -158,7 +158,7 @@ class Player extends Component {
                                     }}
                                 />
                             </Modal>
-                        </View>
+                        </View> */}
                     </ScrollView>
                     <Button
                         color="#5454bd"
