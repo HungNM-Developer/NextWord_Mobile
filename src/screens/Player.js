@@ -28,18 +28,20 @@ class Player extends Component {
         super(props);
         this.state = {
             userInLobby: [],
-
+            modalVisible: false,
         }
+        socket.on("start", msg => {
+            this.props.navigation.navigate('Play_Game', {
+                userCount: this.state.userInLobby.length
+            });
+        })
+        
     }
     startClick(){
         socket.emit('startPress', this.props.room.roomPin);
-        this.props.navigation.navigate('Play_Game');
     }
     static navigationOptions = {
         title: 'Player',
-    };
-    state = {
-        modalVisible: false,
     };
     componentDidMount() {
         socket.on('userInLobby', msg => {

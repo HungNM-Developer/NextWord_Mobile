@@ -11,7 +11,8 @@ export default class ListCard_PlayGame extends React.Component {
         onPress={this.props.onPress}
         style={{         
           alignSelf: "center",
-          marginTop: height*0.03,
+          marginTop: height*0.015,
+          marginBottom: height*0.015,
           backgroundColor: "#FFF",
           elevation: 1,
           width: '90%',

@@ -24,6 +24,7 @@ import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
 import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
 import { connect } from "react-redux";
+import { socket } from "./New_Join_Game";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -34,20 +35,36 @@ const mapStateToProps = (state) => {
 }
 
 class Play_Game extends React.Component {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            usersInGame: this.props.user,
+            modalVisible: false,
+        }
 
+        
+    }
+    // componentDidMount(){
+    //     const userCount = this.props.route.params;
+    //     this.setState({userCount: userCount})
+    // }
     static navigationOptions = {
         title: 'Play_Game',
     };
-    state = {
-        modalVisible: false,
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
     };
-        setModalVisible = (visible) => {
-        this.setState({ modalVisible: false });
-    };
-
+    componentDidMount(){
+        socket.on("usersLive", msg => {
+            this.setState({
+                usersInGame: msg
+            })
+        })
+    }
     render() {
         const { modalVisible } = this.state;
-
+        
         // const users = [
         //     {
         //         name: 'brynn',
@@ -72,22 +89,26 @@ class Play_Game extends React.Component {
         // ]
 
         const { navigate, state } = this.props.navigation;
-
+        const userTotal = this.props.route.params.userCount;
+        let y = (height * 0.014 * 2) + (height*0.04) + (height*0.03);
+        console.log(y);
         return (
+            
             <View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
                     style={styles.image}>
-                    <View style={styles.header}>                   
+                    <View style={styles.header}>
                         <TouchableOpacity style={{
                             flexDirection: "row",
                             alignItems: "center",
                             //marginTop: height*0.0292,
-                         }}
-                            onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                        }}
+                            // onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            onPress={() => { this.scroll.scrollTo({ y: y }); y = y *2 }}>
                             {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
-                            <Icon name="chevron-left" size={width*0.1094//45w
-                            } color="#ffffff" 
+                            <Icon name="chevron-left" size={width * 0.1094//45w
+                            } color="#ffffff"
                             />
                             {/* <Text style={{
                                 color:'#ffffff',
@@ -102,12 +123,12 @@ class Play_Game extends React.Component {
                             // color: "#1abc9c",
                             color: "#f2c026",
                             fontWeight: "bold",
-                        }}>4/5 Players
+                        }}>{this.state.usersInGame.length}/{userTotal} Players
                             </Text>
-                        
-                        <MenuButton avatarURL = {this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+
+                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
                     </View>
-                    
+
                     <View style={styles.NextWord}>
 
                         <TimeComponent></TimeComponent>
@@ -130,6 +151,7 @@ class Play_Game extends React.Component {
                         style={{
                             marginVertical: 5,
                         }}
+                        ref={(node) => this.scroll = node}
                     >
                         <ListCard_PlayGame
 
@@ -147,6 +169,36 @@ class Play_Game extends React.Component {
                         <ListCard_PlayGame
 
                         />
+                        <ListCard_PlayGame
+
+                        />
+                        <ListCard_PlayGame
+
+                        />
+
+                        <ListCard_PlayGame
+
+                        />
+                        <ListCard_PlayGame
+
+                        />
+
+                        <ListCard_PlayGame
+
+                        />
+                        
+                        <ListCard_PlayGame
+
+                        />
+                        
+                        <ListCard_PlayGame
+
+                        />
+                        
+                        <ListCard_PlayGame
+
+                        />
+
 
 
                     </ScrollView>
@@ -198,7 +250,7 @@ class Play_Game extends React.Component {
                             </Modal>
                         </View>
 
-                        
+
                     </View>
                 </ImageBackground>
             </View>
@@ -231,13 +283,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         // marginVertical: height * 0.04,//20h
     },
-    
+
     imageBack: {
         tintColor: "#ffffff",
         width: width * 0.0729,//30w
         height: height * 0.0292,//20h
     },
-   
+
     menuAvatar: {
         flex: 1,
         height: height * 0.04,
