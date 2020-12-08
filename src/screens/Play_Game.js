@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
+        flex:1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginVertical: height * 0.0292,//20h
