@@ -30,7 +30,10 @@ class Player extends Component {
 
         }
     }
-
+    startClick(){
+        socket.emit('startPress', this.props.room.roomPin);
+        this.props.navigation.navigate('Play_Game');
+    }
     static navigationOptions = {
         title: 'Player',
     };
@@ -144,9 +147,7 @@ class Player extends Component {
                         color="#5454bd"
                         icon={require('../images/finish.png')}
                         mode="contained"
-                        onPress={() => navigate(
-                            'Play_Game'
-                        )}>
+                        onPress={() => this.startClick()}>
                         <Text style={{ color: '#FFF', fontSize: width * 0.0608, }}>
                             Start
                         </Text>

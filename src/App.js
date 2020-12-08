@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 // Libs
 import React from 'react';
 // import { View, Text, Button } from 'react-native';

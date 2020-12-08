@@ -116,17 +116,10 @@ class New_Join_Game extends React.Component {
               style={styles.titleText}>
               How To Play
           </Text>
-            </TouchableOpacity>
-            
+            </TouchableOpacity>            
           </View>
-
-
-
         </ImageBackground>
       </View>
-
-
-
     );
   }
 }
@@ -135,13 +128,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
 export { socket };
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: 'center',
     alignContent: 'center',
-
   },
+
   image: {
     flex: 1,
     resizeMode: "cover",
@@ -152,6 +146,7 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: "center",
   },
+
   stretch: {
     height: height * 0.336,//230 
     width: width * 0.559,//230 
@@ -163,6 +158,7 @@ const styles = StyleSheet.create({
     flex: 3,
     marginTop: height * 0.117,//80h
   },
+
   buttonStyle: {
     borderRadius: 40,
     backgroundColor: "#fff",
@@ -171,6 +167,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.0608,//25w
     elevation:10,
   },
+
   titleStyle: {
     fontSize: width * 0.06,//25w
     color: "#4b3ca7",
