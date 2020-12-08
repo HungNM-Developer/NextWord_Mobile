@@ -8,15 +8,21 @@ import {
     TouchableOpacity,
     StatusBar,
 } from "react-native";
+import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text, } from 'react-native-elements';
 import MenuButton from '../Components/MenuButton';
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import CustomHeader from '../Components/CustomHeader';
+import { connect } from "react-redux";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer.user
+    }
+};
 class Rank_Game extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: "Rank_Game",
@@ -72,9 +78,12 @@ class Rank_Game extends Component {
                                 Back
                             </Text> */}
                         </TouchableOpacity>
-                        <MenuButton style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo}
+                        navigation={this.props.navigation}></MenuButton>
+                        {/* <MenuButton style={styles.menuAvatar}></MenuButton> */}
                     </View>
-                    <View style={styles.Header_Rank_Top}>
+                    <Animatable.View style={styles.Header_Rank_Top}
+                    animation="zoomInDown" duration={2000} delay={1000}>
                         <View style={styles.Top2}>
                             <View>
                                 <Text style={{
@@ -128,12 +137,13 @@ class Rank_Game extends Component {
                                 <Text style={styles.showWord}>10w</Text>
                             </View>
                         </View>
-                    </View>
+                    </Animatable.View>
 
-                    <View style={{ flex: 2, marginTop: 40, marginBottom: 10 }}>
+                    <View style={{ flex: 2, marginTop: 40,}}>
                         <ScrollView
                             showsVerticalScrollIndicator={false}>
-                            <View style={styles.list_Rank}>
+                            <Animatable.View style={styles.list_Rank}
+                            animation="bounceInRight" duration={2000} delay={1000}>
                                 <View style={{}}>
                                     <Text style={styles.number_List_Rank}>4</Text>
                                 </View>
@@ -165,7 +175,7 @@ class Rank_Game extends Component {
                                         <Text style={styles.showWord}>10w</Text>
                                     </View>
                                 </View>
-                            </View>
+                            </Animatable.View>
 
                             <View style={styles.list_Rank}>
                                 <View style={{}}>
@@ -346,7 +356,7 @@ class Rank_Game extends Component {
 
 }
 
-export default Rank_Game
+export default connect(mapStateToProps)(Rank_Game)
 
 const styles = StyleSheet.create({
     icon: {
@@ -366,8 +376,8 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: "row",
-        paddingHorizontal: width * 0.0729,
-        marginTop: height * 0.029,//20h 
+        paddingHorizontal: width * 0.073,
+        paddingTop: height * 0.0585,//40h 
         justifyContent: "space-between",
         alignItems: "center",
     },
@@ -387,7 +397,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop:height*0.0146,
+        
     },
     Top1: {
         alignItems: "center",
@@ -465,7 +475,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         justifyContent: 'space-evenly',
-        marginTop: height*0.0292,
+        marginTop: height*0.015,
+        marginBottom:height*0.015,
     },
     number_List_Rank: {
         color: "#5450ba",

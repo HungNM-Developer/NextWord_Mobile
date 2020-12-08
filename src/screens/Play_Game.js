@@ -10,7 +10,7 @@ import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
 
-
+import * as Animatable from 'react-native-animatable';
 
 //component
 import MenuButton from '../Components/MenuButton';
@@ -58,29 +58,6 @@ class Play_Game extends React.Component {
     }
     render() {
         const { modalVisible } = this.state;
-        
-        // const users = [
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn (You)',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        // ]
 
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
@@ -88,7 +65,7 @@ class Play_Game extends React.Component {
         console.log(y);
         return (
             
-            <View style={styles.container}>
+            <Animatable.View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
                     style={styles.image}>
@@ -104,13 +81,7 @@ class Play_Game extends React.Component {
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
-                            {/* <Text style={{
-                                color:'#ffffff',
-                                fontSize:width * 0.0486, 
-                                fontWeight:'bold'
-                                }}>
-                                Back
-                            </Text> */}
+                            
                         </TouchableOpacity>
                         <Text style={{
                             fontSize: width * 0.0608,//25w
@@ -120,10 +91,13 @@ class Play_Game extends React.Component {
                         }}>{this.state.usersInGame.length}/10 Players
                             </Text>
 
-                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo} 
+                        style={styles.menuAvatar}
+                        navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <View style={styles.NextWord}>
+                    <Animatable.View style={styles.NextWord}
+                    animation="zoomInDown" duration={2000} delay={1000}>
 
                         <TimeComponent></TimeComponent>
                         <View >
@@ -138,7 +112,7 @@ class Play_Game extends React.Component {
                             NextWord
                         </Text>
 
-                    </View>
+                    </Animatable.View>
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -247,7 +221,7 @@ class Play_Game extends React.Component {
 
                     </View>
                 </ImageBackground>
-            </View>
+            </Animatable.View>
 
         );
     }

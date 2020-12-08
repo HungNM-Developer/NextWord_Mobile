@@ -1,4 +1,5 @@
-import React, {useRef, useEffect} from "react";
+import React, { Component } from "react";
+import * as Animatable from 'react-native-animatable';
 import {
     Image, View, Dimensions, StatusBar, Animated,
     StyleSheet, Text, TouchableOpacity, ImageBackground,
@@ -15,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
-    
+
     componentDidMount() {
         GoogleSignin.configure({
             webClientId: '223218594988-d5tumpoesu3ipedgopvm45laa4irbvcn.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -27,6 +28,20 @@ class Home extends React.Component {
     }
     static navigationOptions = {
         title: 'Home',
+    };
+
+    signOut = async () => {
+        try {
+            await GoogleSignin.revokeAccess();
+            const userInfo = await GoogleSignin.signOut().then((user) => {
+                this.setState({ user: null }); // Remember to remove the user from your app's state as well
+                this.props.navigation.navigate(
+                    'Home'
+                );
+            });
+        } catch (error) {
+            console.error(error);
+        }
     };
     signIn = async () => {
         try {
@@ -55,36 +70,40 @@ class Home extends React.Component {
             console.log(error)
         }
     };
+
+    state = {
+        fadeAnim: new Animated.Value(0),
+        moveAnim: new Animated.Value(0),
+    };
+
+
     render() {
-        
-        
-        // useEffect(() => {
-        //     Animated.sequence([
-        //         Animated.timing(moveAnim, {
-        //             duration: 2000,
-        //             toValue: Dimensions.get('window').width / 1.6,
-        //             delay: 0,
-        //             useNativeDriver: false,
-        //         }),
-        //         Animated.timing(moveAnim, {
-        //             duration: 2000,
-        //             toValue: 0,
-        //             delay: 0,
-        //             useNativeDriver: false,
-        //         }),
-        //     ]).start();
-        //     Animated.timing(fadeAnim, {
-        //         duration: 2000,
-        //         toValue: 1,
-        //         delay: 2000,
-        //         useNativeDriver: false,
-        //     }).start();
-        // }, [moveAnim, fadeAnim]);
+
+        Animated.sequence([
+            Animated.timing(this.state.moveAnim, {
+                duration: 1500,
+                toValue: Dimensions.get('window').width / 1.6,
+                delay: 0,
+                useNativeDriver: false,
+            }),
+            Animated.timing(this.state.moveAnim, {
+                duration: 1500,
+                toValue: 0,
+                delay: 0,
+                useNativeDriver: false,
+            }),
+        ]).start();
+        Animated.timing(this.state.fadeAnim, {
+            toValue: 10,
+            duration: 10000,
+            useNativeDriver: true,
+        }).start();
+
 
 
         const { navigate } = this.props.navigation;
         return (
-
+        <Animated.View style={[{flex: 1}, { opacity: this.state.fadeAnim }]}>
             <ImageBackground
                 source={require("../images/back.png")}
                 style={{ width: "100%", height: "100%" }}>
@@ -97,15 +116,18 @@ class Home extends React.Component {
                     paddingHorizontal: width * 0.024,//10
                     marginTop: height * 0.1098//75
                 }}>
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            fontSize: height * 0.087,//60
-                            color: "#522289",
-                            fontWeight: 'bold'
-                        }}>
-                        NEXT WORD
-                    </Text>
+                    <Animated.View style={[styles.logoContainer, { opacity: this.state.fadeAnim }]}>
+                        <Text style={[styles.logoText]}>N</Text>
+                        <Animated.Text
+                            style={[styles.logoText, { opacity: this.state.fadeAnim }]}>
+                            ext Word
+                        </Animated.Text>
+                    </Animated.View>
+                    {/* <View>
+                        <Text style={[styles.logoText]}>
+                            Next Word
+                        </Text>
+                    </View> */}
 
                     <View style={{
                         alignItems: "center",
@@ -114,15 +136,9 @@ class Home extends React.Component {
 
                     }}>
 
-                        <Image
+                        <Animated.Image
                             source={require("../images/logo-small.png")}
-                            style={{
-                                height: height * 0.336,//230 
-                                width: width * 0.559,//230 
-                                backgroundColor: "#fff",
-                                borderRadius: 200,
-                            }} />
-
+                            style={[styles.imageLogo, { opacity: this.state.fadeAnim }]} />
 
                         <TouchableOpacity
                             style={styles.button}
@@ -133,9 +149,11 @@ class Home extends React.Component {
                             <Text style={styles.textLogin}>Sign in with Google</Text>
 
                         </TouchableOpacity>
+
                     </View>
                 </View>
             </ImageBackground>
+            </Animated.View>
         );
     }
 
@@ -144,6 +162,23 @@ class Home extends React.Component {
 export default connect('', mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
+    imageLogo: {
+        height: width * 0.559,//230 
+        width: width * 0.559,//230 
+        backgroundColor: "#fff",
+        borderRadius: 200,
+    },
+    logoContainer: {
+        alignSelf: "center",
+        flexDirection: "row",
+    },
+
+    logoText: {
+        textAlign: "center",
+        fontSize: height * 0.087,//60
+        color: "#522289",
+        fontWeight: 'bold'
+    },
     button: {
         shadowColor: "#000",
         marginTop: height * 0.117,//80
@@ -159,7 +194,7 @@ const styles = StyleSheet.create({
     icon_google: {
         resizeMode: "stretch",
         width: width * 0.072,
-        height: height * 0.043
+        height: width * 0.072,
     },
     textLogin: {
         fontSize: width * 0.06,//25

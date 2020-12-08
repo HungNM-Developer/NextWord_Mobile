@@ -83,7 +83,9 @@ class Player extends Component {
 
                         </TouchableOpacity>
 
-                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo} 
+                        style={styles.menuAvatar}
+                        navigation={this.props.navigation}></MenuButton>
 
                     </View>
                     <View style={styles.headerContent}>

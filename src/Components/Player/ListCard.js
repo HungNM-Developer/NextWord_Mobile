@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+import * as Animatable from 'react-native-animatable';
 export default class ListCard extends React.Component {
   
   renderYou() {
@@ -57,7 +58,8 @@ export default class ListCard extends React.Component {
   }
   render() {
     return (
-      <TouchableOpacity
+      <Animatable.View animation="bounceInRight" duration={2000} delay={1000}>
+        <TouchableOpacity
         onPress={() => { }}
         style={{
           
@@ -103,6 +105,8 @@ export default class ListCard extends React.Component {
 
         </View>
       </TouchableOpacity>
+      </Animatable.View>
+      
     );
   }
 }

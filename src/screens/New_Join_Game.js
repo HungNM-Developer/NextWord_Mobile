@@ -1,4 +1,5 @@
 import React from "react";
+import * as Animatable from 'react-native-animatable';
 import { StyleSheet, Dimensions, View, Text, Alert, Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -53,7 +54,7 @@ class New_Join_Game extends React.Component {
     await this.props.fetchRoomPin();
     //console.log("check" + this.props.room.roomPin);
     socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
-    navigate('Player');
+    navigate('Creating_Game');
   }
   componentDidMount()
   {
@@ -65,7 +66,8 @@ class New_Join_Game extends React.Component {
     // console.log(this.props);
     const { navigate, state } = this.props.navigation;
     return (
-      <View style={styles.container}>
+      <Animatable.View style={styles.container}
+      animation="fadeIn" duration={2000} delay={1000}>
         <ImageBackground
           source={require("../images/newjoin.png")}
           style={styles.image}
@@ -78,16 +80,22 @@ class New_Join_Game extends React.Component {
             paddingRight:width*0.073,//30w
             }}>
             
-            <MenuButton avatarURL={this.props.user.photo}></MenuButton>
+            <MenuButton avatarURL={this.props.user.photo} 
+            navigation={this.props.navigation}></MenuButton>
           </View>
-          <View style={styles.containerImage}>
+          
+          <Animatable.View style={styles.containerImage} 
+          animation="slideInDown" duration={2000} delay={1000}>
             <Image
               source={require("../images/logo1.png")}
               style={styles.stretch}
             />
-          </View>
+          
+          </Animatable.View>
+          
 
-          <View style={styles.containerBtn}>
+          <Animatable.View style={styles.containerBtn}
+          animation="slideInUp" duration={2000} delay={1000}>
             <Button onPress={() => this.createRoom(navigate)}
               labelStyle={styles.titleStyle}
               style={styles.buttonStyle}
@@ -114,9 +122,9 @@ class New_Join_Game extends React.Component {
               How To Play
           </Text>
             </TouchableOpacity>            
-          </View>
+            </Animatable.View>
         </ImageBackground>
-      </View>
+      </Animatable.View>
     );
   }
 }
@@ -145,7 +153,7 @@ const styles = StyleSheet.create({
   },
 
   stretch: {
-    height: height * 0.336,//230 
+    height: width * 0.559,//230 
     width: width * 0.559,//230 
     backgroundColor: "#fff",
     borderRadius: 200,
