@@ -23,12 +23,17 @@ import MenuButton from '../Components/MenuButton';
 import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
 import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
+import { connect } from "react-redux";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer.user,
+    }
+}
 
-
-export default class Play_Game extends React.Component {
+class Play_Game extends React.Component {
 
     static navigationOptions = {
         title: 'Play_Game',
@@ -77,7 +82,7 @@ export default class Play_Game extends React.Component {
                         <TouchableOpacity style={{
                             flexDirection: "row",
                             alignItems: "center",
-                            marginTop:-(height*0.0292),
+                            //marginTop: height*0.0292,
                          }}
                             onPress={() => this.props.navigation.navigate("New_Join_Game")}>
                             {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
@@ -100,10 +105,11 @@ export default class Play_Game extends React.Component {
                         }}>4/5 Players
                             </Text>
                         
-                        <MenuButton style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL = {this.props.user.photo} style={styles.menuAvatar}></MenuButton>
                     </View>
                     
                     <View style={styles.NextWord}>
+
                         <TimeComponent></TimeComponent>
                         <View >
                             <Divider style={{
@@ -201,6 +207,8 @@ export default class Play_Game extends React.Component {
     }
 }
 
+export default connect(mapStateToProps)(Play_Game);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -215,10 +223,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        flex:1,
+        display: "flex",
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-around',
-        marginVertical: height * 0.0292,//20h
+        marginBottom: height*0.0585,//40h
+        marginTop: height * 0.0292,//20h
+        // marginVertical: height * 0.04,//20h
     },
     
     imageBack: {
