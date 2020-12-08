@@ -8,6 +8,7 @@ import { baseURL } from '../shared/baseURL';
 import { fetchRoomPin } from '../redux/action/RoomAction';
 import { connect } from "react-redux";
 import io from 'socket.io-client';
+import MenuButton from "../Components/MenuButton";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapDispatchToProps = dispatch => ({
@@ -51,11 +52,13 @@ class New_Join_Game extends React.Component {
   async createRoom(navigate) {
     await this.props.fetchRoomPin();
     //console.log("check" + this.props.room.roomPin);
-    socket = io(baseURL);
     socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
     navigate('Player');
   }
-
+  componentDidMount()
+  {
+    socket = io(baseURL);
+  }
   render() {
     console.log('height' + height)
     console.log('width' + width)
@@ -67,8 +70,8 @@ class New_Join_Game extends React.Component {
           source={require("../images/newjoin.png")}
           style={styles.image}
         >
-          <View style={{ flex: 1 }}>
-            <Image
+          <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", paddingTop: 30, paddingRight:30 }}>
+            {/* <Image
               source={require("../images/Layer1.png")}
               style={{
                 width: width * 0.121,//50w
@@ -77,7 +80,8 @@ class New_Join_Game extends React.Component {
                 marginTop: height * 0.029,//20h
                 marginLeft: width * 0.778,//320w 
               }}
-            />
+            /> */}
+            <MenuButton avatarURL={this.props.user.photo}></MenuButton>
           </View>
           <View style={styles.containerImage}>
             <Image
@@ -112,17 +116,10 @@ class New_Join_Game extends React.Component {
               style={styles.titleText}>
               How To Play
           </Text>
-            </TouchableOpacity>
-            
+            </TouchableOpacity>            
           </View>
-
-
-
         </ImageBackground>
       </View>
-
-
-
     );
   }
 }
@@ -131,13 +128,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
 export { socket };
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: 'center',
     alignContent: 'center',
-
   },
+
   image: {
     flex: 1,
     resizeMode: "cover",
@@ -148,6 +146,7 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: "center",
   },
+
   stretch: {
     height: height * 0.336,//230 
     width: width * 0.559,//230 
@@ -159,6 +158,7 @@ const styles = StyleSheet.create({
     flex: 3,
     marginTop: height * 0.117,//80h
   },
+
   buttonStyle: {
     borderRadius: 40,
     backgroundColor: "#fff",
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.0608,//25w
     elevation:10,
   },
+
   titleStyle: {
     fontSize: width * 0.06,//25w
     color: "#4b3ca7",

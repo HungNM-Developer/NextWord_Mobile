@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, StyleSheet, 
-    ImageBackground, Alert, Modal, Image, 
-    ScrollView, TouchableOpacity } from 'react-native';
+import {
+    Dimensions, View, Text, StyleSheet,
+    ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity
+} from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
@@ -27,10 +28,13 @@ class Player extends Component {
         super(props);
         this.state = {
             userInLobby: [],
-            
+
         }
     }
-
+    startClick(){
+        socket.emit('startPress', this.props.room.roomPin);
+        this.props.navigation.navigate('Play_Game');
+    }
     static navigationOptions = {
         title: 'Player',
     };
@@ -46,7 +50,7 @@ class Player extends Component {
             })
         });
     };
-    
+
     setModalVisible = (visible) => {
         this.setState({ modalVisible: false });
     };
@@ -54,7 +58,7 @@ class Player extends Component {
     render() {
         console.log("user-player" + this.props.user.photo);
         const { navigate } = this.props.navigation;
-        const { modalVisible } = this.state;
+        // const { modalVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -62,21 +66,16 @@ class Player extends Component {
                     style={styles.image}>
                     <View style={styles.header}>
                         <TouchableOpacity style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                         }}
+                            backgroundColor: "#ff0000",
+                            width: width * 0.1216,//50w
+                            height: height * 0.0585,//40h
+                            borderRadius: 30,
+                            elevation: 3,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                             onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
-                            <Icon name="chevron-left" size={width*0.1094//45w
-                            } color="#ffffff" 
-                            />
-                            {/* <Text style={{
-                                color:'#ffffff',
-                                fontSize:width * 0.0486, 
-                                fontWeight:'bold'
-                                }}>
-                                Back
-                            </Text> */}
+                            <Image source={require("../images/17.png")} style={styles.imageBack} />
                         </TouchableOpacity>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
@@ -85,41 +84,41 @@ class Player extends Component {
                     <View style={styles.headerContent}>
                         <Text
                             style={{
-                                fontSize: width*0.1459,//60w
+                                fontSize: width * 0.1459,//60w
                                 color: "#FFF",
                                 fontWeight: 'bold'
                             }}>
                             LOBBY
                         </Text>
-                        <View style={{flexDirection: "row",}}>
-                        <Text
-                            style={{
-                                fontSize: width*0.0973,//40w
-                                color: "#FFF",
-                            }}>
-                            Game ID is 
+                        <View style={{ flexDirection: "row", }}>
+                            <Text
+                                style={{
+                                    fontSize: width * 0.0973,//40w
+                                    color: "#FFF",
+                                }}>
+                                Game ID is
                         </Text>
-                        <Text
-                            style={{
+                            <Text
+                                style={{
 
-                                fontSize: width*0.0973,//40w
-                                color: "#FFF",
-                            }}>
-                            _
+                                    fontSize: width * 0.0973,//40w
+                                    color: "#FFF",
+                                }}>
+                                _
                         </Text>
-                        <Text
-                            style={{
-                                fontSize: width*0.0973,//40w
-                                color: "#f2c026",
-                                fontWeight: 'bold'
-                            }}>
-                            {this.props.room.roomPin}
-                        </Text>
+                            <Text
+                                style={{
+                                    fontSize: width * 0.0973,//40w
+                                    color: "#f2c026",
+                                    fontWeight: 'bold'
+                                }}>
+                                {this.props.room.roomPin}
+                            </Text>
                         </View>
-                        
+
                         <Text
                             style={{
-                                fontSize: width*0.0608,
+                                fontSize: width * 0.0608,
                                 color: "#b1a7b9",
                             }}>
                             {this.state.userInLobby.length}/10 player
@@ -134,17 +133,13 @@ class Player extends Component {
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         style={{
-                            marginVertical:height*0.0073,//5h
+                            marginVertical: 5,
                         }}
                     >
-                        {/* <ListCard
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        /> */}
+
                         {
                             this.state.userInLobby.map((item, index) => (
-                                <ListCard key={index} you = {this.props.user.id} item = {item}>
+                                <ListCard key={index} you={this.props.user.id} item={item}>
 
                                 </ListCard>))
                         }
@@ -169,9 +164,7 @@ class Player extends Component {
                         color="#5454bd"
                         icon={require('../images/finish.png')}
                         mode="contained"
-                        onPress={() => navigate(
-                            'Play_Game'
-                        )}>
+                        onPress={() => this.startClick()}>
                         <Text style={{ color: '#FFF', fontSize: width * 0.0608, }}>
                             Start
                         </Text>
@@ -193,12 +186,11 @@ const styles = StyleSheet.create({
         flexDirection: "column"
     },
     image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center",
+      width:"100%",
+      height:"100%"
     },
     header: {
-        flexDirection: "row", 
+        flexDirection: "row",
         paddingHorizontal: width * 0.0729,
         marginVertical: height * 0.029,//20h 
         justifyContent: "space-between",
@@ -207,8 +199,8 @@ const styles = StyleSheet.create({
 
     imageBack: {
         tintColor: "#fff",
-        width:width*0.0729,//30w
-        height:height*0.0292,//20h
+        width: width * 0.0729,//30w
+        height: height * 0.0292,//20h
     },
     menuAvatar: {
         flex: 1,
@@ -220,9 +212,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     Icon: {
-        flex: 1,
-        flexDirection: "row",
         
+        flexDirection: "row",
+        marginTop: height*0.09,
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: width * 0.0973

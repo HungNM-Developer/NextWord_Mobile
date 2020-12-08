@@ -39,7 +39,32 @@ export default class Play_Game extends React.Component {
 
     render() {
         const { modalVisible } = this.state;
+
+        // const users = [
+        //     {
+        //         name: 'brynn',
+        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
+        //     },
+        //     {
+        //         name: 'brynn',
+        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
+        //     },
+        //     {
+        //         name: 'brynn',
+        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
+        //     },
+        //     {
+        //         name: 'brynn (You)',
+        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
+        //     },
+        //     {
+        //         name: 'brynn',
+        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
+        //     },
+        // ]
+
         const { navigate, state } = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <ImageBackground

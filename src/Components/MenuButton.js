@@ -2,6 +2,7 @@ import React from 'react';
 
 import { View, Text, Image, TouchableOpacity,Dimensions } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -17,6 +18,7 @@ class MenuButton extends React.PureComponent {
     this._menu = ref;
   };
 
+
   hideMenu = () => {
     this._menu.hide();
   };
@@ -25,6 +27,10 @@ class MenuButton extends React.PureComponent {
     this._menu.show();
   };
 
+  logoutClick = () => {
+    this.hideMenu();
+    GoogleSignin();
+  }
   render() {
     //console.log('Check Avatar Menu Button ' + this.props.avatarURL);
     return (
@@ -46,11 +52,6 @@ class MenuButton extends React.PureComponent {
         >
         
         <MenuItem onPress={this.hideMenu}>Profile</MenuItem>
-          <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
-          <MenuItem onPress={this.hideMenu} disabled>
-            Menu item 3
-          </MenuItem>
-          <MenuDivider />
           <MenuItem onPress={this.hideMenu}>Log Out</MenuItem>
          
         </Menu>
