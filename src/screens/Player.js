@@ -6,7 +6,8 @@ import {
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
-import Icon from 'react-native-vector-icons/Ionicons';
+// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MenuButton from '../Components/MenuButton';
 import { connect } from 'react-redux';
 import io from "socket.io-client";
@@ -78,6 +79,7 @@ class Player extends Component {
                         </TouchableOpacity>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+
                     </View>
                     <View style={styles.headerContent}>
                         <Text
@@ -125,8 +127,8 @@ class Player extends Component {
 
                     <View
                         style={styles.Icon}>
-                        <Icon name="ios-person" size={height * 0.0366} color="#5454bd" />
-                        <Icon name="ios-checkmark-circle" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="account-circle" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="check-circle" size={height * 0.0366} color="#5454bd" />
                     </View>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -141,7 +143,22 @@ class Player extends Component {
 
                                 </ListCard>))
                         }
-
+                        <View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal is closed");
+                                }}
+                            >
+                                <ModalCard
+                                    onPress={() => {
+                                        this.setModalVisible(!modalVisible);
+                                    }}
+                                />
+                            </Modal>
+                        </View>
                     </ScrollView>
                     <Button
                         color="#5454bd"

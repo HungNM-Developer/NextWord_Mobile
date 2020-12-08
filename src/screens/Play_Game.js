@@ -9,8 +9,9 @@ import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import { Menu, Provider, Button, List } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import CountdownBar from 'react-native-countdown-bar';
@@ -32,13 +33,11 @@ export default class Play_Game extends React.Component {
     state = {
         modalVisible: false,
     };
-
-    setModalVisible = (visible) => {
+        setModalVisible = (visible) => {
         this.setState({ modalVisible: false });
     };
 
     render() {
-        
         const { modalVisible } = this.state;
 
         // const users = [
@@ -71,33 +70,41 @@ export default class Play_Game extends React.Component {
                 <ImageBackground
                     source={require("../images/play4.png")}
                     style={styles.image}>
-
-                    <View style={styles.header}>
-                        <TouchableOpacity onPress={() => navigate(
-                            'New_Join_Game')} style={styles.backgroundimageBack}>
-                            <Image source={require("../images/17.png")}
-                                style={styles.imageBack} />
+                    <View style={styles.header}>                   
+                        <TouchableOpacity style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginTop:-(height*0.0292),
+                         }}
+                            onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            <Icon name="chevron-left" size={width*0.1094//45w
+                            } color="#ffffff" 
+                            />
+                            {/* <Text style={{
+                                color:'#ffffff',
+                                fontSize:width * 0.0486, 
+                                fontWeight:'bold'
+                                }}>
+                                Back
+                            </Text> */}
                         </TouchableOpacity>
-                        <View>
-                            <Text style={{
-                                fontSize: width * 0.0608,//25w
-                                // color: "#1abc9c",
-                                color: "#f2c026",
-                                fontWeight: "bold",
-                            }}>4/5 Players</Text>
-                        </View>
-                        <View>
-                            <MenuButton style={styles.menuAvatar}></MenuButton>
-                        </View>
+                        <Text style={{
+                            fontSize: width * 0.0608,//25w
+                            // color: "#1abc9c",
+                            color: "#f2c026",
+                            fontWeight: "bold",
+                        }}>4/5 Players
+                            </Text>
+                        
+                        <MenuButton style={styles.menuAvatar}></MenuButton>
                     </View>
-                    <View>
-
-                    </View>
+                    
                     <View style={styles.NextWord}>
 
                         <Text
                             style={styles.textCount}>
-                           Time: 08
+                            Time: 08
                         </Text>
                         <View >
                             <Divider style={{
@@ -186,34 +193,7 @@ export default class Play_Game extends React.Component {
                             </Modal>
                         </View>
 
-                        {/* <List.AccordionGroup >
-                        <ScrollView >
-                            <List.Accordion titleStyle={{
-                                color: '#5454bd',
-                                marginHorizontal: width * 0.05,
-                                backgroundColor: '#fff', elevation: 10,
-                                borderRadius: 50,
-                                padding: width * 0.04, fontWeight: 'bold',
-                                fontSize: width * 0.05
-                            }} title="Word list used" id="1">
-                                
-                                    
-                                        <List.Item titleStyle={{
-                                            color: '#f2c026',
-                                            paddingLeft: width * 0.08,
-                                            fontWeight: 'bold',
-                                            fontSize: width * 0.055
-                                        }} title="BeautifulBeautifulBeautiful" />
-                                        <List.Item titleStyle={{
-                                            color: '#f2c026',
-                                            padding: width * 0.08,
-                                            fontWeight: 'bold',
-                                            fontSize: width * 0.055
-                                        }} title="BeautifulBeautifulBeautiful" />
-                                        
-                            </List.Accordion>
-                            </ScrollView>
-                        </List.AccordionGroup> */}
+                        
                     </View>
                 </ImageBackground>
             </View>
@@ -236,20 +216,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: height * 0.0292,//20h
+        marginVertical: height * 0.0292,//20h
     },
-    backgroundimageBack: {
-        backgroundColor: "#ff0000",
-        width: width * 0.1216,//50w
-        height: height * 0.0585,//40h
-        borderRadius: 30,
-        elevation: 3,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+    
     imageBack: {
         tintColor: "#ffffff",
         width: width * 0.0729,//30w
@@ -298,7 +269,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     textNextWord: {
-        color:'#5454bd',
+        color: '#5454bd',
         fontSize: height * 0.065,
     },
     ViewContent: {
@@ -316,12 +287,9 @@ const styles = StyleSheet.create({
     },
     InputSubmit: {
         flexDirection: "row",
-
         alignItems: "center",
-
         paddingHorizontal: width * 0.1,
         justifyContent: 'space-around',
-
         marginBottom: 0,
         alignSelf: "center",
         backgroundColor: "#ffffff",
@@ -331,7 +299,7 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     NextWord: {
-        marginTop: height * 0.12,
+        // marginTop: height * 0.12,
         flexDirection: "column",
         paddingVertical: 20,
         alignItems: "center",
