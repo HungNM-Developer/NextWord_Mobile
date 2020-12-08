@@ -1,9 +1,8 @@
-import React from "react";
-// import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView, } from "react-native-gesture-handler";
-import { IconButton, Colors, Button } from 'react-native-paper';
-// import { Text, View, Image, ImageBackground, TextInput, StyleSheet } from "react-native";
-import { Image, View, Dimensions, StyleSheet, Text, TouchableOpacity, ImageBackground, } from 'react-native';
+import React, {useRef, useEffect} from "react";
+import {
+    Image, View, Dimensions, StatusBar, Animated,
+    StyleSheet, Text, TouchableOpacity, ImageBackground,
+} from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import { addUser } from "../redux/action/UserAction";
 import { connect } from "react-redux";
@@ -13,9 +12,10 @@ const height = Dimensions.get("window").height;
 
 const mapDispatchToProps = dispatch => ({
     addUser: (user) => dispatch(addUser(user)),
-})
+});
 
- class Home extends React.Component {
+class Home extends React.Component {
+    
     componentDidMount() {
         GoogleSignin.configure({
             webClientId: '223218594988-d5tumpoesu3ipedgopvm45laa4irbvcn.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -31,15 +31,15 @@ const mapDispatchToProps = dispatch => ({
     signIn = async () => {
         try {
             await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn().then((user)=>{
+            const userInfo = await GoogleSignin.signIn().then((user) => {
                 //console.log("check" +user.user.photo);
                 this.props.addUser(user.user);
                 this.props.navigation.navigate(
                     'New_Join_Game'
                 );
             });
-            
-            
+
+
             // console.log(userInfo);
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -56,16 +56,47 @@ const mapDispatchToProps = dispatch => ({
         }
     };
     render() {
+        
+        
+        // useEffect(() => {
+        //     Animated.sequence([
+        //         Animated.timing(moveAnim, {
+        //             duration: 2000,
+        //             toValue: Dimensions.get('window').width / 1.6,
+        //             delay: 0,
+        //             useNativeDriver: false,
+        //         }),
+        //         Animated.timing(moveAnim, {
+        //             duration: 2000,
+        //             toValue: 0,
+        //             delay: 0,
+        //             useNativeDriver: false,
+        //         }),
+        //     ]).start();
+        //     Animated.timing(fadeAnim, {
+        //         duration: 2000,
+        //         toValue: 1,
+        //         delay: 2000,
+        //         useNativeDriver: false,
+        //     }).start();
+        // }, [moveAnim, fadeAnim]);
+
+
         const { navigate } = this.props.navigation;
         return (
+
             <ImageBackground
                 source={require("../images/back.png")}
                 style={{ width: "100%", height: "100%" }}>
-                
 
-                <View style={{ paddingHorizontal:width*0.024,//10
-                 marginTop: height*0.095//65
-                 }}>
+                <View>
+                    <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
+                </View>
+
+                <View style={{
+                    paddingHorizontal: width * 0.024,//10
+                    marginTop: height * 0.1098//75
+                }}>
                     <Text
                         style={{
                             textAlign: "center",
@@ -80,23 +111,25 @@ const mapDispatchToProps = dispatch => ({
                         alignItems: "center",
                         justifyContent: "center",
                         padding: height * 0.073,//50
-                        
+
                     }}>
-                       
+
                         <Image
                             source={require("../images/logo-small.png")}
-                            style={{ height: height * 0.336,//230 
-                            width: width * 0.559,//230 
-                            backgroundColor: "#fff", 
-                            borderRadius: 200,}} />
-                    
-                        
+                            style={{
+                                height: height * 0.336,//230 
+                                width: width * 0.559,//230 
+                                backgroundColor: "#fff",
+                                borderRadius: 200,
+                            }} />
+
+
                         <TouchableOpacity
                             style={styles.button}
                             onPress={this.signIn}
                         >
-                            <Image style={styles.icon_google} 
-                            source={require('../images/google-symbol.png')}></Image>
+                            <Image style={styles.icon_google}
+                                source={require('../images/google-symbol.png')}></Image>
                             <Text style={styles.textLogin}>Sign in with Google</Text>
 
                         </TouchableOpacity>
@@ -108,7 +141,7 @@ const mapDispatchToProps = dispatch => ({
 
 }
 
-export default connect('',mapDispatchToProps)(Home);
+export default connect('', mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
     button: {
@@ -125,11 +158,11 @@ const styles = StyleSheet.create({
     },
     icon_google: {
         resizeMode: "stretch",
-        width: width*0.072,
-        height: height*0.043
+        width: width * 0.072,
+        height: height * 0.043
     },
     textLogin: {
-        fontSize: width*0.06,//25
+        fontSize: width * 0.06,//25
         fontWeight: "bold",
         color: "#5451bc"
     },

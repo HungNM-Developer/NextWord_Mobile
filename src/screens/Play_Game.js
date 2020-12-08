@@ -6,16 +6,10 @@ import {
     , TouchableOpacity,
 } from "react-native";
 import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
-// import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
-// import Icon from 'react-native-vector-icons/FontAwesome';
-import LinearGradient from 'react-native-linear-gradient';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
-import CountdownBar from 'react-native-countdown-bar';
-import { StatusBar } from 'expo-status-bar';
+
 
 
 //component
@@ -89,7 +83,7 @@ class Play_Game extends React.Component {
         // ]
 
         const { navigate, state } = this.props.navigation;
-        const userTotal = this.props.route.params.userCount;
+        //const userTotal = this.props.route.params.userCount;
         let y = (height * 0.014 * 2) + (height*0.04) + (height*0.03);
         console.log(y);
         return (
@@ -123,7 +117,7 @@ class Play_Game extends React.Component {
                             // color: "#1abc9c",
                             color: "#f2c026",
                             fontWeight: "bold",
-                        }}>{this.state.usersInGame.length}/{userTotal} Players
+                        }}>{this.state.usersInGame.length}/10 Players
                             </Text>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
@@ -275,13 +269,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        display: "flex",
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginBottom: 40,
-        marginTop: 20,
-        // marginVertical: height * 0.04,//20h
+        flexDirection: "row",
+        paddingHorizontal: width * 0.073,//30w
+        marginTop: height * 0.0585,//40h 
+        marginBottom: height * 0.01464,//10h
+        justifyContent: "space-between",
+        alignItems: "center",
     },
 
     imageBack: {
@@ -307,7 +300,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: width * 0.1
     },
     buttonStyle: {
-        marginVertical: 15,
+        marginVertical: height*0.02196,//15h
         width: width * 0.8,
         paddingVertical: 5,
         borderRadius: 30,
@@ -355,9 +348,9 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     NextWord: {
-        // marginTop: height * 0.12,
+        marginTop: height*0.02928,//20h
         flexDirection: "column",
-        paddingVertical: 20,
+        paddingVertical: height*0.02928,//20h
         alignItems: "center",
         justifyContent: 'space-around',
         // marginBottom: 20,

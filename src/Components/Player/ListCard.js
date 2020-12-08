@@ -11,7 +11,7 @@ export default class ListCard extends React.Component {
         style={{
           flex: 1,
           fontFamily: "RobotoBold",
-          color: "#4dd163",
+          color: "#44FEA1",
           fontSize:width*0.053,//22w
         }}
       >
@@ -23,7 +23,7 @@ export default class ListCard extends React.Component {
         style={{
           flex: 1,
           fontFamily: "RobotoBold",
-          color: "#4dd163",
+          color: "#44FEA1",
           fontSize: width*0.053,//22w
         }}
       >
@@ -48,7 +48,7 @@ export default class ListCard extends React.Component {
     style={{
       flex: 1,
       fontFamily: "RobotoBold",
-      color: "#5454bd",
+      color: "#ffffff",
       fontSize: width*0.053,//22w
     }}
   >
@@ -60,30 +60,31 @@ export default class ListCard extends React.Component {
       <TouchableOpacity
         onPress={() => { }}
         style={{
+          
           alignSelf: "center",
-          marginTop: height*0.03,
-          backgroundColor: "#FFF",
-          elevation: 10,
+          
+          backgroundColor: "#5450bb",
+          elevation: 8,
           width: '90%',
-          borderRadius: 15,
-          marginBottom: 4
+          borderRadius: 50,
+          marginVertical:height*0.0146,//10h
         }}
       >
         <View
           style={{
             flex: 1,
             flexDirection: "row",
-            paddingVertical:height*0.014,//10h
-            //paddingHorizontal: 20,
+            paddingVertical:height*0.0146,//10h
+            
             alignSelf: "center",
-            // justifyContent: "space-around",
+            
           }}
         >
-          <View style={{flex: 1, paddingLeft:20}}>
+          <View style={{flex: 1, paddingLeft:width*0.0486}}>
              <Image
             style={{ width: width*0.0729,
                height: height*0.0439,               
-               borderRadius: 20 ,}}
+               borderRadius: 30 ,}}
             source={{ uri: this.props.item.photoURL }}
           />
           </View>
@@ -92,7 +93,7 @@ export default class ListCard extends React.Component {
             style={{
               flex: 1,
               fontSize: width*0.053,//22w
-              color: "#a2a2db",
+              color: "#b1a7b9",
               paddingHorizontal: width*0.036,//15w
             }}
           >

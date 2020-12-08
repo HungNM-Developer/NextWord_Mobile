@@ -1,12 +1,9 @@
-import React ,{ useState } from "react";
+import React, { useState } from "react";
 import {
     View, Text, Alert, Modal, Image, TextInput,
     ImageBackground, Dimensions, StyleSheet
 } from "react-native";
-// import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-// import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import { Input } from 'react-native-elements';
 import { ScrollView, TouchableOpacity, TouchableHighlight } from "react-native-gesture-handler";
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import MenuButton from '../Components/MenuButton';
@@ -16,22 +13,21 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapStateToProps = state => {
     return {
-      user: state.userReducer.user
+        user: state.userReducer.user
     }
-  };
+};
 class Join_Game extends React.Component {
-    
-    constructor(props) {  
-        super(props);  
-        this.state = {value: ''};  
-    }  
 
-    joinClick()
-    {
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+    }
+
+    joinClick() {
         // console.log("check " + this.state.value);
         socket.emit('joinRoom', this.state.value, this.props.user);
         this.props.navigation.navigate('Player');
-       
+
     }
     static navigationOptions = {
         title: 'Join_Game',
@@ -45,14 +41,14 @@ class Join_Game extends React.Component {
                     source={require("../images/join9.png")}
                     style={styles.image}>
                     <View style={{
-                        flex: 1,
+                        flex: 2,
                         flexDirection: "row",
                         justifyContent: "flex-end",
-                        marginTop: height * 0.029,//20h
-                        paddingRight: 30,//320w
+                        paddingTop: height * 0.0585,//40h 
+                        paddingRight: width * 0.073,//30w
                     }}>
-                        
-                        <MenuButton avatarURL = {this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+
+                        <MenuButton avatarURL={this.props.user.photo}></MenuButton>
                     </View>
 
                     <View style={styles.headerContent}>
@@ -67,10 +63,10 @@ class Join_Game extends React.Component {
                             style={styles.ViewContent}>
                             <Image
                                 source={require("../images/search.png")}
-                                style={{ height: height*0.022, width: width*0.036 }}
+                                style={{ height: height * 0.022, width: width * 0.036 }}
                             />
                             <TextInput
-                            onChangeText={(value) => this.setState({value})}
+                                onChangeText={(value) => this.setState({ value })}
                                 placeholder="Enter Game ID"
                                 style={styles.TextInputContent}
                             />
@@ -118,16 +114,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     Avatar: {
-        height: height*0.058,//40h
-        width: width*0.097,//40w
+        height: height * 0.058,//40h
+        width: width * 0.097,//40w
         borderRadius: 30,
         marginTop: height * 0.029,//20h
         marginLeft: width * 0.778,//320w
     },
 
     menuAvatar: {
-        height: height*0.058,//40h
-        width: width*0.097,//40w
+        height: height * 0.058,//40h
+        width: width * 0.097,//40w
         borderRadius: 30,
     },
     headerContent: {
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
         marginTop: height * 0.109,//75h
     },
     ViewContent: {
-        elevation:10,
+        elevation: 10,
         flexDirection: "row",
         backgroundColor: "#FFF",
         borderRadius: 60,
@@ -155,28 +151,28 @@ const styles = StyleSheet.create({
     },
     TextInputContent: {
         paddingHorizontal: width * 0.072,//30w
-        fontSize: width*0.06,//25
+        fontSize: width * 0.06,//25
         color: "#522289",
         fontWeight: 'bold',
     },
-    
+
     buttonStyleBack: {
         width: width * 0.2433,
         borderRadius: 40,
         padding: height * 0.008,
         marginVertical: height * 0.029,//20h
         borderWidth: width * 0.006,
-        borderColor: '#ffffff',    
+        borderColor: '#ffffff',
     },
     buttonStyle: {
         borderRadius: 50,
         backgroundColor: "#fff",
         padding: height * 0.014,
         marginVertical: height * 0.029,//20h
-        elevation:10,
+        elevation: 10,
     },
     titleStyle: {
-        fontSize: width*0.06,//25
+        fontSize: width * 0.06,//25
         color: "#4b3ca7",
     },
 });

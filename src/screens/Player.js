@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Dimensions, View, Text, StyleSheet,
+    Dimensions, View, Text, StyleSheet, StatusBar,
     ImageBackground, Alert, Modal, Image, ScrollView, TouchableOpacity
 } from 'react-native';
 import { IconButton, Colors, Button } from 'react-native-paper';
@@ -30,15 +30,16 @@ class Player extends Component {
             userInLobby: [],
             modalVisible: false,
         }
-        socket.on("start", msg => {
-            this.props.navigation.navigate('Play_Game', {
-                userCount: this.state.userInLobby.length
-            });
-        })
+        // socket.on("start", msg => {
+        //     this.props.navigation.navigate('Play_Game', {
+        //         userCount: this.state.userInLobby.length
+        //     });
+        // })
         
     }
-    startClick(){
+    startClick() {
         socket.emit('startPress', this.props.room.roomPin);
+        this.props.navigation.navigate('CountDown_StartPlay');
     }
     static navigationOptions = {
         title: 'Player',
@@ -66,23 +67,20 @@ class Player extends Component {
                 <ImageBackground
                     source={require("../images/back2.png")}
                     style={styles.image}>
+                    <View>
+                        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+                    </View>
                     <View style={styles.header}>
-                    <TouchableOpacity style={{
+                        <TouchableOpacity style={{
                             flexDirection: "row",
                             alignItems: "center",
-                         }}
+                        }}
                             onPress={() => this.props.navigation.navigate("New_Join_Game")}>
                             {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
-                            <Icon name="chevron-left" size={width*0.1094//45w
-                            } color="#ffffff" 
+                            <Icon name="chevron-left" size={width * 0.1094//45w
+                            } color="#ffffff"
                             />
-                            {/* <Text style={{
-                                color:'#ffffff',
-                                fontSize:width * 0.0486, 
-                                fontWeight:'bold'
-                                }}>
-                                Back
-                            </Text> */}
+
                         </TouchableOpacity>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
@@ -134,16 +132,14 @@ class Player extends Component {
 
                     <View
                         style={styles.Icon}>
-                        <Icon name="account-circle" size={height * 0.0366} color="#5454bd" />
-                        <Icon name="check-circle" size={height * 0.0366} color="#5454bd" />
+                        <Icon name="account-circle" size={height * 0.041} color="#5454bd" />
+                        <Icon name="check-circle" size={height * 0.041} color="#5454bd" />
                     </View>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         style={{
-                            marginVertical: 5,
-                        }}
-                    >
-
+                            flex: 1,
+                        }}>
                         {
                             this.state.userInLobby.map((item, index) => (
                                 <ListCard key={index} you={this.props.user.id} item={item}>
@@ -167,15 +163,22 @@ class Player extends Component {
                             </Modal>
                         </View> */}
                     </ScrollView>
-                    <Button
-                        color="#5454bd"
-                        icon={require('../images/finish.png')}
-                        mode="contained"
-                        onPress={() => this.startClick()}>
-                        <Text style={{ color: '#FFF', fontSize: width * 0.0608, }}>
-                            Start
+                    <View style={{}}>
+                        <Button
+                            color="#5454bd"
+                            icon={require('../images/finish.png')}
+                            mode="contained"
+                            onPress={() => this.startClick()}>
+                            <Text style={{
+                                color: '#FFF',
+                                fontSize: width * 0.0608,
+
+                            }}>
+                                Start
                         </Text>
-                    </Button>
+                        </Button>
+                    </View>
+
                 </ImageBackground>
 
             </View>
@@ -193,13 +196,14 @@ const styles = StyleSheet.create({
         flexDirection: "column"
     },
     image: {
-      width:"100%",
-      height:"100%"
+        width: "100%",
+        height: "100%",
     },
     header: {
         flexDirection: "row",
-        paddingHorizontal: width * 0.0729,
-        marginVertical: height * 0.029,//20h 
+        paddingHorizontal: width * 0.073,//30w
+        marginTop: height * 0.0585,//40h 
+        marginBottom: height * 0.01464,//10h
         justifyContent: "space-between",
         alignItems: "center",
     },
@@ -216,14 +220,14 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     headerContent: {
+
+        flexDirection: 'column',
         alignItems: "center",
+        marginBottom: height * 0.0732,
     },
     Icon: {
-        
         flexDirection: "row",
-        marginTop: height*0.09,
         justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: width * 0.0973
+        paddingHorizontal: width * 0.1216,//50w
     }
 });
