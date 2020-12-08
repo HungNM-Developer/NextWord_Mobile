@@ -65,17 +65,22 @@ class Player extends Component {
                     source={require("../images/back2.png")}
                     style={styles.image}>
                     <View style={styles.header}>
-                        <TouchableOpacity style={{
-                            backgroundColor: "#ff0000",
-                            width: width * 0.1216,//50w
-                            height: height * 0.0585,//40h
-                            borderRadius: 30,
-                            elevation: 3,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
+                    <TouchableOpacity style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                         }}
                             onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            <Image source={require("../images/17.png")} style={styles.imageBack} />
+                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            <Icon name="chevron-left" size={width*0.1094//45w
+                            } color="#ffffff" 
+                            />
+                            {/* <Text style={{
+                                color:'#ffffff',
+                                fontSize:width * 0.0486, 
+                                fontWeight:'bold'
+                                }}>
+                                Back
+                            </Text> */}
                         </TouchableOpacity>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>

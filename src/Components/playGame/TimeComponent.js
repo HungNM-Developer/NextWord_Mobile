@@ -10,17 +10,18 @@ export default class TimeComponent extends Component {
         this.state = {
             time: 10
         }
-    }
-
-    render() {
         socket.on('time', time => {
             this.setState(
                 {time: time}
             )
         })
+    }
+
+    render() {
+       
         return (
             <Text style = {style.textCount}>
-                {this.state.props}
+                Time: {this.state.time}
             </Text>
         )
     }
