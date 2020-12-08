@@ -29,20 +29,27 @@ const mapStateToProps = (state) => {
 }
 
 class Play_Game extends React.Component {
+    userTotal = this.props.route.params.userCount;
     constructor(props)
     {
         super(props);
         this.state = {
-            usersInGame: this.props.user,
+            valueInput: '',
+            usersLeft: this.props.route.params.userCount,
             modalVisible: false,
+            wordStore: [],
         }
-
+        
         
     }
     // componentDidMount(){
     //     const userCount = this.props.route.params;
     //     this.setState({userCount: userCount})
     // }
+    submitAnswer()
+    {
+        socket.emit("wordAnswer", {roomPin: abc});
+    }
     static navigationOptions = {
         title: 'Play_Game',
     };
@@ -50,13 +57,20 @@ class Play_Game extends React.Component {
         this.setState({ modalVisible: visible });
     };
     componentDidMount(){
+        console.log(this.props.route.params);
         socket.on("usersLive", msg => {
             this.setState({
-                usersInGame: msg
+                usersLeft: msg.length
             })
+        })
+        socket.on("wordStore", msg => {
+            this.setState({
+                wordStore: msg
+            });
         })
     }
     render() {
+        //console.log(this.userTotal)
         const { modalVisible } = this.state;
         
         // const users = [
@@ -85,7 +99,7 @@ class Play_Game extends React.Component {
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
         let y = (height * 0.014 * 2) + (height*0.04) + (height*0.03);
-        console.log(y);
+        //console.log(y);
         return (
             
             <View style={styles.container}>
@@ -117,7 +131,7 @@ class Play_Game extends React.Component {
                             // color: "#1abc9c",
                             color: "#f2c026",
                             fontWeight: "bold",
-                        }}>{this.state.usersInGame.length}/10 Players
+                        }}>{this.state.usersLeft}/{this.userTotal} Players
                             </Text>
 
                         <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
@@ -135,7 +149,7 @@ class Play_Game extends React.Component {
                         </View>
 
                         <Text style={styles.textNextWord}>
-                            NextWord
+                            {this.state.wordStore[this.state.wordStore.length]}
                         </Text>
 
                     </View>
@@ -201,6 +215,7 @@ class Play_Game extends React.Component {
                     <View style={styles.InputSubmit}>
 
                         <TextInput
+                         onChangeText={(value) => this.setState({ valueInput })}
                             placeholder="Enter New Word"
                             style={styles.TextInputContent}
                         />

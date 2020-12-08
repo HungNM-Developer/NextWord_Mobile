@@ -38,8 +38,8 @@ class Player extends Component {
         
     }
     startClick() {
-        socket.emit('startPress', this.props.room.roomPin);
-        this.props.navigation.navigate('CountDown_StartPlay');
+        
+        this.props.navigation.navigate('CountDown_StartPlay', {userCount: this.state.userInLobby.length});
     }
     static navigationOptions = {
         title: 'Player',
@@ -59,7 +59,7 @@ class Player extends Component {
     };
 
     render() {
-        console.log("user-player" + this.props.user.photo);
+        console.log("user-player" + this.props.room);
         const { navigate } = this.props.navigation;
         // const { modalVisible } = this.state;
         return (

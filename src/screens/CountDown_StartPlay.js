@@ -2,7 +2,7 @@ import React from "react";
 import { View,Dimensions, } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { connect } from "react-redux";
-
+import {socket} from './New_Join_Game';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -18,10 +18,11 @@ class CountDown_StartPlay extends React.Component {
         title: 'CountDown_StartPlay',
     };
     constructor(props) {
-        super();
+        super(props);
     }
 
     render() {
+        console.log(this.props.route.params);
         const { navigate, state } = this.props.navigation;
         return (
             <View
@@ -43,8 +44,9 @@ class CountDown_StartPlay extends React.Component {
                     loop={false}
                     // speed={0.5}
                     onAnimationFinish={() => {
-                        console.log('Animation Finished!')
-                        this.props.navigation.replace('Play_Game');
+                        console.log('Animation Finished!');
+                        socket.emit('startPress', this.props.room.roomPin);
+                        this.props.navigation.replace('Play_Game', this.props.route.params);
                     }}
                 />
             </View>

@@ -41,3 +41,7 @@ export const fetchRoomPin = () => (dispatch) => {
         .then(roomPin => dispatch(roomGet(roomPin)))
         .catch(err => dispatch(roomFail(err)));
 };
+
+export const joinRoom = (roomPin) => (dispatch) => {
+    return dispatch(roomGet(roomPin));
+}
