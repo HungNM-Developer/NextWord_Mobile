@@ -3,7 +3,8 @@ import React from "react";
 import { ScrollView, } from "react-native-gesture-handler";
 import { IconButton, Colors, Button } from 'react-native-paper';
 // import { Text, View, Image, ImageBackground, TextInput, StyleSheet } from "react-native";
-import { Image, View, Dimensions, StyleSheet, Text, TouchableOpacity, ImageBackground, } from 'react-native';
+import { Image, View, Dimensions, StatusBar,
+    StyleSheet, Text, TouchableOpacity, ImageBackground, } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import { addUser } from "../redux/action/UserAction";
 import { connect } from "react-redux";
@@ -58,13 +59,17 @@ const mapDispatchToProps = dispatch => ({
     render() {
         const { navigate } = this.props.navigation;
         return (
+            
             <ImageBackground
                 source={require("../images/back.png")}
                 style={{ width: "100%", height: "100%" }}>
                 
+                <View>
+                <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true}/>
+                </View>
 
                 <View style={{ paddingHorizontal:width*0.024,//10
-                 marginTop: height*0.095//65
+                 marginTop: height*0.1098//75
                  }}>
                     <Text
                         style={{

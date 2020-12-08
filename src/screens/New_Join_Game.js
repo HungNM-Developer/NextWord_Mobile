@@ -70,17 +70,14 @@ class New_Join_Game extends React.Component {
           source={require("../images/newjoin.png")}
           style={styles.image}
         >
-          <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", paddingTop: 30, paddingRight:30 }}>
-            {/* <Image
-              source={require("../images/Layer1.png")}
-              style={{
-                width: width * 0.121,//50w
-                height: height * 0.073,//50h
-                borderRadius: 30,
-                marginTop: height * 0.029,//20h
-                marginLeft: width * 0.778,//320w 
-              }}
-            /> */}
+          <View style={{ 
+            flex: 1, 
+            flexDirection: "row", 
+            justifyContent: "flex-end", 
+            paddingTop: height*0.0585,//40h 
+            paddingRight:width*0.073,//30w
+            }}>
+            
             <MenuButton avatarURL={this.props.user.photo}></MenuButton>
           </View>
           <View style={styles.containerImage}>

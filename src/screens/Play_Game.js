@@ -82,20 +82,13 @@ class Play_Game extends React.Component {
                         <TouchableOpacity style={{
                             flexDirection: "row",
                             alignItems: "center",
-                            //marginTop: height*0.0292,
+                            
                          }}
                             onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            
                             <Icon name="chevron-left" size={width*0.1094//45w
-                            } color="#ffffff" 
-                            />
-                            {/* <Text style={{
-                                color:'#ffffff',
-                                fontSize:width * 0.0486, 
-                                fontWeight:'bold'
-                                }}>
-                                Back
-                            </Text> */}
+                            } color="#ffffff" />
+                            
                         </TouchableOpacity>
                         <Text style={{
                             fontSize: width * 0.0608,//25w
@@ -227,8 +220,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginBottom: height*0.0585,//40h
-        marginTop: height * 0.0292,//20h
+        marginBottom: height*0.0439,//30h
+        marginTop: height * 0.0585,//40h
         // marginVertical: height * 0.04,//20h
     },
     
@@ -255,7 +248,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: width * 0.1
     },
     buttonStyle: {
-        marginVertical: 15,
+        marginVertical: height*0.02196,//15h
         width: width * 0.8,
         paddingVertical: 5,
         borderRadius: 30,

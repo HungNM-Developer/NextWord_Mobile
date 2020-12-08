@@ -45,13 +45,12 @@ class Join_Game extends React.Component {
                     source={require("../images/join9.png")}
                     style={styles.image}>
                     <View style={{
-                        flex: 1,
+                        flex: 2,
                         flexDirection: "row",
                         justifyContent: "flex-end",
                         marginTop: height * 0.029,//20h
-                        paddingRight: 30,//320w
-                    }}>
-                        
+                        paddingRight: width*0.073,//30w
+                    }}>                      
                         <MenuButton avatarURL = {this.props.user.photo} style={styles.menuAvatar}></MenuButton>
                     </View>
 

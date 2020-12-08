@@ -6,6 +6,7 @@ import {
     Image, Dimensions,
     ImageBackground,
     TouchableOpacity,
+    StatusBar,
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text, } from 'react-native-elements';
@@ -50,6 +51,9 @@ class Rank_Game extends Component {
                 <ImageBackground
                     source={require("../images/back2.png")}
                     style={styles.image}>
+                    <View>
+                        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+                    </View>
                     <View style={styles.header}>
                         <TouchableOpacity style={{
                             flexDirection: "row",
