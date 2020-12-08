@@ -6,16 +6,10 @@ import {
     , TouchableOpacity,
 } from "react-native";
 import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
-// import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
-// import Icon from 'react-native-vector-icons/FontAwesome';
-import LinearGradient from 'react-native-linear-gradient';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
-import CountdownBar from 'react-native-countdown-bar';
-import { StatusBar } from 'expo-status-bar';
+
 
 
 //component
@@ -216,13 +210,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        display: "flex",
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginBottom: height*0.0439,//30h
-        marginTop: height * 0.0585,//40h
-        // marginVertical: height * 0.04,//20h
+        flexDirection: "row",
+        paddingHorizontal: width * 0.073,//30w
+        marginTop: height * 0.0585,//40h 
+        marginBottom: height * 0.01464,//10h
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     
     imageBack: {
@@ -296,9 +289,9 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     NextWord: {
-        // marginTop: height * 0.12,
+        marginTop: height*0.02928,//20h
         flexDirection: "column",
-        paddingVertical: 20,
+        paddingVertical: height*0.02928,//20h
         alignItems: "center",
         justifyContent: 'space-around',
         // marginBottom: 20,

@@ -33,7 +33,7 @@ class Player extends Component {
     }
     startClick() {
         socket.emit('startPress', this.props.room.roomPin);
-        this.props.navigation.navigate('Play_Game');
+        this.props.navigation.navigate('CountDown_StartPlay');
     }
     static navigationOptions = {
         title: 'Player',
