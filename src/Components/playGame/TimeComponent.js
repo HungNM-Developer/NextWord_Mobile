@@ -21,7 +21,7 @@ export default class TimeComponent extends Component {
        
         return (
             <Text style = {style.textCount}>
-                Time: {this.state.time}
+               Time: {this.state.time}
             </Text>
         )
     }
@@ -31,10 +31,10 @@ const style = StyleSheet.create({
 
     textCount: {
         fontSize: width * 0.0851,//35w
-        borderRadius: 100,
+        // borderRadius: 100,
         backgroundColor: "#fff",
         color: "#5454bd",
         padding: height * 0.0219,//15h
-        elevation: 5,
+        // elevation: 5,
     },
 })

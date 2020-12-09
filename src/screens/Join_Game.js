@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 
     buttonStyleBack: {
         width: width * 0.2433,
-        borderRadius: 40,
+        borderRadius: 50,
         padding: height * 0.008,
         marginVertical: height * 0.029,//20h
         borderWidth: width * 0.006,

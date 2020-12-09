@@ -70,14 +70,18 @@ class MenuButton extends React.PureComponent {
               uri:
                 this.props.avatarURL,
             }}
-            style={{ width: width * 0.121, height: height * 0.073, borderRadius: 30, }}
+            style={{ 
+              width: width * 0.1216, 
+              height: width * 0.1216, 
+              borderRadius: 50, }}
           />
         </TouchableOpacity>
         <Menu
           ref={this.setMenuRef}
         >
 
-          <MenuItem onPress={() => {
+          <MenuItem 
+          onPress={() => {
             this.setModalVisible(true);
           }}>Profile</MenuItem>
           

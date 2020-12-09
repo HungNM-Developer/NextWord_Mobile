@@ -4,6 +4,7 @@ import {
     Image, View, Dimensions, StatusBar, Animated,
     StyleSheet, Text, TouchableOpacity, ImageBackground,
 } from 'react-native';
+
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import { addUser } from "../redux/action/UserAction";
 import { connect } from "react-redux";
@@ -71,89 +72,99 @@ class Home extends React.Component {
         }
     };
 
-    state = {
-        fadeAnim: new Animated.Value(0),
-        moveAnim: new Animated.Value(0),
-    };
+    // state = {
+    //     fadeAnim: new Animated.Value(0),
+    //     moveAnim: new Animated.Value(0),
+    // };
 
 
     render() {
 
-        Animated.sequence([
-            Animated.timing(this.state.moveAnim, {
-                duration: 1500,
-                toValue: Dimensions.get('window').width / 1.6,
-                delay: 0,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.moveAnim, {
-                duration: 1500,
-                toValue: 0,
-                delay: 0,
-                useNativeDriver: false,
-            }),
-        ]).start();
-        Animated.timing(this.state.fadeAnim, {
-            toValue: 10,
-            duration: 10000,
-            useNativeDriver: true,
-        }).start();
+        // Animated.sequence([
+        //     Animated.timing(this.state.moveAnim, {
+        //         duration: 1500,
+        //         toValue: Dimensions.get('window').width / 1.6,
+        //         delay: 0,
+        //         useNativeDriver: false,
+        //     }),
+        //     Animated.timing(this.state.moveAnim, {
+        //         duration: 1500,
+        //         toValue: 0,
+        //         delay: 0,
+        //         useNativeDriver: false,
+        //     }),
+        // ]).start();
+        // Animated.timing(this.state.fadeAnim, {
+        //     toValue: 10,
+        //     duration: 10000,
+        //     useNativeDriver: true,
+        // }).start();
 
 
 
         const { navigate } = this.props.navigation;
         return (
-        <Animated.View style={[{flex: 1}, { opacity: this.state.fadeAnim }]}>
-            <ImageBackground
-                source={require("../images/back.png")}
-                style={{ width: "100%", height: "100%" }}>
+            <Animatable.View style={{ flex: 1 }}
+                animation="fadeIn" duration={2000} delay={1000}>
+                <ImageBackground
+                    source={require("../images/back.png")}
+                    style={{ width: "100%", height: "100%" }}>
 
-                <View>
-                    <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
-                </View>
+                    <View>
+                        <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
+                    </View>
 
-                <View style={{
-                    paddingHorizontal: width * 0.024,//10
-                    marginTop: height * 0.1098//75
-                }}>
-                    <Animated.View style={[styles.logoContainer, { opacity: this.state.fadeAnim }]}>
-                        <Text style={[styles.logoText]}>N</Text>
-                        <Animated.Text
-                            style={[styles.logoText, { opacity: this.state.fadeAnim }]}>
-                            ext Word
-                        </Animated.Text>
-                    </Animated.View>
-                    {/* <View>
+                    <View style={{
+                        paddingHorizontal: width * 0.024,//10
+                        marginTop: height * 0.1098//75
+                    }}>
+                        <View style={styles.logoContainer}>
+                            {/* <Animatable.Text
+                                animation="pulse" duration={2000} delay={1000}
+                                style={[styles.logoText]}>N</Animatable.Text> */}
+                            <Animatable.Text
+                                animation="rubberBand" duration={2000} delay={1000}
+                                style={styles.logoText}>
+                                Next Word
+                        </Animatable.Text >
+                        </View>
+                        {/* <View>
                         <Text style={[styles.logoText]}>
                             Next Word
                         </Text>
                     </View> */}
 
-                    <View style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: height * 0.073,//50
+                        <View style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: height * 0.073,//50
 
-                    }}>
+                        }}>
 
-                        <Animated.Image
-                            source={require("../images/logo-small.png")}
-                            style={[styles.imageLogo, { opacity: this.state.fadeAnim }]} />
+                            <Animatable.Image
+                                animation="rotate" duration={2000} delay={1000}
+                                source={require("../images/logo-small.png")}
+                                style={styles.imageLogo} />
+                            <Animatable.View
+                                animation="fadeInUp" duration={2000} delay={1000}>
 
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={this.signIn}
-                        >
-                            <Image style={styles.icon_google}
-                                source={require('../images/google-symbol.png')}></Image>
-                            <Text style={styles.textLogin}>Sign in with Google</Text>
+                                <TouchableOpacity
 
-                        </TouchableOpacity>
+                                    style={styles.button}
+                                    onPress={this.signIn}
+                                >
+                                    <Image style={styles.icon_google}
+                                        source={require('../images/google-symbol.png')}></Image>
+                                    <Text style={styles.textLogin}>Sign in with Google</Text>
 
+                                </TouchableOpacity>
+                            </Animatable.View>
+
+
+                        </View>
                     </View>
-                </View>
-            </ImageBackground>
-            </Animated.View>
+                </ImageBackground>
+            </Animatable.View>
         );
     }
 
@@ -182,8 +193,8 @@ const styles = StyleSheet.create({
     button: {
         shadowColor: "#000",
         marginTop: height * 0.117,//80
-        elevation: 10,
-        borderRadius: 30,
+        elevation: 6,
+        borderRadius: 50,
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
@@ -197,7 +208,7 @@ const styles = StyleSheet.create({
         height: width * 0.072,
     },
     textLogin: {
-        fontSize: width * 0.06,//25
+        fontSize: width * 0.06083,//25
         fontWeight: "bold",
         color: "#5451bc"
     },

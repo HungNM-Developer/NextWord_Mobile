@@ -75,9 +75,9 @@ class Play_Game extends React.Component {
                             alignItems: "center",
                             //marginTop: height*0.0292,
                         }}
-                            // onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            
                             onPress={() => { this.scroll.scrollTo({ y: y }); y = y *2 }}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
@@ -92,7 +92,6 @@ class Play_Game extends React.Component {
                             </Text>
 
                         <MenuButton avatarURL={this.props.user.photo} 
-                        style={styles.menuAvatar}
                         navigation={this.props.navigation}></MenuButton>
                     </View>
 
@@ -109,7 +108,7 @@ class Play_Game extends React.Component {
                         </View>
 
                         <Text style={styles.textNextWord}>
-                            NextWord
+                            eat
                         </Text>
 
                     </Animatable.View>
@@ -257,12 +256,12 @@ const styles = StyleSheet.create({
         height: height * 0.0292,//20h
     },
 
-    menuAvatar: {
-        flex: 1,
-        height: height * 0.04,
-        width: width * 0.07,
-        borderRadius: 100
-    },
+    // menuAvatar: {
+    //     flex: 1,
+    //     height: height * 0.04,
+    //     width: width * 0.07,
+    //     borderRadius: 100
+    // },
     headerContent: {
         alignItems: "center",
     },
@@ -293,7 +292,8 @@ const styles = StyleSheet.create({
     },
     textNextWord: {
         color: '#5454bd',
-        fontSize: height * 0.065,
+        fontSize: width*0.1338,
+        fontWeight: 'bold',
     },
     ViewContent: {
         marginBottom: height * 0.08,
@@ -330,9 +330,9 @@ const styles = StyleSheet.create({
         // marginBottom: 20,
         alignSelf: "center",
         backgroundColor: "#ffffff",
-        height: height * 0.35,
-        width: width * 0.65,
-        borderRadius: 30,
+        height: height * 0.3441,
+        width: width * 0.73,
+        borderRadius: 50,
         elevation: 10,
     }
 });

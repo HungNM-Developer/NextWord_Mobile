@@ -21,27 +21,7 @@ const mapStateToProps = state => {
     room: state.roomReducer.roomPin
   }
 };
-// class Button_Create extends React.Component {
-//   render() {
-//     <Button style={{
-//       borderRadius: 30, padding: 5,
-//       backgroundColor: '#fff',
-//     }}
-//       color="#fff"
-//       mode="contained"
-//       onPress={() => this.props.fetchRoomPin()}>
-//        <Text style={{ color: '#4b3ca7', fontSize: 25, }}>Create Name</Text>
-//     </Button>
-//     if (!this.props.isLoading) {
-//       return <Text style={{ color: '#4b3ca7', fontSize: 25, }}>
-//       Create Game
-//     </Text>
-//     }
-//     else {
-//       return <LoadingComponent></LoadingComponent>;
-//     }
-//   }
-// }
+
 var socket;
 class New_Join_Game extends React.Component {
 
@@ -56,8 +36,7 @@ class New_Join_Game extends React.Component {
     socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
     navigate('Creating_Game');
   }
-  componentDidMount()
-  {
+  componentDidMount() {
     socket = io(baseURL);
   }
   render() {
@@ -67,62 +46,71 @@ class New_Join_Game extends React.Component {
     const { navigate, state } = this.props.navigation;
     return (
       <Animatable.View style={styles.container}
-      animation="fadeIn" duration={2000} delay={1000}>
+        animation="fadeIn" duration={2000} delay={1000}>
         <ImageBackground
           source={require("../images/newjoin.png")}
           style={styles.image}
         >
-          <View style={{ 
-            flex: 1, 
-            flexDirection: "row", 
-            justifyContent: "flex-end", 
-            paddingTop: height*0.0585,//40h 
-            paddingRight:width*0.073,//30w
-            }}>
-            
-            <MenuButton avatarURL={this.props.user.photo} 
-            navigation={this.props.navigation}></MenuButton>
+          <View style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            paddingTop: height * 0.0585,//40h 
+            paddingRight: width * 0.073,//30w
+          }}>
+
+            <MenuButton avatarURL={this.props.user.photo}
+              navigation={this.props.navigation}></MenuButton>
           </View>
-          
-          <Animatable.View style={styles.containerImage} 
-          animation="slideInDown" duration={2000} delay={1000}>
+
+          <Animatable.View style={styles.containerImage}
+            animation="slideInDown" duration={2000} delay={1000}>
             <Image
               source={require("../images/logo1.png")}
               style={styles.stretch}
             />
-          
-          </Animatable.View>
-          
 
-          <Animatable.View style={styles.containerBtn}
-          animation="slideInUp" duration={2000} delay={1000}>
-            <Button onPress={() => this.createRoom(navigate)}
-              labelStyle={styles.titleStyle}
-              style={styles.buttonStyle}
-              type="outline">
-              Create Game
-          </Button>
-            <Button labelStyle={styles.titleStyle}
-              style={styles.buttonStyle}
-              type="outline"
-              onPress={() => navigate(
-                'Join_Game'
-              )}>
-              <Text style={{
-                color: '#4b3ca7', fontSize: width * 0.06,//25w
-              }}>
-                Join Game
-            </Text>
+          </Animatable.View>
+
+
+          <View style={styles.containerBtn}>
+            <Animatable.View
+              animation="slideInRight" duration={2000} delay={1000}>
+              <Button onPress={() => this.createRoom(navigate)}
+                labelStyle={styles.titleStyle}
+                style={styles.buttonStyle}
+                type="outline">
+                Create Game
             </Button>
-            <TouchableOpacity onPress={() => navigate(
+            </Animatable.View>
+            <Animatable.View
+              animation="slideInLeft" duration={2000} delay={1000}>
+              <Button labelStyle={styles.titleStyle}
+                style={styles.buttonStyle}
+                type="outline"
+                onPress={() => navigate(
+                  'Join_Game'
+                )}>
+                <Text style={{
+                  color: '#4b3ca7', fontSize: width * 0.06083,//25w
+                }}>
+                  Join Game
+            </Text>
+              </Button>
+            </Animatable.View>
+            <Animatable.View
+              animation="slideInUp" duration={2000} delay={1300}>
+              <TouchableOpacity onPress={() => navigate(
                 'Rank_Game'
               )}>
-            <Text
-              style={styles.titleText}>
-              How To Play
+                <Text
+                  style={styles.titleText}>
+                  How To Play
           </Text>
-            </TouchableOpacity>            
+              </TouchableOpacity>
             </Animatable.View>
+
+          </View>
         </ImageBackground>
       </Animatable.View>
     );
@@ -133,7 +121,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(New_Join_Game);
 export { socket };
 
 const styles = StyleSheet.create({
-  
+
   container: {
     flex: 1,
     flexDirection: "column",
@@ -165,24 +153,24 @@ const styles = StyleSheet.create({
   },
 
   buttonStyle: {
-    borderRadius: 40,
+    borderRadius: 50,
     backgroundColor: "#fff",
     paddingVertical: height * 0.007,//5h
     marginVertical: height * 0.0219,//15h
     marginHorizontal: width * 0.0608,//25w
-    elevation:10,
+    elevation: 10,
   },
 
   titleStyle: {
-    fontSize: width * 0.06,//25w
+    fontSize: width * 0.06083,//25w
     color: "#4b3ca7",
   },
 
   titleText: {
     textAlign: "center",
-    fontSize: width * 0.06,//25w
+    fontSize: width * 0.06083,//25w
     color: "#b1a7b9",
     marginTop: height * 0.0439,//30h
-  }
+  },
 
 });

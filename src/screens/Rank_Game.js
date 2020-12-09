@@ -188,8 +188,8 @@ class Rank_Game extends Component {
                                     }}>
                                         <View style={{ paddingHorizontal: 10 }}>
                                             <Image style={{
-                                                width: 55,
-                                                height: 55,
+                                                width: width*0.13382,//55w
+                                                height: width*0.13382,//55w
                                                 borderRadius: 30,
                                             }} source={require('../images/1.jpg')} />
                                         </View>
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 5.5,
         width: width*0.1827, //75w
-        height: height*0.1098,//75h
+        height: width*0.1827, //75w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#dcdcdc'
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 5.5,
         width: width*0.2311,//95w
-        height: height*0.13909,//95h
+        height: width*0.2311,//95w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#ffd700'
@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 5.5,
         width: width*0.1827, //75w
-        height: height*0.1098,//75h
+        height: width*0.1827, //75w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#cd853f'
