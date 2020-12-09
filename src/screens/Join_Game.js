@@ -7,16 +7,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView, TouchableOpacity, TouchableHighlight } from "react-native-gesture-handler";
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import MenuButton from '../Components/MenuButton';
+import * as Animatable from 'react-native-animatable';
 import { socket } from './New_Join_Game';
 import { connect } from "react-redux";
-import * as Animatable from 'react-native-animatable';
+import { joinRoom } from '../redux/action/RoomAction';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        //room: state.roomReducer.roomPin
     }
 };
+
+const mapDispatchToProps = dispatch => ({
+    joinRoom: (roomPin) => dispatch(joinRoom({roomPin: roomPin}))
+  });
+
 class Join_Game extends React.Component {
 
     constructor(props) {
@@ -26,6 +33,7 @@ class Join_Game extends React.Component {
 
     joinClick() {
         // console.log("check " + this.state.value);
+        this.props.joinRoom(this.state.value);
         socket.emit('joinRoom', this.state.value, this.props.user);
         this.props.navigation.navigate('Player');
 
@@ -98,13 +106,11 @@ class Join_Game extends React.Component {
                     </Animatable.View>
                 </ImageBackground>
             </View>
-
-
         );
     }
 }
 
-export default connect(mapStateToProps)(Join_Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Join_Game);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
