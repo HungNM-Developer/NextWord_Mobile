@@ -38,7 +38,6 @@ class Player extends Component {
 
     }
     startClick() {
-        
         this.props.navigation.navigate('CountDown_StartPlay', {userCount: this.state.userInLobby.length});
     }
     static navigationOptions = {
@@ -53,7 +52,6 @@ class Player extends Component {
             })
         });
     };
-
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
