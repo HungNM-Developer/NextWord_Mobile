@@ -25,6 +25,7 @@ const height = Dimensions.get("window").height;
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
+        room: state.roomReducer.roomPin
     }
 }
 
@@ -48,7 +49,7 @@ class Play_Game extends React.Component {
     // }
     submitAnswer()
     {
-        socket.emit("wordAnswer", {roomPin: abc});
+        socket.emit("wordAnswer", {roomPin: this.props.room.roomPin,  word: this.state.valueInput});
     }
     static navigationOptions = {
         title: 'Play_Game',
@@ -162,15 +163,11 @@ class Play_Game extends React.Component {
                         ref={(node) => this.scroll = node}
                     >
                         <ListCard_PlayGame
+                        />
+                        {/* <ListCard_PlayGame
 
                         />
-                        <ListCard_PlayGame
 
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
                         <ListCard_PlayGame
 
                         />
@@ -183,10 +180,6 @@ class Play_Game extends React.Component {
                         <ListCard_PlayGame
 
                         />
-
-                        <ListCard_PlayGame
-
-                        />
                         <ListCard_PlayGame
 
                         />
@@ -194,7 +187,10 @@ class Play_Game extends React.Component {
                         <ListCard_PlayGame
 
                         />
-                        
+                        <ListCard_PlayGame
+
+                        />
+
                         <ListCard_PlayGame
 
                         />
@@ -206,8 +202,10 @@ class Play_Game extends React.Component {
                         <ListCard_PlayGame
 
                         />
+                        
+                        <ListCard_PlayGame
 
-
+                        /> */}
 
                     </ScrollView>
 
@@ -215,12 +213,11 @@ class Play_Game extends React.Component {
                     <View style={styles.InputSubmit}>
 
                         <TextInput
-                         onChangeText={(value) => this.setState({ valueInput })}
+                         onChangeText={(value) => this.setState({ valueInput: value })}
                             placeholder="Enter New Word"
                             style={styles.TextInputContent}
                         />
-                        <TouchableOpacity onPress={() => navigate(
-                            'New_Join_Game')}>
+                        <TouchableOpacity onPress={() => this.submitAnswer()}>
                             <Image
                                 style={{
                                     height: width * 0.0729, //30w

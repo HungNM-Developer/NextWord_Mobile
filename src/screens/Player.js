@@ -38,7 +38,6 @@ class Player extends Component {
         
     }
     startClick() {
-        
         this.props.navigation.navigate('CountDown_StartPlay', {userCount: this.state.userInLobby.length});
     }
     static navigationOptions = {
@@ -53,11 +52,9 @@ class Player extends Component {
             })
         });
     };
-
     setModalVisible = (visible) => {
         this.setState({ modalVisible: false });
     };
-
     render() {
         console.log("user-player" + this.props.room);
         const { navigate } = this.props.navigation;
