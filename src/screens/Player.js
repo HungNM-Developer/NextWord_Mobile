@@ -6,13 +6,13 @@ import {
 import { IconButton, Colors, Button } from 'react-native-paper';
 import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
-// import Icon from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MenuButton from '../Components/MenuButton';
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { baseURL } from '../shared/baseURL';
 import { socket } from './New_Join_Game';
+import Modal_Leave_Room from '../Components/Player/Modal_Leave_Room';
 const mapStateToProps = state => {
     return {
         user: state.userReducer.user,
@@ -35,7 +35,7 @@ class Player extends Component {
         //         userCount: this.state.userInLobby.length
         //     });
         // })
-        
+
     }
     startClick() {
         this.props.navigation.navigate('CountDown_StartPlay', {userCount: this.state.userInLobby.length});
@@ -53,34 +53,59 @@ class Player extends Component {
         });
     };
     setModalVisible = (visible) => {
-        this.setState({ modalVisible: false });
-    };
+        this.setState({ modalVisible: visible });
+    }
+
     render() {
         console.log("user-player" + this.props.room);
         const { navigate } = this.props.navigation;
-        // const { modalVisible } = this.state;
+        const { modalVisible } = this.state;
         return (
             <View style={styles.container}>
                 <ImageBackground
                     source={require("../images/back2.png")}
                     style={styles.image}>
                     <View>
-                        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+                        <StatusBar 
+                        barStyle="light-content" 
+                        backgroundColor="transparent" 
+                        translucent={true} />
                     </View>
                     <View style={styles.header}>
                         <TouchableOpacity style={{
                             flexDirection: "row",
                             alignItems: "center",
                         }}
-                            onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            
+                            onPress={() => {
+                                this.setModalVisible(true);
+                            }}>
+
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
 
                         </TouchableOpacity>
 
-                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+                        <View>
+                            <Modal
+                                animationType="fade"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal is closed");
+                                }}
+                            >
+                                <Modal_Leave_Room
+                                    onPress={() => {
+                                        this.setModalVisible(!modalVisible);
+                                    }}
+                                />
+                            </Modal>
+                        </View>
+
+                        <MenuButton avatarURL={this.props.user.photo}
+                            navigation={this.props.navigation}></MenuButton>
 
                     </View>
                     <View style={styles.headerContent}>
@@ -210,19 +235,14 @@ const styles = StyleSheet.create({
         width: width * 0.0729,//30w
         height: height * 0.0292,//20h
     },
-    menuAvatar: {
-        flex: 1,
-        width: width * 0.121,//50w
-        height: height * 0.073,//50h
-        borderRadius: 100
-    },
+    
     headerContent: {
-
         flexDirection: 'column',
         alignItems: "center",
-        marginBottom: height * 0.0732,
+        // marginBottom: height * 0.0732,
     },
     Icon: {
+        marginTop: height * 0.07321,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: width * 0.1216,//50w

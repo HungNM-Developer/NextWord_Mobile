@@ -10,7 +10,7 @@ import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
 
-
+import * as Animatable from 'react-native-animatable';
 
 //component
 import MenuButton from '../Components/MenuButton';
@@ -73,29 +73,6 @@ class Play_Game extends React.Component {
     render() {
         //console.log(this.userTotal)
         const { modalVisible } = this.state;
-        
-        // const users = [
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn (You)',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        //     {
-        //         name: 'brynn',
-        //         avatar: 'https://i.pinimg.com/originals/f6/15/39/f615398b53054296870a927b4785ff42.jpg'
-        //     },
-        // ]
 
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
@@ -103,7 +80,7 @@ class Play_Game extends React.Component {
         //console.log(y);
         return (
             
-            <View style={styles.container}>
+            <Animatable.View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
                     style={styles.image}>
@@ -113,19 +90,13 @@ class Play_Game extends React.Component {
                             alignItems: "center",
                             //marginTop: height*0.0292,
                         }}
-                            // onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                            
                             onPress={() => { this.scroll.scrollTo({ y: y }); y = y *2 }}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                            
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
-                            {/* <Text style={{
-                                color:'#ffffff',
-                                fontSize:width * 0.0486, 
-                                fontWeight:'bold'
-                                }}>
-                                Back
-                            </Text> */}
+                            
                         </TouchableOpacity>
                         <Text style={{
                             fontSize: width * 0.0608,//25w
@@ -135,10 +106,12 @@ class Play_Game extends React.Component {
                         }}>{this.state.usersLeft}/{this.userTotal} Players
                             </Text>
 
-                        <MenuButton avatarURL={this.props.user.photo} style={styles.menuAvatar}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo} 
+                        navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <View style={styles.NextWord}>
+                    <Animatable.View style={styles.NextWord}
+                    animation="zoomInDown" duration={2000} delay={1000}>
 
                         <TimeComponent></TimeComponent>
                         <View >
@@ -153,7 +126,7 @@ class Play_Game extends React.Component {
                             {this.state.wordStore[this.state.wordStore.length]}
                         </Text>
 
-                    </View>
+                    </Animatable.View>
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -259,7 +232,7 @@ class Play_Game extends React.Component {
 
                     </View>
                 </ImageBackground>
-            </View>
+            </Animatable.View>
 
         );
     }
@@ -295,12 +268,12 @@ const styles = StyleSheet.create({
         height: height * 0.0292,//20h
     },
 
-    menuAvatar: {
-        flex: 1,
-        height: height * 0.04,
-        width: width * 0.07,
-        borderRadius: 100
-    },
+    // menuAvatar: {
+    //     flex: 1,
+    //     height: height * 0.04,
+    //     width: width * 0.07,
+    //     borderRadius: 100
+    // },
     headerContent: {
         alignItems: "center",
     },
@@ -331,7 +304,8 @@ const styles = StyleSheet.create({
     },
     textNextWord: {
         color: '#5454bd',
-        fontSize: height * 0.065,
+        fontSize: width*0.1338,
+        fontWeight: 'bold',
     },
     ViewContent: {
         marginBottom: height * 0.08,
@@ -368,9 +342,9 @@ const styles = StyleSheet.create({
         // marginBottom: 20,
         alignSelf: "center",
         backgroundColor: "#ffffff",
-        height: height * 0.35,
-        width: width * 0.65,
-        borderRadius: 30,
+        height: height * 0.3441,
+        width: width * 0.73,
+        borderRadius: 50,
         elevation: 10,
     }
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity,Image,Dimensions } from "react-native";
+import * as Animatable from 'react-native-animatable';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -7,7 +8,8 @@ const height = Dimensions.get("window").height;
 export default class ListCard_PlayGame extends React.Component {
   render() {
     return (
-      <TouchableOpacity
+      <Animatable.View animation="pulse" duration={2000} delay={1000}>
+        <TouchableOpacity
         onPress={this.props.onPress}
         style={{         
           alignSelf: "center",
@@ -61,10 +63,9 @@ export default class ListCard_PlayGame extends React.Component {
             Ready
           </Text>
         </View>
-
-        
-        
       </TouchableOpacity>
+      </Animatable.View>
+      
     );
   }
 }

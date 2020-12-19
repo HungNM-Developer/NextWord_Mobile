@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView, TouchableOpacity, TouchableHighlight } from "react-native-gesture-handler";
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import MenuButton from '../Components/MenuButton';
+import * as Animatable from 'react-native-animatable';
 import { socket } from './New_Join_Game';
 import { connect } from "react-redux";
 import { joinRoom } from '../redux/action/RoomAction';
@@ -56,17 +57,20 @@ class Join_Game extends React.Component {
                         paddingRight: width * 0.073,//30w
                     }}>
 
-                        <MenuButton avatarURL={this.props.user.photo}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo}
+                        navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <View style={styles.headerContent}>
+                    <Animatable.View style={styles.headerContent}
+                    animation="fadeInDown" duration={2000} delay={1000}>
                         <Text
                             style={styles.TextheaderContent}>
                             Join Game
                          </Text>
-                    </View>
+                    </Animatable.View>
 
-                    <View style={styles.Content}>
+                    <Animatable.View style={styles.Content}
+                    animation="fadeInUp" duration={2000} delay={1000}>
                         <View
                             style={styles.ViewContent}>
                             <Image
@@ -99,7 +103,7 @@ class Join_Game extends React.Component {
                                 } color="#ffff" />
                             </Button>
                         </TouchableOpacity>
-                    </View>
+                    </Animatable.View>
                 </ImageBackground>
             </View>
         );
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
 
     buttonStyleBack: {
         width: width * 0.2433,
-        borderRadius: 40,
+        borderRadius: 50,
         padding: height * 0.008,
         marginVertical: height * 0.029,//20h
         borderWidth: width * 0.006,

@@ -31,6 +31,9 @@ import Player from './screens/Player';
 import Play_Game from './screens/Play_Game';
 import Rank_Game from './screens/Rank_Game';
 import Countdown_StartPlay from './screens/CountDown_StartPlay';
+import Creating_Game from './screens/Creating_Game';
+import Modal_Leave_Room from './Components/Player/Modal_Leave_Room';
+// import MenuButton from './Components/MenuButton';
 // import LoginPage from './screen/LoginPage';
 
 /**
@@ -74,6 +77,9 @@ function StackNavigatorScreen() {
       <StackNavigator.Screen name='Play_Game' component={Play_Game} />
       <StackNavigator.Screen name='Rank_Game' component={Rank_Game} />
       <StackNavigator.Screen name='CountDown_StartPlay' component={Countdown_StartPlay} />
+      <StackNavigator.Screen name='Creating_Game' component={Creating_Game}/>
+      <StackNavigator.Screen name='Modal_Leave_Room' component={Modal_Leave_Room}/>
+      {/* <StackNavigator.Screen name='MenuButton' component={MenuButton}/> */}
     </StackNavigator.Navigator>
   );
 }
