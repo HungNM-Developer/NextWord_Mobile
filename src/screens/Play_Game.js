@@ -126,9 +126,8 @@ class Play_Game extends React.Component {
                             navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    {/* <Animatable.View style={styles.NextWord}
-                    animation="zoomInDown" duration={2000} delay={1000}> */}
                     <View style={styles.NextWord}>
+
                         <TimeComponent></TimeComponent>
                         <View >
                             <Divider style={{
@@ -141,8 +140,8 @@ class Play_Game extends React.Component {
                         <Text style={styles.textNextWord}>
                             {this.state.wordStore[this.state.wordStore.length - 1]}
                         </Text>
+
                     </View>
-                    {/* </Animatable.View> */}
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}

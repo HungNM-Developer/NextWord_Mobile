@@ -10,6 +10,8 @@ target 'NextWord_Mobile' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'NextWord_MobileTests' do
     inherit! :complete
     # Pods for testing

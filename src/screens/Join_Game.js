@@ -61,15 +61,15 @@ class Join_Game extends React.Component {
                         navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <Animatable.View style={styles.headerContent}
+                    <View style={styles.headerContent}
                     animation="fadeInDown" duration={2000} delay={1000}>
                         <Text
                             style={styles.TextheaderContent}>
                             Join Game
                          </Text>
-                    </Animatable.View>
+                    </View>
 
-                    <Animatable.View style={styles.Content}
+                    <View style={styles.Content}
                     animation="fadeInUp" duration={2000} delay={1000}>
                         <View
                             style={styles.ViewContent}>
@@ -103,7 +103,7 @@ class Join_Game extends React.Component {
                                 } color="#ffff" />
                             </Button>
                         </TouchableOpacity>
-                    </Animatable.View>
+                    </View>
                 </ImageBackground>
             </View>
         );

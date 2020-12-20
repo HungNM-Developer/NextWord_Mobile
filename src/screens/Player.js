@@ -76,8 +76,7 @@ class Player extends Component {
                             flexDirection: "row",
                             alignItems: "center",
                         }}
-                            
-                            onPress={() => {
+                            onPress={() => {                               
                                 this.setModalVisible(true);
                             }}>
 
@@ -97,6 +96,7 @@ class Player extends Component {
                                 }}
                             >
                                 <Modal_Leave_Room
+                                    navigation={this.props.navigation}
                                     onPress={() => {
                                         this.setModalVisible(!modalVisible);
                                     }}
