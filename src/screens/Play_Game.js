@@ -15,6 +15,7 @@ import * as Animatable from 'react-native-animatable';
 //component
 import MenuButton from '../Components/MenuButton';
 import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
+import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
 import { connect } from "react-redux";
@@ -30,56 +31,71 @@ const mapStateToProps = (state) => {
 }
 
 class Play_Game extends React.Component {
-    userTotal = this.props.route.params.userCount;
-    constructor(props)
-    {
+    user = this.props.route.params.userInLobby;
+
+    constructor(props) {
         super(props);
         this.state = {
             valueInput: '',
-            usersLeft: this.props.route.params.userCount,
+            usersLeft: this.user,
             modalVisible: false,
             wordStore: [],
         }
-        
-        
+
+
     }
     // componentDidMount(){
     //     const userCount = this.props.route.params;
     //     this.setState({userCount: userCount})
     // }
-    submitAnswer()
-    {
-        socket.emit("wordAnswer", {roomPin: this.props.room.roomPin,  word: this.state.valueInput});
-    }
+    submitAnswer() {
+        this.setState({
+            valueInput: '',
+        })
+        socket.emit("wordAnswer", { roomPin: this.props.room.roomPin, word: this.state.valueInput });
+    };
     static navigationOptions = {
         title: 'Play_Game',
     };
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     };
-    componentDidMount(){
-        console.log(this.props.route.params);
+    componentDidMount() {
+        //console.log(this.props.route.params);
         socket.on("usersLive", msg => {
-            this.setState({
-                usersLeft: msg.length
+            console.log(msg);
+            if(msg.length <= 1)
+            {
+                console.log("chuyen trang");
+                this.props.navigation.navigate('Rank_Game');          
+            }
+            else
+            {
+                this.setState({
+                usersLeft: msg
             })
+            }
         })
         socket.on("wordStore", msg => {
+            //console.log(msg);
             this.setState({
                 wordStore: msg
             });
+        });
+        socket.on("turnUser", msg => {
+            //console.log(msg);
         })
     }
     render() {
-        //console.log(this.userTotal)
+        //console.log(this.user)
         const { modalVisible } = this.state;
 
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
-        let y = (height * 0.014 * 2) + (height*0.04) + (height*0.03);
+        let y = (height * 0.014 * 2) + (height * 0.04) + (height * 0.03);
         //console.log(y);
         return (
-            
+
             <Animatable.View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
@@ -90,29 +106,29 @@ class Play_Game extends React.Component {
                             alignItems: "center",
                             //marginTop: height*0.0292,
                         }}
-                            
-                            onPress={() => { this.scroll.scrollTo({ y: y }); y = y *2 }}>
-                            
+
+                            onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}>
+
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
-                            
+
                         </TouchableOpacity>
                         <Text style={{
                             fontSize: width * 0.0608,//25w
                             // color: "#1abc9c",
                             color: "#f2c026",
                             fontWeight: "bold",
-                        }}>{this.state.usersLeft}/{this.userTotal} Players
+                        }}>{this.state.usersLeft.length}/{this.user.length} Players
                             </Text>
 
-                        <MenuButton avatarURL={this.props.user.photo} 
-                        navigation={this.props.navigation}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo}
+                            navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <Animatable.View style={styles.NextWord}
-                    animation="zoomInDown" duration={2000} delay={1000}>
-
+                    {/* <Animatable.View style={styles.NextWord}
+                    animation="zoomInDown" duration={2000} delay={1000}> */}
+                    <View style={styles.NextWord}>
                         <TimeComponent></TimeComponent>
                         <View >
                             <Divider style={{
@@ -123,10 +139,10 @@ class Play_Game extends React.Component {
                         </View>
 
                         <Text style={styles.textNextWord}>
-                            {this.state.wordStore[this.state.wordStore.length]}
+                            {this.state.wordStore[this.state.wordStore.length - 1]}
                         </Text>
-
-                    </Animatable.View>
+                    </View>
+                    {/* </Animatable.View> */}
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -134,60 +150,23 @@ class Play_Game extends React.Component {
                             marginVertical: 5,
                         }}
                         ref={(node) => this.scroll = node}
+
                     >
-                        <ListCard_PlayGame
-                        />
-                        {/* <ListCard_PlayGame
+                        {
+                            this.state.usersLeft.map((item, index) => (
+                                <ListCard key={index} you={this.props.user.id} item={item}>
 
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        /> */}
-
+                                </ListCard>))
+                        }
                     </ScrollView>
 
 
                     <View style={styles.InputSubmit}>
 
                         <TextInput
-                         onChangeText={(value) => this.setState({ valueInput: value })}
-                            placeholder="Enter New Word"
+                            onChangeText={(value) => this.setState({ valueInput: value })}
+                            placeholder="Enter Word"
+                            value={this.state.valueInput}
                             style={styles.TextInputContent}
                         />
                         <TouchableOpacity onPress={() => this.submitAnswer()}>
@@ -213,20 +192,15 @@ class Play_Game extends React.Component {
                             word list used
                         </Button>
                         <View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
+
+                            <Modal_Word_List_Used
+                                data={this.state.wordStore}
                                 visible={modalVisible}
-                                onRequestClose={() => {
-                                    Alert.alert("Modal is closed");
+                                onPress={() => {
+                                    this.setModalVisible(!modalVisible);
                                 }}
-                            >
-                                <Modal_Word_List_Used
-                                    onPress={() => {
-                                        this.setModalVisible(!modalVisible);
-                                    }}
-                                />
-                            </Modal>
+                            />
+
                         </View>
 
 
@@ -285,7 +259,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: width * 0.1
     },
     buttonStyle: {
-        marginVertical: height*0.02196,//15h
+        marginVertical: height * 0.02196,//15h
         width: width * 0.8,
         paddingVertical: 5,
         borderRadius: 30,
@@ -304,7 +278,7 @@ const styles = StyleSheet.create({
     },
     textNextWord: {
         color: '#5454bd',
-        fontSize: width*0.1338,
+        fontSize: width * 0.1338,
         fontWeight: 'bold',
     },
     ViewContent: {
@@ -334,9 +308,9 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     NextWord: {
-        marginTop: height*0.02928,//20h
+        marginTop: height * 0.02928,//20h
         flexDirection: "column",
-        paddingVertical: height*0.02928,//20h
+        paddingVertical: height * 0.02928,//20h
         alignItems: "center",
         justifyContent: 'space-around',
         // marginBottom: 20,
