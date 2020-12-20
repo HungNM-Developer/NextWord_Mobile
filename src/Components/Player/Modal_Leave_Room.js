@@ -3,13 +3,16 @@ import {
     View, Text, TouchableHighlight, StyleSheet,
     Dimensions, TouchableOpacity,
 } from 'react-native';
-
+import { StackNavigator } from 'react-navigation'; 
+import { connect } from "react-redux";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 
-export default class Modal_Leave_Room extends React.Component {
+class Modal_Leave_Room extends React.Component {
+    
     render() {
+        const { navigate } = this.props.navigation; 
         return (
             <View style={styles.container}>
 
@@ -17,7 +20,8 @@ export default class Modal_Leave_Room extends React.Component {
                     <Text style={{
                         textAlign: 'center',
                         color: '#fff',
-                        fontWeight: 'bold', fontSize: 35
+                        fontWeight: 'bold', 
+                        fontSize: width * 0.08516//35w
                     }}>
                         Are you sure?
                         </Text>
@@ -27,7 +31,7 @@ export default class Modal_Leave_Room extends React.Component {
                         color: '#cfcdff',
                         fontWeight: 'bold',
                         textAlign: 'center',
-                        fontSize: 20
+                        fontSize: width * 0.0486//20w
                     }}>
                         Leaving the game as host will
                         end the game for everyone!
@@ -43,7 +47,7 @@ export default class Modal_Leave_Room extends React.Component {
                             onPress={this.props.onPress}
                             underlayColor="#6600bb"
                             style={{
-                                width: 120,
+                                width: width*0.29197,
                                 elevation: 2,
                                 backgroundColor: "#505dbc",
                                 paddingVertical: 13,
@@ -61,11 +65,11 @@ export default class Modal_Leave_Room extends React.Component {
                         </TouchableHighlight>
                     </View>
                     <View>
-                        <TouchableHighlight
-                            onPress={this.props.onPress}
+                        <TouchableHighlight                           
+                            onPress={() => navigate('New_Join_Game')} 
                             underlayColor="#6600bb"
                             style={{
-                                width: 120,
+                                width: width*0.29197,
                                 elevation: 2,
                                 backgroundColor: "#505dbc",
                                 paddingVertical: 13,
@@ -75,7 +79,7 @@ export default class Modal_Leave_Room extends React.Component {
                             <Text style={{
                                 color: "#FFF",
                                 textAlign: "center",
-                                fontSize: 20,
+                                fontSize: width * 0.0486,//20w
                                 fontWeight: "bold",
                             }}>
                                 Leave
@@ -89,8 +93,8 @@ export default class Modal_Leave_Room extends React.Component {
 
         )
     }
-    
 }
+export default Modal_Leave_Room;
 
 const styles = StyleSheet.create({
     container: {
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: "column",
         justifyContent: 'space-between',
-
         padding: 25,
     },
 

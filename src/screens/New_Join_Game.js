@@ -1,7 +1,9 @@
 import React from "react";
 import * as Animatable from 'react-native-animatable';
-import { StyleSheet, Dimensions, View, Text, Alert, Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Alert,
+         Modal, Image, ImageBackground, ActivityIndicator } from "react-native";
 // import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import Modal_HowToPlay from '../Components/New_Join_Game/Modal_HowToPlay';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { IconButton, Colors, Button } from 'react-native-paper';
 import { LoadingComponent } from '../Components/LoadingComponent';
@@ -24,7 +26,16 @@ const mapStateToProps = state => {
 
 var socket;
 class New_Join_Game extends React.Component {
-
+  constructor(props)
+  {
+      super(props);
+      this.state = {
+          modalVisible: false,         
+      }
+  }
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  };
 
   static navigationOptions = {
     title: 'New_Join_Game',
@@ -40,6 +51,7 @@ class New_Join_Game extends React.Component {
     socket = io(baseURL);
   }
   render() {
+    const { modalVisible } = this.state;
     console.log('height' + height)
     console.log('width' + width)
     // console.log(this.props);
@@ -100,14 +112,40 @@ class New_Join_Game extends React.Component {
             </Animatable.View>
             <Animatable.View
               animation="slideInUp" duration={2000} delay={1300}>
-              <TouchableOpacity onPress={() => navigate(
+              {/* <TouchableOpacity onPress={() => navigate(
                 'Rank_Game'
               )}>
                 <Text
                   style={styles.titleText}>
                   How To Play
-          </Text>
+              </Text>
+              </TouchableOpacity> */}
+              <TouchableOpacity onPress={() => {
+                this.setModalVisible(true);
+              }}>
+                <Text
+                  style={styles.titleText}>
+                  How To Play
+                </Text>
               </TouchableOpacity>
+              <View>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    Alert.alert("Modal is closed");
+                  }}
+                >
+                  <Modal_HowToPlay
+                  navigation={this.props.navigation}
+                    onPress={() => {
+                      
+                      this.setModalVisible(!modalVisible);
+                    }}
+                  />
+                </Modal>
+              </View>
             </Animatable.View>
 
           </View>
@@ -143,7 +181,7 @@ const styles = StyleSheet.create({
   stretch: {
     height: width * 0.559,//230 
     width: width * 0.559,//230 
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     borderRadius: 200,
   },
 

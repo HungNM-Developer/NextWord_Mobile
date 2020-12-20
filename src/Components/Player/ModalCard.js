@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         marginBottom: height * 0.02928,//20h
         marginTop: height * 0.0512,//35h
-        backgroundColor: "#44FEA1",
+        backgroundColor: "#505dbc",
         paddingVertical: height * 0.01903,//13h
         borderRadius: 40,
         alignSelf: "center"

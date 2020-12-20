@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import * as Animatable from 'react-native-animatable';
 import {
-    Image, View, Dimensions, StatusBar, Animated,
+    Image, View, Dimensions, StatusBar, Animated, ToastAndroid,
     StyleSheet, Text, TouchableOpacity, ImageBackground,
 } from 'react-native';
 
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import { addUser } from "../redux/action/UserAction";
 import { connect } from "react-redux";
+
+var SoundPlayer = require('react-native-sound');
+
+var song = null;
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -17,7 +21,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
+    constructor(props) {
+        super(props)
 
+        this.state = {
+            pause: false,
+        };
+    }
     componentDidMount() {
         GoogleSignin.configure({
             webClientId: '223218594988-d5tumpoesu3ipedgopvm45laa4irbvcn.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -26,6 +36,31 @@ class Home extends React.Component {
             //loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
             forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
         });
+        
+    }
+    // onPressButtonPlay() {
+    //     song = new SoundPlayer('rumors_of_me.mp3', SoundPlayer.MAIN_BUNDLE, (error) => {
+    //         if (error)
+    //             ToastAndroid.show('Error when init SoundPlayer :(((', ToastAndroid.SHORT);
+    //         else {
+    //             song.play((success) => {
+    //                 if (!success)
+    //                     ToastAndroid.show('Error when play SoundPlayer :(((', ToastAndroid.SHORT);
+    //             });
+    //         }
+    //     });
+    // };
+    onPressButtonPause() {
+        if (song != null) {
+            if (this.state.pause) // play resume
+                song.play((success) => {
+                    if (!success)
+                        ToastAndroid.show('Error when play SoundPlayer :(((', ToastAndroid.SHORT);
+                });
+            else song.pause();
+
+            this.setState({ pause: !this.state.pause });
+        }
     }
     static navigationOptions = {
         title: 'Home',
@@ -79,29 +114,18 @@ class Home extends React.Component {
 
 
     render() {
-
-        // Animated.sequence([
-        //     Animated.timing(this.state.moveAnim, {
-        //         duration: 1500,
-        //         toValue: Dimensions.get('window').width / 1.6,
-        //         delay: 0,
-        //         useNativeDriver: false,
-        //     }),
-        //     Animated.timing(this.state.moveAnim, {
-        //         duration: 1500,
-        //         toValue: 0,
-        //         delay: 0,
-        //         useNativeDriver: false,
-        //     }),
-        // ]).start();
-        // Animated.timing(this.state.fadeAnim, {
-        //     toValue: 10,
-        //     duration: 10000,
-        //     useNativeDriver: true,
-        // }).start();
-
-
-
+        song = new SoundPlayer('neffex_rumors.mp3', SoundPlayer.MAIN_BUNDLE, (error) => {          
+            if (error)
+                ToastAndroid.show('Error when init SoundPlayer :(((', ToastAndroid.SHORT);
+            else {
+                song.play((success) => {
+                    if (!success)
+                        ToastAndroid.show('Error when play SoundPlayer :(((', ToastAndroid.SHORT);
+                }             
+                );     
+                 song.setNumberOfLoops(-1);
+            }  
+        });
         const { navigate } = this.props.navigation;
         return (
             <Animatable.View style={{ flex: 1 }}
@@ -160,8 +184,15 @@ class Home extends React.Component {
                                 </TouchableOpacity>
                             </Animatable.View>
 
+                            {/* <TouchableOpacity onPress={this.onPressButtonPlay.bind(this)}>
+                                <Text style={styles.buttonText}>Play</Text>
+                            </TouchableOpacity> */}
 
+                            {/* <TouchableOpacity onPress={this.onPressButtonPause.bind(this)}>
+                                <Text style={styles.buttonText}>{this.state.pause ? 'Resume' : 'Pause'}</Text>
+                            </TouchableOpacity> */}
                         </View>
+
                     </View>
                 </ImageBackground>
             </Animatable.View>
@@ -176,7 +207,7 @@ const styles = StyleSheet.create({
     imageLogo: {
         height: width * 0.559,//230 
         width: width * 0.559,//230 
-        backgroundColor: "#fff",
+        backgroundColor: "#ffffff",
         borderRadius: 200,
     },
     logoContainer: {

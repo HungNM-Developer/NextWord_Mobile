@@ -1,12 +1,18 @@
 import React from 'react'
-import {View, Text, TouchableHighlight, StyleSheet,
-    Dimensions, TouchableOpacity, ScrollView} from 'react-native';
-
+import {
+    View, Text, TouchableHighlight, StyleSheet,
+    Dimensions, TouchableOpacity, ScrollView
+} from 'react-native';
+import { StackNavigator } from 'react-navigation'; 
+import { connect } from "react-redux";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-export default class Modal_Word_List_Used extends React.Component{
+
+
+class Modal_HowToPlay extends React.Component {
+    
     render() {
-        
+        const { navigate } = this.props.navigation; 
         return (
             <View style={styles.container}>
 
@@ -17,37 +23,45 @@ export default class Modal_Word_List_Used extends React.Component{
                         fontWeight: 'bold', fontSize: 35,
                         paddingBottom:height * 0.0439,//30h
                     }}>
-                        List Word Used
+                        How To Play
                         </Text>
                 </View>
                 <ScrollView>
                     <Text style={{
                         color: '#cfcdff',
                         fontWeight: 'bold',
-                        textAlign: 'center',
+                        textAlign: 'left',
                         paddingBottom:10,
-                        fontSize: width * 0.0608//25w
+                        fontSize: width * 0.0486//20w
                     }}>
-                        NextWord 
-
+                        NextWord is a word game with 2 or more people!
+                        One person needs to create a game and invite others 
+                        by sharing the game ID.
+                        
+                        
                     </Text>
                     <Text style={{
                         color: '#cfcdff',
                         fontWeight: 'bold',
-                        textAlign: 'center',
+                        textAlign: 'left',
                         paddingBottom:10,
-                        fontSize: width * 0.0608//25w
+                        fontSize: width * 0.0486//20w
                     }}>
-                        Display
+                        After enough people in the room,
+                        the room owner will press start the game
+                        The order number in the lobby is also the player's order number.
                     </Text>
                     <Text style={{
                         color: '#cfcdff',
                         fontWeight: 'bold',
-                        textAlign: 'center',
+                        textAlign: 'left',
                         paddingBottom:10,
-                        fontSize: width * 0.0608//25w
+                        fontSize: width * 0.0486//20w
                     }}>
-                        Year
+                        The rules of the game are
+                        the first person can give whatever word they like, 
+                        the next person's task will enter a word whose letter 
+                        begins to match the ending letter of the previous word.
                     </Text>
                 </ScrollView>
                 <View style={{
@@ -61,7 +75,7 @@ export default class Modal_Word_List_Used extends React.Component{
                             underlayColor="#6600bb"
                             style={{
                                 width: width*0.4866,//200w
-                                elevation: 4,
+                                elevation: 2,
                                 backgroundColor: "#505dbc",
                                 paddingVertical: 13,
                                 borderRadius: 25,
@@ -86,7 +100,7 @@ export default class Modal_Word_List_Used extends React.Component{
         )
     }
 }
-
+export default Modal_HowToPlay;
 
 const styles = StyleSheet.create({
     container: {
