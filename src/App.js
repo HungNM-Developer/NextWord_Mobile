@@ -68,7 +68,7 @@ function StackNavigatorScreen() {
   return (
     <StackNavigator.Navigator
       headerMode='false'
-      initialRouteName='Waiting_Rank'>
+      initialRouteName='Home'>
       <StackNavigator.Screen name='Home' component={Home} />
       <StackNavigator.Screen name='New_Join_Game' component={New_Join_Game} />
       <StackNavigator.Screen name='Join_Game' component={Join_Game} />
