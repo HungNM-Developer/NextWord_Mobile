@@ -20,10 +20,20 @@ const mapStateToProps = state => {
     }
 }
 
-class Creating_Game extends React.Component {
-    static navigationOptions = {
-        title: 'CountDown_StartPlay',
-    };
+class Waiting_Rank extends React.Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Waiting_Rank',
+        headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.navigate('DrawerOpen')} />,
+        drawerIcon:
+            <Image
+                source={require('../images/logo-small.png')}
+                style={[styles.icon]}
+            />
+
+    })
+    // static navigationOptions = {
+    //     title: 'Waiting_Rank',
+    // };
     constructor(props) {
         super();
     }
@@ -33,6 +43,7 @@ class Creating_Game extends React.Component {
         socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
         navigate('Player');
       }
+      
     render() {
         const { navigate, state } = this.props.navigation;
         return (
@@ -48,20 +59,20 @@ class Creating_Game extends React.Component {
                     color: '#ffd700',
                     fontWeight:'bold',
                     fontSize:width*0.08516,//35w
-                    alignSelf: 'center',}}>Creating Game...</Text>
+                    alignSelf: 'center',}}>Waiting Rank...</Text>
                 <LottieView
                 style={{
-                    height: width*0.8029,//330w
-                    width:  width*0.8029,//330w
+                    height: width*0.73,//330w
+                    width:  width*0.73,//330w
                     alignSelf: 'center',
                     }}
-                    source={require('../../assets/creatinggame1.json')}
+                    source={require('../../assets/loading_rank5.json')}
                     autoPlay
                     loop={false}
-                    speed={0.5}
+                    speed={1.0}
                     onAnimationFinish={() => {
-                        console.log('Animation Finished!')
-                        this.createRoom(navigate);
+                        //console.log('Animation Finished!')
+                        this.props.navigation.navigate('Rank_Game');
                     }}
                 />
             </View>
@@ -69,4 +80,4 @@ class Creating_Game extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Creating_Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Waiting_Rank);

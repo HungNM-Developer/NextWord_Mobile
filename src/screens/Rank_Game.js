@@ -136,7 +136,7 @@ class Rank_Game extends Component {
                                 {/* <Image style={styles.imageTop1} source={require(this.state.users[0].photo)} /> */}
                             </View>
                             <View>
-                                {/* <Text style={styles.nameTop1}>{this.state.users[0].name}</Text> */}
+                                <Text style={styles.nameTop1}>{this.state.users[0].name}</Text>
                             </View>
                             <View>
                                 {/* <Text style={styles.showWord}>{users[0].word.length}</Text> */}

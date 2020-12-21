@@ -121,6 +121,7 @@ class Play_Game extends React.Component {
             console.log(msg);
             let rid = msg.rid;
             await this.props.fetchRank(rid);
+            this.props.navigation.navigate('Waiting_Rank');
         });
     }
     render() {
