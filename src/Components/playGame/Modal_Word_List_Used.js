@@ -1,105 +1,96 @@
 import React from 'react'
-import {View, Text, TouchableHighlight, StyleSheet,
-    Dimensions, TouchableOpacity, ScrollView} from 'react-native';
+import { ListView } from 'react-native';
+import { View, Text, TouchableHighlight, FlatList, ScrollView, Modal } from 'react-native';
 
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
-export default class Modal_Word_List_Used extends React.Component{
+
+export default class Modal_Word_List_Used extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+         data: this.props.data,  
+        }
+    }
     render() {
-        
+        //console.log(this.state.data);
         return (
-            <View style={styles.container}>
-
-                <View>
-                    <Text style={{
-                        textAlign: 'center',
-                        color: '#fff',
-                        fontWeight: 'bold', fontSize: 35,
-                        paddingBottom:height * 0.0439,//30h
-                    }}>
-                        List Word Used
-                        </Text>
-                </View>
-                <ScrollView>
-                    <Text style={{
-                        color: '#cfcdff',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        paddingBottom:10,
-                        fontSize: width * 0.0608//25w
-                    }}>
-                        NextWord 
-
-                    </Text>
-                    <Text style={{
-                        color: '#cfcdff',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        paddingBottom:10,
-                        fontSize: width * 0.0608//25w
-                    }}>
-                        Display
-                    </Text>
-                    <Text style={{
-                        color: '#cfcdff',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        paddingBottom:10,
-                        fontSize: width * 0.0608//25w
-                    }}>
-                        Year
-                    </Text>
-                </ScrollView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={this.props.visible}
+                swipeArea={50}
+                onRequestClose={() => {
+                    Alert.alert("Modal is closed");
+                }}
+            >
                 <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    paddingTop:10,
+                    flex: 1,
+                    paddingHorizontal: 32,
+                    alignSelf: "center",
+                    marginTop: 200,
+                    backgroundColor: "#FFF",
+                    height: 386,
+                    elevation: 1,
+                    width: 270,
+                    borderRadius: 15
                 }}>
-                    <View>
-                        <TouchableHighlight
-                            onPress={this.props.onPress}
-                            underlayColor="#6600bb"
-                            style={{
-                                width: width*0.4866,//200w
-                                elevation: 4,
-                                backgroundColor: "#505dbc",
-                                paddingVertical: 13,
-                                borderRadius: 25,
-
-                            }}>
-                            <Text style={{
-                                fontWeight: "bold",
-                                color: "#FFF",
-                                textAlign: "center",
-                                fontSize: 20
-                            }}>
-                                Cancel
-                            </Text>
-                        </TouchableHighlight>
+                    <View style={{
+                        flexDirection: "row",
+                        paddingTop: 20,
+                        alignItems: "center"
+                    }}>
+                        <ScrollView  style = {{flex: 1,backgroundColor: 'pink',}}>
+                        {this.state.data.map((item,index) => {
+                            //console.log("test ne "+ item);
+                            <Text key={index}>{item}</Text>
+                        })}
+                        
+                        </ScrollView>
+                        {/* <Text>
+                        
+                        {this.props.data[this.props.data.length - 1 ]}
+                    </Text> */}
+                        {/* <FlatList
+                            data={this.props.data}
+                            renderItem={this.renderText}
+                            keyExtractor = {(item, index) => index.toString()}
+                        /> */}
+                        
                     </View>
-                    
-
+                    <TouchableHighlight
+                        underlayColor="#6600bb"
+                        style={{
+                            width: 200,
+                            marginLeft: 5,
+                            elevation: 2,
+                            marginTop: 25,
+                            backgroundColor: "#44FEA1",
+                            paddingVertical: 13,
+                            borderRadius: 25,
+                            alignSelf: "center"
+                        }}
+                        onPress={this.props.onPress}
+                    >
+                        <Text style={{
+                            fontFamily: "RobotoBold",
+                            color: "#FFF",
+                            textAlign: "center",
+                            fontSize: 18
+                        }}>
+                            Cancel
+                   </Text>
+                    </TouchableHighlight>
                 </View>
-
-            </View>
-
+            </Modal>
         )
     }
+    renderText(text) {
+        console.log(text);
+        return <View><Text style={{
+            fontFamily: "RobotoBold",
+            color: "#4b3ca7",
+            fontSize: 20
+        }}>
+            {text}
+        </Text></View>
+    }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        alignSelf: "center",
-        marginTop: height * 0.1171,//80h
-        backgroundColor: "#6777ef",
-        height: height * 0.73206,//500h
-        elevation: 50,
-        width: width * 0.876,//360w
-        borderRadius: 20,
-        flexDirection: "column",
-        justifyContent: 'space-between',
-        padding: 25,
-    },
-
-})

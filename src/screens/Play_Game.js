@@ -3,7 +3,7 @@ import {
     View, Alert, Modal, StyleSheet,
     Image, ImageBackground, Dimensions,
     TextInput, ScrollView, TouchableHighlight
-    , TouchableOpacity,
+    , TouchableOpacity,Animated,Keyboard
 } from "react-native";
 import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
 import { Menu, Provider, Button, List } from 'react-native-paper';
@@ -15,10 +15,12 @@ import * as Animatable from 'react-native-animatable';
 //component
 import MenuButton from '../Components/MenuButton';
 import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
+import ListCard from '../Components/Player/ListCard';
 import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
 import { connect } from "react-redux";
 import { socket } from "./New_Join_Game";
+
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -30,56 +32,107 @@ const mapStateToProps = (state) => {
 }
 
 class Play_Game extends React.Component {
-    userTotal = this.props.route.params.userCount;
-    constructor(props)
-    {
+    user = this.props.route.params.userInLobby;
+
+    constructor(props) {
         super(props);
         this.state = {
             valueInput: '',
-            usersLeft: this.props.route.params.userCount,
+            usersLeft: this.user,
             modalVisible: false,
             wordStore: [],
+            colorAnswer: new Animated.Value(0.5),
+            turnUser: {turnCounter: 0, user: this.user[0]},
+            flagAnswer: false,
+            flagSubmit: false,
+            colorTurn: '',
         }
-        
-        
     }
     // componentDidMount(){
     //     const userCount = this.props.route.params;
     //     this.setState({userCount: userCount})
     // }
-    submitAnswer()
-    {
-        socket.emit("wordAnswer", {roomPin: this.props.room.roomPin,  word: this.state.valueInput});
-    }
+
+    submitAnswer() {
+        Keyboard.dismiss();
+        this.setState({
+            valueInput: '',
+        })
+        socket.emit("wordAnswer", { roomPin: this.props.room.roomPin, word: this.state.valueInput });
+    };
     static navigationOptions = {
         title: 'Play_Game',
     };
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     };
-    componentDidMount(){
-        console.log(this.props.route.params);
+    wrongAnwer(){
+        Animated.timing(this.state.colorAnswer, { toValue: 1, duration: 250 })
+        .start(() => {Animated.timing( this.state.colorAnswer, { toValue: 0.5, duration: 250, delay: 750 })
+        .start()
+    });
+    };
+    trueAnwer(){
+        Animated.timing(this.state.colorAnswer, { toValue: 0, duration: 250 })
+        .start(() => {Animated.timing( this.state.colorAnswer, { toValue: 0.5, duration: 250, delay: 750 })
+        .start()
+    });
+    };
+    componentDidMount() {
+        
+        //console.log(this.props.route.params);
         socket.on("usersLive", msg => {
             this.setState({
-                usersLeft: msg.length
+                usersLeft: msg
             })
-        })
+        });
+        socket.on("loseUser", msg => {
+            this.wrongAnwer();
+            this.setState({
+                flagAnswer: false,
+            })
+        });
         socket.on("wordStore", msg => {
+            //console.log(msg);
+        
             this.setState({
                 wordStore: msg
             });
-        })
+        });
+        socket.on("turnUser", msg => {
+            //console.log(msg);
+            if(!this.state.flagAnswer){
+                this.setState({
+                    flagAnswer: true,
+                })
+            }else
+            {
+                this.trueAnwer();
+            }
+            if(msg.user.id == this.props.user.id)
+            {
+                this.setState({
+                    flagSubmit: true,
+                })
+            }
+            this.setState({
+                turnUser: msg,
+            })
+
+        });
+        socket.on("endGame", msg => {
+            console.log(msg);
+        });
     }
     render() {
-        //console.log(this.userTotal)
+        //console.log(this.user)
         const { modalVisible } = this.state;
 
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
-        let y = (height * 0.014 * 2) + (height*0.04) + (height*0.03);
+        let y = (height * 0.014 * 2) + (height * 0.04) + (height * 0.03);
         //console.log(y);
         return (
-            
             <Animatable.View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
@@ -90,27 +143,61 @@ class Play_Game extends React.Component {
                             alignItems: "center",
                             //marginTop: height*0.0292,
                         }}
-                            
-                            onPress={() => { this.scroll.scrollTo({ y: y }); y = y *2 }}>
-                            
+
+                            // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
+                            onPress={()=>{this.wrongAnwer()}}
+                            >
+
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
-                            
+
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            //marginTop: height*0.0292,
+                        }}
+
+                            // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
+                            onPress={()=>{this.trueAnwer()}}
+                            >
+
+                            <Icon name="chevron-left" size={width * 0.1094//45w
+                            } color="#ffffff"
+                            />
+
                         </TouchableOpacity>
                         <Text style={{
                             fontSize: width * 0.0608,//25w
                             // color: "#1abc9c",
                             color: "#f2c026",
                             fontWeight: "bold",
-                        }}>{this.state.usersLeft}/{this.userTotal} Players
+                        }}>{this.state.usersLeft.length}/{this.user.length} Players
                             </Text>
 
-                        <MenuButton avatarURL={this.props.user.photo} 
-                        navigation={this.props.navigation}></MenuButton>
+                        <MenuButton avatarURL={this.props.user.photo}
+                            navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <View style={styles.NextWord}>
+                    <Animated.View style={{
+                        marginTop: height * 0.02928,//20h
+                        flexDirection: "column",
+                        //paddingVertical: height * 0.02928,//20h
+                        alignItems: "center",
+                        justifyContent: 'space-around',
+                        // marginBottom: 20,
+                        alignSelf: "center",
+                        height: height * 0.3441,
+                        width: width * 0.73,
+                        borderRadius: 50,
+                        elevation: 10,
+                        backgroundColor: this.state.colorAnswer.interpolate({
+                            inputRange: [0, 0.5, 1],
+                            outputRange:["green","white" ,"red"],
+                        })
+                    }}>
+
 
                         <TimeComponent></TimeComponent>
                         <View >
@@ -122,10 +209,10 @@ class Play_Game extends React.Component {
                         </View>
 
                         <Text style={styles.textNextWord}>
-                            {this.state.wordStore[this.state.wordStore.length]}
+                            {this.state.wordStore[this.state.wordStore.length - 1]}
                         </Text>
 
-                    </View>
+                    </Animated.View>
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -133,63 +220,26 @@ class Play_Game extends React.Component {
                             marginVertical: 5,
                         }}
                         ref={(node) => this.scroll = node}
+
                     >
-                        <ListCard_PlayGame
-                        />
-                        {/* <ListCard_PlayGame
+                        {
+                            this.state.usersLeft.map((item, index) => (
+                                <ListCard key={index} turnUser={this.state.turnUser} you={this.props.user.id} item={item}>
 
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        <ListCard_PlayGame
-
-                        />
-
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        />
-                        
-                        <ListCard_PlayGame
-
-                        /> */}
-
+                                </ListCard>))
+                        }
                     </ScrollView>
 
 
                     <View style={styles.InputSubmit}>
 
                         <TextInput
-                         onChangeText={(value) => this.setState({ valueInput: value })}
-                            placeholder="Enter New Word"
+                            onChangeText={(value) => this.setState({ valueInput: value })}
+                            placeholder="Enter Word"
+                            value={this.state.valueInput}
                             style={styles.TextInputContent}
                         />
-                        <TouchableOpacity onPress={() => this.submitAnswer()}>
+                        <TouchableOpacity disabled={this.state.flagSubmit} onPress={() => this.submitAnswer()}>
                             <Image
                                 style={{
                                     height: width * 0.0729, //30w
@@ -212,20 +262,15 @@ class Play_Game extends React.Component {
                             word list used
                         </Button>
                         <View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
+
+                            <Modal_Word_List_Used
+                                data={this.state.wordStore}
                                 visible={modalVisible}
-                                onRequestClose={() => {
-                                    Alert.alert("Modal is closed");
+                                onPress={() => {
+                                    this.setModalVisible(!modalVisible);
                                 }}
-                            >
-                                <Modal_Word_List_Used
-                                    onPress={() => {
-                                        this.setModalVisible(!modalVisible);
-                                    }}
-                                />
-                            </Modal>
+                            />
+
                         </View>
 
 
@@ -284,7 +329,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: width * 0.1
     },
     buttonStyle: {
-        marginVertical: height*0.02196,//15h
+        marginVertical: height * 0.02196,//15h
         width: width * 0.8,
         paddingVertical: 5,
         borderRadius: 30,
@@ -303,7 +348,7 @@ const styles = StyleSheet.create({
     },
     textNextWord: {
         color: '#5454bd',
-        fontSize: width*0.1338,
+        fontSize: width * 0.1338,
         fontWeight: 'bold',
     },
     ViewContent: {
@@ -333,17 +378,19 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     NextWord: {
-        marginTop: height*0.02928,//20h
+        marginTop: height * 0.02928,//20h
         flexDirection: "column",
-        paddingVertical: height*0.02928,//20h
+        //paddingVertical: height * 0.02928,//20h
         alignItems: "center",
         justifyContent: 'space-around',
         // marginBottom: 20,
         alignSelf: "center",
-        backgroundColor: "#ffffff",
         height: height * 0.3441,
         width: width * 0.73,
         borderRadius: 50,
         elevation: 10,
+    },
+    Wrong: {
+        backgroundColor: "pink",
     }
 });
