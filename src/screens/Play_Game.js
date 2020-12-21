@@ -6,6 +6,7 @@ import {
     , TouchableOpacity,Animated,Keyboard
 } from "react-native";
 import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
+import Modal_Leave_PlayGame from '../Components/playGame/Modal_Leave_PlayGame';
 import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
@@ -43,6 +44,7 @@ class Play_Game extends React.Component {
             valueInput: '',
             usersLeft: this.user,
             modalVisible: false,
+            modalVisible_leave: false,
             wordStore: [],
             colorAnswer: new Animated.Value(0.5),
             turnUser: {turnCounter: 0, user: this.user[0]},
@@ -65,6 +67,9 @@ class Play_Game extends React.Component {
     };
     static navigationOptions = {
         title: 'Play_Game',
+    };
+    setModalVisible_Leave = (visible) => {
+        this.setState({ modalVisible_leave: visible });
     };
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
@@ -126,7 +131,7 @@ class Play_Game extends React.Component {
     render() {
         //console.log(this.user)
         const { modalVisible } = this.state;
-
+        const { modalVisible_leave } = this.state;
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
         let y = (height * 0.014 * 2) + (height * 0.04) + (height * 0.03);
@@ -142,31 +147,35 @@ class Play_Game extends React.Component {
                             alignItems: "center",
                             //marginTop: height*0.0292,
                         }}
-
+                            navigation={this.props.navigation}
                             // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
-                            onPress={()=>{this.wrongAnwer()}}
+                            onPress={() => {                               
+                                this.setModalVisible_Leave(true);
+                            }}
                             >
-
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
 
                         </TouchableOpacity>
-                        <TouchableOpacity style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            //marginTop: height*0.0292,
-                        }}
-
-                            // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
-                            onPress={()=>{this.trueAnwer()}}
+                        <View>
+                            <Modal
+                                animationType="fade"
+                                transparent={true}
+                                visible={modalVisible_leave}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal is closed");
+                                }}
                             >
-
-                            <Icon name="chevron-left" size={width * 0.1094//45w
-                            } color="#ffffff"
-                            />
-
-                        </TouchableOpacity>
+                                <Modal_Leave_PlayGame
+                                    navigation={this.props.navigation}
+                                    onPress={() => {
+                                        this.setModalVisible_Leave(!modalVisible_leave);
+                                    }}
+                                />
+                            </Modal>
+                        </View>
+                        
                         <Text style={{
                             fontSize: width * 0.0608,//25w
                             // color: "#1abc9c",
@@ -191,10 +200,12 @@ class Play_Game extends React.Component {
                         width: width * 0.73,
                         borderRadius: 50,
                         elevation: 10,
-                        backgroundColor: this.state.colorAnswer.interpolate({
+                        borderColor: this.state.colorAnswer.interpolate({
                             inputRange: [0, 0.5, 1],
-                            outputRange:["green","white" ,"red"],
-                        })
+                            outputRange:["#87ffac","#fff" ,"#ff8787"],
+                        }),
+                        borderWidth:3,
+                        backgroundColor: '#fff'
                     }}>
 
 
