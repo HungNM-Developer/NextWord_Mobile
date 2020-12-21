@@ -1,6 +1,6 @@
 import * as ActionTypes from '../ActionType';
 import {baseURL} from '../../shared/baseURL';
-import { roomFail } from './RoomAction';
+
 
 export const rankLoading = () => ({
     type: ActionTypes.RANK_LOADING,
@@ -38,5 +38,5 @@ export const fetchRank = (rid) => (dispatch) => {
     })
     .then(res => res.json())
     .then(res => dispatch(rankGet(res)))
-    .catch(err => dispatch(roomFail(err)));
+    .catch(err => dispatch(rankFail(err)));
 }

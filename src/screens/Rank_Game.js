@@ -15,15 +15,24 @@ import MenuButton from '../Components/MenuButton';
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import CustomHeader from '../Components/CustomHeader';
 import { connect } from "react-redux";
-
+import fetchRank from '../redux/action/RankAction';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const mapDispatchToProps = dispatch => ({
+    fetchRank : () => dispatch(fetchRank())
+})
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        rank: state.rankReducer.rank
     }
 };
 class Rank_Game extends Component {
+    async componentDidMount(){
+        await this.props.fetchRank();
+        console.log(this.props.rank)
+    }
+
     static navigationOptions = ({ navigation }) => ({
         title: "Rank_Game",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.navigate('DrawerOpen')} />,
@@ -356,7 +365,7 @@ class Rank_Game extends Component {
 
 }
 
-export default connect(mapStateToProps)(Rank_Game)
+export default connect(mapStateToProps, mapDispatchToProps)(Rank_Game)
 
 const styles = StyleSheet.create({
     icon: {

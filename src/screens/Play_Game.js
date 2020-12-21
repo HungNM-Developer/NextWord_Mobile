@@ -3,7 +3,7 @@ import {
     View, Alert, Modal, StyleSheet,
     Image, ImageBackground, Dimensions,
     TextInput, ScrollView, TouchableHighlight
-    , TouchableOpacity,
+    , TouchableOpacity,Animated,Keyboard
 } from "react-native";
 import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
 import { Menu, Provider, Button, List } from 'react-native-paper';
@@ -20,6 +20,7 @@ import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
 import { connect } from "react-redux";
 import { socket } from "./New_Join_Game";
+
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -40,15 +41,20 @@ class Play_Game extends React.Component {
             usersLeft: this.user,
             modalVisible: false,
             wordStore: [],
+            colorAnswer: new Animated.Value(0.5),
+            turnUser: {turnCounter: 0, user: this.user[0]},
+            flagAnswer: false,
+            flagSubmit: false,
+            colorTurn: '',
         }
-
-
     }
     // componentDidMount(){
     //     const userCount = this.props.route.params;
     //     this.setState({userCount: userCount})
     // }
+
     submitAnswer() {
+        Keyboard.dismiss();
         this.setState({
             valueInput: '',
         })
@@ -60,31 +66,63 @@ class Play_Game extends React.Component {
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     };
+    wrongAnwer(){
+        Animated.timing(this.state.colorAnswer, { toValue: 1, duration: 250 })
+        .start(() => {Animated.timing( this.state.colorAnswer, { toValue: 0.5, duration: 250, delay: 750 })
+        .start()
+    });
+    };
+    trueAnwer(){
+        Animated.timing(this.state.colorAnswer, { toValue: 0, duration: 250 })
+        .start(() => {Animated.timing( this.state.colorAnswer, { toValue: 0.5, duration: 250, delay: 750 })
+        .start()
+    });
+    };
     componentDidMount() {
+        
         //console.log(this.props.route.params);
         socket.on("usersLive", msg => {
-            console.log(msg);
-            if(msg.length <= 1)
-            {
-                console.log("chuyen trang");
-                this.props.navigation.navigate('Rank_Game');          
-            }
-            else
-            {
-                this.setState({
+            this.setState({
                 usersLeft: msg
             })
-            }
-        })
+        });
+        socket.on("loseUser", msg => {
+            this.wrongAnwer();
+            this.setState({
+                flagAnswer: false,
+            })
+        });
         socket.on("wordStore", msg => {
             //console.log(msg);
+        
             this.setState({
                 wordStore: msg
             });
         });
         socket.on("turnUser", msg => {
             //console.log(msg);
-        })
+            if(!this.state.flagAnswer){
+                this.setState({
+                    flagAnswer: true,
+                })
+            }else
+            {
+                this.trueAnwer();
+            }
+            if(msg.user.id == this.props.user.id)
+            {
+                this.setState({
+                    flagSubmit: true,
+                })
+            }
+            this.setState({
+                turnUser: msg,
+            })
+
+        });
+        socket.on("endGame", msg => {
+            console.log(msg);
+        });
     }
     render() {
         //console.log(this.user)
@@ -95,7 +133,6 @@ class Play_Game extends React.Component {
         let y = (height * 0.014 * 2) + (height * 0.04) + (height * 0.03);
         //console.log(y);
         return (
-
             <Animatable.View style={styles.container}>
                 <ImageBackground
                     source={require("../images/play4.png")}
@@ -107,7 +144,24 @@ class Play_Game extends React.Component {
                             //marginTop: height*0.0292,
                         }}
 
-                            onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}>
+                            // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
+                            onPress={()=>{this.wrongAnwer()}}
+                            >
+
+                            <Icon name="chevron-left" size={width * 0.1094//45w
+                            } color="#ffffff"
+                            />
+
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            //marginTop: height*0.0292,
+                        }}
+
+                            // onPress={() => { this.scroll.scrollTo({ y: y }); y = y * 2 }}
+                            onPress={()=>{this.trueAnwer()}}
+                            >
 
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
@@ -126,7 +180,24 @@ class Play_Game extends React.Component {
                             navigation={this.props.navigation}></MenuButton>
                     </View>
 
-                    <View style={styles.NextWord}>
+                    <Animated.View style={{
+                        marginTop: height * 0.02928,//20h
+                        flexDirection: "column",
+                        //paddingVertical: height * 0.02928,//20h
+                        alignItems: "center",
+                        justifyContent: 'space-around',
+                        // marginBottom: 20,
+                        alignSelf: "center",
+                        height: height * 0.3441,
+                        width: width * 0.73,
+                        borderRadius: 50,
+                        elevation: 10,
+                        backgroundColor: this.state.colorAnswer.interpolate({
+                            inputRange: [0, 0.5, 1],
+                            outputRange:["green","white" ,"red"],
+                        })
+                    }}>
+
 
                         <TimeComponent></TimeComponent>
                         <View >
@@ -141,7 +212,7 @@ class Play_Game extends React.Component {
                             {this.state.wordStore[this.state.wordStore.length - 1]}
                         </Text>
 
-                    </View>
+                    </Animated.View>
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -153,7 +224,7 @@ class Play_Game extends React.Component {
                     >
                         {
                             this.state.usersLeft.map((item, index) => (
-                                <ListCard key={index} you={this.props.user.id} item={item}>
+                                <ListCard key={index} turnUser={this.state.turnUser} you={this.props.user.id} item={item}>
 
                                 </ListCard>))
                         }
@@ -168,7 +239,7 @@ class Play_Game extends React.Component {
                             value={this.state.valueInput}
                             style={styles.TextInputContent}
                         />
-                        <TouchableOpacity onPress={() => this.submitAnswer()}>
+                        <TouchableOpacity disabled={this.state.flagSubmit} onPress={() => this.submitAnswer()}>
                             <Image
                                 style={{
                                     height: width * 0.0729, //30w
@@ -309,15 +380,17 @@ const styles = StyleSheet.create({
     NextWord: {
         marginTop: height * 0.02928,//20h
         flexDirection: "column",
-        paddingVertical: height * 0.02928,//20h
+        //paddingVertical: height * 0.02928,//20h
         alignItems: "center",
         justifyContent: 'space-around',
         // marginBottom: 20,
         alignSelf: "center",
-        backgroundColor: "#ffffff",
         height: height * 0.3441,
         width: width * 0.73,
         borderRadius: 50,
         elevation: 10,
+    },
+    Wrong: {
+        backgroundColor: "pink",
     }
 });
