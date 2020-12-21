@@ -15,11 +15,11 @@ import MenuButton from '../Components/MenuButton';
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import CustomHeader from '../Components/CustomHeader';
 import { connect } from "react-redux";
-import fetchRank from '../redux/action/RankAction';
+import {fetchRank} from '../redux/action/RankAction';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapDispatchToProps = dispatch => ({
-    fetchRank : () => dispatch(fetchRank())
+    fetchRank: (rid) => dispatch(fetchRank(rid))
 })
 const mapStateToProps = state => {
     return {
@@ -28,11 +28,26 @@ const mapStateToProps = state => {
     }
 };
 class Rank_Game extends Component {
-    async componentDidMount(){
-        await this.props.fetchRank();
-        console.log(this.props.rank)
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            users : [],
+        }
     }
+    async componentDidMount(){
+        await this.props.fetchRank("tEyNyxm9zezrxA8jFgMp");
+        //console.log(this.props.rank)
+        let userstemp = this.props.rank.users.sort((a,b)=>a.places-b.places);
+        console.log(userstemp);
+        this.setState({
+            users: userstemp
+        })
+    }
+    compare()
+    {
 
+    }
     static navigationOptions = ({ navigation }) => ({
         title: "Rank_Game",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.navigate('DrawerOpen')} />,
@@ -41,10 +56,11 @@ class Rank_Game extends Component {
                 source={require('../images/logo-small.png')}
                 style={[styles.icon]}
             />
-
     })
 
     render() {
+        
+        
         return (
 
             // <Container>
@@ -117,13 +133,13 @@ class Rank_Game extends Component {
                             <Icon name="crown" size={height * 0.043//30h
                             } color="#ffd700" />
                             <View style={{}}>
-                                <Image style={styles.imageTop1} source={require('../images/bgg.png')} />
+                                {/* <Image style={styles.imageTop1} source={require(this.state.users[0].photo)} /> */}
                             </View>
                             <View>
-                                <Text style={styles.nameTop1}>Name A</Text>
+                                {/* <Text style={styles.nameTop1}>{this.state.users[0].name}</Text> */}
                             </View>
                             <View>
-                                <Text style={styles.showWord}>20w</Text>
+                                {/* <Text style={styles.showWord}>{users[0].word.length}</Text> */}
                             </View>
                         </View>
 

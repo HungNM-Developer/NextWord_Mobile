@@ -9,7 +9,7 @@ import Modal_Word_List_Used from '../Components/playGame/Modal_Word_List_Used';
 import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
-
+import fetchRank from '../redux/action/RankAction';
 import * as Animatable from 'react-native-animatable';
 
 //component
@@ -24,6 +24,9 @@ import { socket } from "./New_Join_Game";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
+const mapDispatchToProps = dispatch => ({
+    fetchRank : (rid) => dispatch(fetchRank(rid))
+})
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
@@ -109,19 +112,15 @@ class Play_Game extends React.Component {
             {
                 this.trueAnwer();
             }
-            if(msg.user.id == this.props.user.id)
-            {
-                this.setState({
-                    flagSubmit: true,
-                })
-            }
             this.setState({
                 turnUser: msg,
             })
 
         });
-        socket.on("endGame", msg => {
+        socket.on("endGame", async msg => {
             console.log(msg);
+            let rid = msg.rid;
+            await this.props.fetchRank(rid);
         });
     }
     render() {
@@ -239,7 +238,7 @@ class Play_Game extends React.Component {
                             value={this.state.valueInput}
                             style={styles.TextInputContent}
                         />
-                        <TouchableOpacity disabled={this.state.flagSubmit} onPress={() => this.submitAnswer()}>
+                        <TouchableOpacity  onPress={() => this.submitAnswer()}>
                             <Image
                                 style={{
                                     height: width * 0.0729, //30w
@@ -282,7 +281,7 @@ class Play_Game extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(Play_Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Play_Game);
 
 const styles = StyleSheet.create({
     container: {

@@ -17,9 +17,10 @@ export const rankFail = (err) => ({
 });
 
 export const fetchRank = (rid) => (dispatch) => {
+    console.log(rid);
     dispatch(rankLoading());
     return fetch(baseURL + '/room/' + rid, {
-        method: 'POST', headers: {
+        method: 'GET', headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
