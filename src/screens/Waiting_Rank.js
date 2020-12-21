@@ -8,17 +8,7 @@ import io from 'socket.io-client';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const mapDispatchToProps = dispatch => ({
-    fetchRoomPin: () => dispatch(fetchRoomPin())
-  });
-import { socket } from './New_Join_Game';
 
-const mapStateToProps = state => {
-    return {
-        user: state.userReducer.user,
-        room: state.roomReducer.roomPin,
-    }
-}
 
 class Waiting_Rank extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -34,18 +24,11 @@ class Waiting_Rank extends React.Component {
     // static navigationOptions = {
     //     title: 'Waiting_Rank',
     // };
-    constructor(props) {
-        super();
-    }
-    async createRoom(navigate) {
-        await this.props.fetchRoomPin();
-        //console.log("check" + this.props.room.roomPin);
-        socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
-        navigate('Player');
-      }
+    
+
       
     render() {
-        const { navigate, state } = this.props.navigation;
+        //const { navigate, state } = this.props.navigation;
         return (
             <View
                 style={{
@@ -72,7 +55,7 @@ class Waiting_Rank extends React.Component {
                     speed={1.0}
                     onAnimationFinish={() => {
                         //console.log('Animation Finished!')
-                        this.props.navigation.navigate('Rank_Game');
+                        this.props.navigation.navigate('Rank_Game', this.props.route.params);
                     }}
                 />
             </View>
@@ -80,4 +63,4 @@ class Waiting_Rank extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Waiting_Rank);
+export default Waiting_Rank;

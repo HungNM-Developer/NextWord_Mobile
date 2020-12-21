@@ -115,13 +115,12 @@ class Play_Game extends React.Component {
             this.setState({
                 turnUser: msg,
             })
-
         });
         socket.on("endGame", async msg => {
             console.log(msg);
             let rid = msg.rid;
-            await this.props.fetchRank(rid);
-            this.props.navigation.navigate('Waiting_Rank');
+            // await this.props.fetchRank(rid);
+            this.props.navigation.navigate('Waiting_Rank', {rid: rid});
         });
     }
     render() {

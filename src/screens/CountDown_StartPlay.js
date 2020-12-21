@@ -45,7 +45,7 @@ class CountDown_StartPlay extends React.Component {
                     // speed={0.5}
                     onAnimationFinish={() => {
                         console.log('Animation Finished!');
-                        socket.emit('startPress', this.props.room.roomPin);
+                        
                         this.props.navigation.replace('Play_Game', this.props.route.params);
                     }}
                 />

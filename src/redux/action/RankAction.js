@@ -26,6 +26,8 @@ export const fetchRank = (rid) => (dispatch) => {
         },
     }).then(res => {
         if(res.ok){
+            //console.log("test");
+            //console.log(res);
             return res;
         }
         else{

@@ -39,6 +39,7 @@ class Player extends Component {
     }
     startClick() {
         this.props.navigation.navigate('CountDown_StartPlay', {userInLobby: this.state.userInLobby});
+        socket.emit('startPress', this.props.room.roomPin);
     }
     static navigationOptions = {
         title: 'Player',
@@ -51,6 +52,9 @@ class Player extends Component {
                 userInLobby: msg,
             })
         });
+        socket.on('start', msg => {
+            this.props.navigation.navigate('CountDown_StartPlay', {userInLobby: this.state.userInLobby});
+        })
     };
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
