@@ -30,6 +30,7 @@ export default class TimeComponent extends Component {
 const style = StyleSheet.create({
 
     textCount: {
+        borderRadius: 30,
         fontSize: width * 0.0851,//35w
         // borderRadius: 100,
         backgroundColor: "#fff",

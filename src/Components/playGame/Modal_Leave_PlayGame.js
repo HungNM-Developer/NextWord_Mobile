@@ -9,13 +9,12 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 
-class Modal_Leave_Room extends React.Component {
+class Modal_Leave_PlayGame extends React.Component {
     
     render() {
         const { navigate } = this.props.navigation; 
         return (
             <View style={styles.container}>
-
                 <View>
                     <Text style={{
                         textAlign: 'center',
@@ -33,8 +32,7 @@ class Modal_Leave_Room extends React.Component {
                         textAlign: 'center',
                         fontSize: width * 0.0486//20w
                     }}>
-                        Leaving the game as host will
-                        end the game for everyone!
+                        Leaving the game you will lose all current points!
                     </Text>
                 </View>
                 <View style={{
@@ -83,7 +81,7 @@ class Modal_Leave_Room extends React.Component {
                                 fontWeight: "bold",
                             }}>
                                 Leave
-                        </Text>
+                            </Text>
                         </TouchableHighlight>
                     </View>
 
@@ -94,7 +92,7 @@ class Modal_Leave_Room extends React.Component {
         )
     }
 }
-export default Modal_Leave_Room;
+export default Modal_Leave_PlayGame;
 
 const styles = StyleSheet.create({
     container: {

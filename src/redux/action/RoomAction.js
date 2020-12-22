@@ -17,7 +17,7 @@ export const roomFail = (err) => ({
 
 export const fetchRoomPin = () => (dispatch) => {
     dispatch(roomLoading());
-    console.log(baseURL);
+    //console.log(baseURL);
     return fetch(baseURL + '/newroom', {
         method: 'POST', headers: {
             Accept: 'application/json',

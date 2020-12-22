@@ -15,15 +15,62 @@ import MenuButton from '../Components/MenuButton';
 import { IconButton, Colors, Button, } from 'react-native-paper';
 import CustomHeader from '../Components/CustomHeader';
 import { connect } from "react-redux";
-
+import { fetchRank } from '../redux/action/RankAction';
+import Waiting_Rank from "./Waiting_Rank";
+import { Room } from "../models/Room";
+import Rank_Cart from "../Components/Rank_Game/Rank_Cart";
+import { FlatList } from "react-native-gesture-handler";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const mapDispatchToProps = dispatch => ({
+    fetchRank: (rid) => dispatch(fetchRank(rid))
+})
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        rank: state.rankReducer.rank
     }
 };
 class Rank_Game extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user1: "",
+            user2: '',
+            user3: '',
+            user4: '',
+            users: [],
+        }
+    }
+    
+    async componentDidMount() {
+        console.log(this.props.route.params.rid);
+        await this.props.fetchRank(this.props.route.params.rid);
+        //console.log(this.props.rank)
+        //this.props.rank.users.sort((a, b) => a.places - b.places);
+        //console.log("test");
+        //console.log(this.props.rank.users[0].name);
+        //fix error can not get undifine array object
+        let rank = this.props.rank;
+        this.setState({
+            user1: rank.users[0],
+            length1: rank.users[0].word.length,
+            user2: rank.users[1],
+            length2: rank.users[1].word.length,
+            users: rank.users,
+            // user3: rank.users[2],
+            // length3: rank.users[2].word.length,
+        });
+        if(!rank.users[2])
+        {
+            this.setState({
+                user3: rank.users[2],
+                length3: rank.users[2].word.length,
+            });
+        }    
+    }
+
     static navigationOptions = ({ navigation }) => ({
         title: "Rank_Game",
         headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.navigate('DrawerOpen')} />,
@@ -32,331 +79,134 @@ class Rank_Game extends Component {
                 source={require('../images/logo-small.png')}
                 style={[styles.icon]}
             />
-
     })
-
+    renderCart(item,index){
+        return <Rank_Cart item={item} index={index}></Rank_Cart>
+    }
     render() {
-        return (
+      
+            return (
 
-            // <Container>
+                // <Container>
 
-            //     <CustomHeader
-            //         title="Rank_Game"
-            //         drawerOpen={() => this.props.navigation.navigate("DrawerOpen")}
-            //     />
-            //     <Content contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}>
-            //         <Button
-            //             full
-            //             onPress={() => this.props.navigation.navigate('New_Game')}>
-            //             <Text style={{ color: 'white' }}>Go to Home screen</Text>
-            //         </Button>
-            //     </Content>
-            // </Container>
+                //     <CustomHeader
+                //         title="Rank_Game"
+                //         drawerOpen={() => this.props.navigation.navigate("DrawerOpen")}
+                //     />
+                //     <Content contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}>
+                //         <Button
+                //             full
+                //             onPress={() => this.props.navigation.navigate('New_Game')}>
+                //             <Text style={{ color: 'white' }}>Go to Home screen</Text>
+                //         </Button>
+                //     </Content>
+                // </Container>
 
-            <View style={styles.container}>
-                <ImageBackground
-                    source={require("../images/back2.png")}
-                    style={styles.image}>
-                    <View>
-                        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
-                    </View>
-                    <View style={styles.header}>
-                        <TouchableOpacity style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                         }}
-                            onPress={() => this.props.navigation.navigate("New_Join_Game")}>
-                            {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
-                            <Icon name="chevron-left" size={width*0.1094//45w
-                            } color="#ffffff" 
-                            />
-                            {/* <Text style={{
+                <View style={styles.container}>
+                    <ImageBackground
+                        source={require("../images/back2.png")}
+                        style={styles.image}>
+                        <View>
+                            <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+                        </View>
+                        <View style={styles.header}>
+                            <TouchableOpacity style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                            }}
+                                onPress={() => this.props.navigation.navigate("New_Join_Game")}>
+                                {/* <Image source={require("../images/17.png")} style={styles.imageBack} /> */}
+                                <Icon name="chevron-left" size={width * 0.1094//45w
+                                } color="#ffffff"
+                                />
+                                {/* <Text style={{
                                 color:'#ffffff',
                                 fontSize:width * 0.0486, 
                                 fontWeight:'bold'
                                 }}>
                                 Back
                             </Text> */}
-                        </TouchableOpacity>
-                        <MenuButton avatarURL={this.props.user.photo}
-                        navigation={this.props.navigation}></MenuButton>
-                        {/* <MenuButton style={styles.menuAvatar}></MenuButton> */}
-                    </View>
-                    <Animatable.View style={styles.Header_Rank_Top}
-                    animation="zoomInDown" duration={2000} delay={1000}>
-                        <View style={styles.Top2}>
-                            <View>
-                                <Text style={{
-                                    fontSize: width * 0.0608,//25w
-                                    color: "#dcdcdc",
-                                }}>
-                                    2
+                            </TouchableOpacity>
+                            <MenuButton avatarURL={this.props.user.photo}
+                                navigation={this.props.navigation}></MenuButton>
+                            {/* <MenuButton style={styles.menuAvatar}></MenuButton> */}
+                        </View>
+                        <Animatable.View style={styles.Header_Rank_Top}
+                            animation="zoomInDown" duration={2000} delay={1000}>
+                            <View style={styles.Top2}>
+                                <View>
+                                    <Text style={{
+                                        fontSize: width * 0.0608,//25w
+                                        color: "#dcdcdc",
+                                    }}>
+                                        2
                                 </Text>
+                                </View>
+                                <View style={{}}>
+                                    <Image style={styles.imageTop2} source={{uri:this.state.user2.photo}} />
+                                </View>
+                                <View>
+                                    <Text style={styles.nameTop2}>{this.state.user2.name}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.showWord}>{this.state.length2}w</Text>
+                                </View>
                             </View>
-                            <View style={{}}>
-                                <Image style={styles.imageTop2} source={require('../images/images.png')} />
-                            </View>
-                            <View>
-                                <Text style={styles.nameTop2}>Name B</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.showWord}>15w</Text>
-                            </View>
-                        </View>
 
-                        <View style={styles.Top1}>
-                            <Icon name="crown" size={height * 0.043//30h
-                            } color="#ffd700" />
-                            <View style={{}}>
-                                <Image style={styles.imageTop1} source={require('../images/bgg.png')} />
+                            <View style={styles.Top1}>
+                                <Icon name="crown" size={height * 0.043//30h
+                                } color="#ffd700" />
+                                <View style={{}}>
+                                    <Image style={styles.imageTop1} source={{uri:this.state.user1.photo}} />
+                                </View>
+                                <View>
+                                    <Text style={styles.nameTop1}>{this.state.user1.name}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.showWord}>{this.state.length1}w</Text>
+                                </View>
                             </View>
-                            <View>
-                                <Text style={styles.nameTop1}>Name A</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.showWord}>20w</Text>
-                            </View>
-                        </View>
 
-                        <View style={styles.Top3}>
-                            <View>
-                                <Text style={{
-                                    fontSize: width * 0.0608,//25w
-                                    color: "#cd853f",
-                                }}>
-                                    3
+                            <View style={styles.Top3}>
+                                <View>
+                                    <Text style={{
+                                        fontSize: width * 0.0608,//25w
+                                        color: "#cd853f",
+                                    }}>
+                                        3
                                 </Text>
+                                </View>
+                                <View style={{}}>
+                                    <Image style={styles.imageTop3} source={{uri:this.state.user3.photo ? this.state.user3.photo : ""}} />
+                                </View>
+                                <View>
+                                    <Text style={styles.nameTop3}>{this.state.user3.name ? this.state.user3.name : ""}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.showWord}>{this.state.length3 ? this.state.length3 : ""}w</Text>
+                                </View>
                             </View>
-                            <View style={{}}>
-                                <Image style={styles.imageTop3} source={require('../images/1.jpg')} />
-                            </View>
-                            <View>
-                                <Text style={styles.nameTop3}>Name C</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.showWord}>10w</Text>
-                            </View>
+                        </Animatable.View>
+
+                        <View style={{ flex: 2, marginTop: 40, }}>
+                            <ScrollView
+                                showsVerticalScrollIndicator={false}>
+                                <FlatList
+                                 data = {this.state.users}
+                                 renderItem={this.renderCart}
+                                 keyExtractor={item => item.id}
+                                 >
+                                     </FlatList>
+                            </ScrollView>
                         </View>
-                    </Animatable.View>
-
-                    <View style={{ flex: 2, marginTop: 40,}}>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}>
-                            <Animatable.View style={styles.list_Rank}
-                            animation="bounceInRight" duration={2000} delay={1000}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>4</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: 55,
-                                                height: 55,
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </Animatable.View>
-
-                            <View style={styles.list_Rank}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>5</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: width*0.13382,//55w
-                                                height: width*0.13382,//55w
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={styles.list_Rank}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>6</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: 55,
-                                                height: 55,
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={styles.list_Rank}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>7</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: 55,
-                                                height: 55,
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={styles.list_Rank}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>8</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: 55,
-                                                height: 55,
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <View style={styles.list_Rank}>
-                                <View style={{}}>
-                                    <Text style={styles.number_List_Rank}>9</Text>
-                                </View>
-                                <View style={styles.card_list_Rank}>
-                                    <View style={{
-                                        alignItems: 'center',
-                                        flexDirection: "row",
-                                    }}>
-                                        <View style={{ paddingHorizontal: 10 }}>
-                                            <Image style={{
-                                                width: 55,
-                                                height: 55,
-                                                borderRadius: 30,
-                                            }} source={require('../images/1.jpg')} />
-                                        </View>
-                                        <View style={{ paddingLeft: 10 }}>
-                                            <Text style={{
-                                                fontSize: width * 0.0535,//22w
-                                                color: "#f8f8fe",
-                                            }}>Name D</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{
-                                        flex: 1,
-                                        paddingRight: 15,
-                                        flexDirection: "row",
-                                        justifyContent: 'flex-end'
-                                    }}>
-                                        <Text style={styles.showWord}>10w</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </ScrollView>
-                    </View>
-                </ImageBackground>
-
-            </View>
-        )
-    }
-
+                    </ImageBackground>
+                </View>
+            )
+        }
+    
 }
 
-export default connect(mapStateToProps)(Rank_Game)
+export default connect(mapStateToProps, mapDispatchToProps)(Rank_Game)
 
 const styles = StyleSheet.create({
     icon: {
@@ -397,7 +247,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        
+
     },
     Top1: {
         alignItems: "center",
@@ -409,19 +259,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flex: 1,
         flexDirection: 'column',
-        marginTop: height*0.0292,
+        marginTop: height * 0.0292,
     },
     Top3: {
         alignItems: "center",
         flex: 1,
         flexDirection: 'column',
-        marginTop: height*0.0292,
+        marginTop: height * 0.0292,
     },
     imageTop2: {
         shadowColor: '#000',
         shadowOpacity: 5.5,
-        width: width*0.1827, //75w
-        height: width*0.1827, //75w
+        width: width * 0.1827, //75w
+        height: width * 0.1827, //75w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#dcdcdc'
@@ -429,8 +279,8 @@ const styles = StyleSheet.create({
     imageTop1: {
         shadowColor: '#000',
         shadowOpacity: 5.5,
-        width: width*0.2311,//95w
-        height: width*0.2311,//95w
+        width: width * 0.2311,//95w
+        height: width * 0.2311,//95w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#ffd700'
@@ -438,8 +288,8 @@ const styles = StyleSheet.create({
     imageTop3: {
         shadowColor: '#000',
         shadowOpacity: 5.5,
-        width: width*0.1827, //75w
-        height: width*0.1827, //75w
+        width: width * 0.1827, //75w
+        height: width * 0.1827, //75w
         borderRadius: 50,
         borderWidth: width * 0.008,
         borderColor: '#cd853f'
@@ -475,8 +325,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         justifyContent: 'space-evenly',
-        marginTop: height*0.015,
-        marginBottom:height*0.015,
+        marginTop: height * 0.015,
+        marginBottom: height * 0.015,
     },
     number_List_Rank: {
         color: "#5450ba",
@@ -486,7 +336,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: 'space-around',
-        padding: width*0.0243,
+        padding: width * 0.0243,
         backgroundColor: "#5450ba",
         width: '80%',
         borderRadius: 50,

@@ -45,7 +45,7 @@ class Creating_Game extends React.Component {
                 }}
             >
                 <Text style={{
-                    color: '#ffffff',
+                    color: '#ffd700',
                     fontWeight:'bold',
                     fontSize:width*0.08516,//35w
                     alignSelf: 'center',}}>Creating Game...</Text>
