@@ -3,6 +3,7 @@ import {
     View, Text, Alert, Modal, Image, TextInput,
     ImageBackground, Dimensions, StyleSheet
 } from "react-native";
+import LottieView from 'lottie-react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView, TouchableOpacity, TouchableHighlight } from "react-native-gesture-handler";
 import { IconButton, Colors, Button, } from 'react-native-paper';
@@ -49,6 +50,9 @@ class Join_Game extends React.Component {
                 <ImageBackground
                     source={require("../images/join9.png")}
                     style={styles.image}>
+                        
+
+                        
                     <View style={{
                         flex: 2,
                         flexDirection: "row",
@@ -56,11 +60,10 @@ class Join_Game extends React.Component {
                         paddingTop: height * 0.0585,//40h 
                         paddingRight: width * 0.073,//30w
                     }}>
-
                         <MenuButton avatarURL={this.props.user.photo}
                         navigation={this.props.navigation}></MenuButton>
                     </View>
-
+                    
                     <View style={styles.headerContent}
                     animation="fadeInDown" duration={2000} delay={1000}>
                         <Text
@@ -75,7 +78,7 @@ class Join_Game extends React.Component {
                             style={styles.ViewContent}>
                             <Image
                                 source={require("../images/search.png")}
-                                style={{ height: height * 0.022, width: width * 0.036 }}
+                                style={{ height: width * 0.06083, width: width * 0.0486 }}
                             />
                             <TextInput
                                 onChangeText={(value) => this.setState({ value })}
@@ -92,7 +95,8 @@ class Join_Game extends React.Component {
                         </Button>
                         <TouchableOpacity style={{
                             flexDirection: "row",
-                            justifyContent: "center", marginTop: height * 0.065,//45h
+                            justifyContent: "center", 
+                            marginTop: height * 0.0878,//60h
                         }}>
                             <Button
                                 onPress={() => navigate(
@@ -104,6 +108,7 @@ class Join_Game extends React.Component {
                             </Button>
                         </TouchableOpacity>
                     </View>
+                    
                 </ImageBackground>
             </View>
         );
@@ -139,6 +144,7 @@ const styles = StyleSheet.create({
     headerContent: {
         flex: 1,
         alignItems: "center",
+        
     },
     TextheaderContent: {
         fontSize: height * 0.087,//60h
@@ -146,7 +152,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     Content: {
-        paddingHorizontal: width * 0.048,//20w
+        paddingHorizontal: 25,
         flex: 5,
         marginTop: height * 0.109,//75h
     },
@@ -156,12 +162,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         borderRadius: 60,
         alignItems: "center",
-        paddingVertical: height * 0.014,//10h
+        paddingVertical: 5,
+        
         paddingHorizontal: width * 0.048,//20w
     },
     TextInputContent: {
         paddingHorizontal: width * 0.072,//30w
-        fontSize: width * 0.06,//25
+        fontSize: 25,
         color: "#522289",
         fontWeight: 'bold',
     },
@@ -176,10 +183,17 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         borderRadius: 50,
-        backgroundColor: "#fff",
-        padding: height * 0.014,
-        marginVertical: height * 0.029,//20h
-        elevation: 10,
+    backgroundColor: "#fff",
+    paddingVertical: height * 0.007,//5h
+    marginVertical: height * 0.0219,//15h
+    
+    paddingHorizontal: width * 0.048,//20w
+    elevation: 10,
+        // borderRadius: 50,
+        // backgroundColor: "#fff",
+        // padding: height * 0.014,
+        // marginVertical: height * 0.029,//20h
+        // elevation: 10,
     },
     titleStyle: {
         fontSize: width * 0.06,//25
