@@ -10,8 +10,8 @@ import Modal_Leave_PlayGame from '../Components/playGame/Modal_Leave_PlayGame';
 import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
-import fetchRank from '../redux/action/RankAction';
-import nextUser from '../redux/action/GameAction';
+import {fetchRank} from '../redux/action/RankAction';
+import {nextUser} from '../redux/action/GameAction';
 import * as Animatable from 'react-native-animatable';
 
 //component
@@ -48,7 +48,7 @@ class Play_Game extends React.Component {
             usersLeft: this.user,
             modalVisible: false,
             modalVisible_leave: false,
-            wordStore: ['111','222'],
+            wordStore: [],
             colorAnswer: new Animated.Value(0.5),
             turnUser: {turnCounter: 0, user: this.user[0]},
             flagAnswer: false,
@@ -127,9 +127,10 @@ class Play_Game extends React.Component {
             //this.props.nextUser(msg);
         });
         socket.on("endGame", async msg => {
+            console.log("end Game");
             console.log(msg);
             let rid = msg.rid;
-            await this.props.fetchRank(rid);
+            this.props.fetchRank(rid);
             this.props.navigation.navigate('Waiting_Rank', {rid: rid});
         });
     }

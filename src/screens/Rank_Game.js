@@ -46,7 +46,7 @@ class Rank_Game extends Component {
     
     async componentDidMount() {
         console.log(this.props.route.params.rid);
-        await this.props.fetchRank(this.props.route.params.rid);
+        //await this.props.fetchRank(this.props.route.params.rid);
         //console.log(this.props.rank)
         this.props.rank.users.sort((a, b) => a.places - b.places);
         //console.log("test");
