@@ -45,6 +45,7 @@ export const joinRoomPin = (rid) => (dispatch) => {
 
 export const fetchRoomPin = (uid) => (dispatch) => {
     dispatch(roomLoading());
+    console.log('----------uid---------');
     console.log(uid);
     return fetch(baseURL + '/newroom', {
         method: 'POST', headers: {

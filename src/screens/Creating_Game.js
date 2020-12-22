@@ -28,7 +28,9 @@ class Creating_Game extends React.Component {
         super();
     }
     async createRoom(navigate) {
-        await this.props.fetchRoomPin();
+        //
+        
+        //await this.props.fetchRoomPin();
         //console.log("check" + this.props.room.roomPin);
         socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
         navigate('Player');

@@ -87,9 +87,7 @@ class Player extends Component {
                             <Icon name="chevron-left" size={width * 0.1094//45w
                             } color="#ffffff"
                             />
-
                         </TouchableOpacity>
-
                         <View>
                             <Modal
                                 animationType="fade"
@@ -191,16 +189,17 @@ class Player extends Component {
                     </ScrollView>
                     <View style={{}}>
                         <Button
+                        disabled={this.props.room.ownerId !== this.props.user.id}
                             color="#5454bd"
                             icon={require('../images/finish.png')}
                             mode="contained"
                             onPress={() => this.startClick()}>
                             <Text style={{
-                                color: '#FFF',
+                                color: this.props.room.ownerId === this.props.user.id ? '#FFF' : "#b1a7b9",
                                 fontSize: width * 0.0608,
 
                             }}>
-                                Start
+                                {this.props.room.ownerId === this.props.user.id ? 'Start' : 'Waiting...'}
                         </Text>
                         </Button>
                     </View>

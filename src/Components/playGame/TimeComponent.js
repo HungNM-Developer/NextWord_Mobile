@@ -8,7 +8,7 @@ export default class TimeComponent extends Component {
     {
         super(props);
         this.state = {
-            time: 10
+            time: 15
         }
         socket.on('time', time => {
             this.setState(

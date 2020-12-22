@@ -42,18 +42,17 @@ class New_Join_Game extends React.Component {
   };
 
   async createRoom(navigate) {
+    console.log("------check user-------");
+    console.log(this.props.user.id);
     await this.props.fetchRoomPin(this.props.user.id);
     //console.log("check" + this.props.room.roomPin);
-    socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
+    //socket.emit('joinRoom', this.props.room.roomPin, this.props.user );
     navigate('Creating_Game');
   }
 
   componentDidMount() {
     socket = io(baseURL);
   }
-
-
-  
   render() {
     const { modalVisible } = this.state;
     console.log('height' + height)

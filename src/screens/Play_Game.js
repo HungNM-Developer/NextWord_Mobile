@@ -48,7 +48,7 @@ class Play_Game extends React.Component {
             usersLeft: this.user,
             modalVisible: false,
             modalVisible_leave: false,
-            wordStore: [],
+            wordStore: ['111','222'],
             colorAnswer: new Animated.Value(0.5),
             turnUser: {turnCounter: 0, user: this.user[0]},
             flagAnswer: false,
@@ -58,8 +58,8 @@ class Play_Game extends React.Component {
         
     }
     componentDidMount(){
-        console.log('check redux add');
-        console.log(this.state.turnUser);
+        //console.log('check redux add');
+        //console.log(this.state.turnUser);
         this.props.nextUser(this.state.turnUser);
     }
 
@@ -124,13 +124,13 @@ class Play_Game extends React.Component {
             }
             console.log("turnUser")
             console.log(msg);
-            this.props.nextUser(msg);
+            //this.props.nextUser(msg);
         });
         socket.on("endGame", async msg => {
             console.log(msg);
             let rid = msg.rid;
-            // await this.props.fetchRank(rid);
-            //this.props.navigation.navigate('Waiting_Rank', {rid: rid});
+            await this.props.fetchRank(rid);
+            this.props.navigation.navigate('Waiting_Rank', {rid: rid});
         });
     }
     render() {
@@ -287,10 +287,7 @@ class Play_Game extends React.Component {
                                     this.setModalVisible(!modalVisible);
                                 }}
                             />
-
                         </View>
-
-
                     </View>
                 </ImageBackground>
             </Animatable.View>

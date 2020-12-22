@@ -68,8 +68,8 @@ import * as Animatable from 'react-native-animatable';
   }
   render() {
     // let id = this.props.turnUser.user;
-    console.log("test id");
-    console.log(this.props.turnUser);
+    //console.log("test id");
+    //console.log(this.props.turnUser);
     return (
       <Animatable.View animation="bounceInRight" duration={2000} delay={1000}>
         <TouchableOpacity

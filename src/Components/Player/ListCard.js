@@ -57,7 +57,7 @@ export default class ListCard extends React.Component {
   </Text>
   }
   render() {
-    console.log(this.props.turnUser);
+    //console.log(this.props.turnUser);
     return (
       <Animatable.View animation="bounceInRight" duration={2000} delay={1000}>
         <TouchableOpacity
