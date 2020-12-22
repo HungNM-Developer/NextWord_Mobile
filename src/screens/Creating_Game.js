@@ -16,7 +16,7 @@ import { socket } from './New_Join_Game';
 const mapStateToProps = state => {
     return {
         user: state.userReducer.user,
-        room: state.roomReducer.roomPin,
+        room: state.roomReducer.room,
     }
 }
 

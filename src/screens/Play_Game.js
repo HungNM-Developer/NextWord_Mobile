@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
-        room: state.roomReducer.roomPin,
+        room: state.roomReducer.room,
         turnUser: state.gameReducer.turnUser
     }
 }

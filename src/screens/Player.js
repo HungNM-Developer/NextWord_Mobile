@@ -16,7 +16,7 @@ import Modal_Leave_Room from '../Components/Player/Modal_Leave_Room';
 const mapStateToProps = state => {
     return {
         user: state.userReducer.user,
-        room: state.roomReducer.roomPin,
+        room: state.roomReducer.room,
     }
 }
 const width = Dimensions.get("window").width;

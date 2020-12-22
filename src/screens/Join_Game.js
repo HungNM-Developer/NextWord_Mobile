@@ -10,7 +10,7 @@ import MenuButton from '../Components/MenuButton';
 import * as Animatable from 'react-native-animatable';
 import { socket } from './New_Join_Game';
 import { connect } from "react-redux";
-import { joinRoom } from '../redux/action/RoomAction';
+import { joinRoom, joinRoomPin } from '../redux/action/RoomAction';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapStateToProps = state => {
@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    joinRoom: (roomPin) => dispatch(joinRoom({roomPin: roomPin}))
+    joinRoomPin: (roomPin) => dispatch(joinRoomPin(roomPin))
   });
 
 class Join_Game extends React.Component {
@@ -31,9 +31,9 @@ class Join_Game extends React.Component {
         this.state = { value: '' };
     }
 
-    joinClick() {
+    async joinClick() {
         // console.log("check " + this.state.value);
-        this.props.joinRoom(this.state.value);
+        await this.props.joinRoomPin(this.state.value);
         socket.emit('joinRoom', this.state.value, this.props.user);
         this.props.navigation.navigate('Player');
 

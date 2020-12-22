@@ -15,12 +15,12 @@ import MenuButton from "../Components/MenuButton";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const mapDispatchToProps = dispatch => ({
-  fetchRoomPin: () => dispatch(fetchRoomPin())
+  fetchRoomPin: (uid) => dispatch(fetchRoomPin(uid))
 });
 const mapStateToProps = state => {
   return {
     user: state.userReducer.user,
-    room: state.roomReducer.roomPin
+    room: state.roomReducer.room
   }
 };
 
@@ -42,14 +42,18 @@ class New_Join_Game extends React.Component {
   };
 
   async createRoom(navigate) {
-    await this.props.fetchRoomPin();
+    await this.props.fetchRoomPin(this.props.user.id);
     //console.log("check" + this.props.room.roomPin);
     socket.emit('joinRoom', this.props.room.roomPin, this.props.user);
     navigate('Creating_Game');
   }
+
   componentDidMount() {
     socket = io(baseURL);
   }
+
+
+  
   render() {
     const { modalVisible } = this.state;
     console.log('height' + height)
