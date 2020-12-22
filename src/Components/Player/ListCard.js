@@ -57,6 +57,7 @@ export default class ListCard extends React.Component {
   </Text>
   }
   render() {
+    console.log(this.props.turnUser);
     return (
       <Animatable.View animation="bounceInRight" duration={2000} delay={1000}>
         <TouchableOpacity
@@ -65,7 +66,7 @@ export default class ListCard extends React.Component {
           
           alignSelf: "center",
           
-          backgroundColor: "#5450bb",
+          backgroundColor:  "#5450bb",
           elevation: 8,
           width: '90%',
           borderRadius: 50,
@@ -102,11 +103,9 @@ export default class ListCard extends React.Component {
             - - - - - - 
           </Text>
           {this.renderYou()}
-
         </View>
       </TouchableOpacity>
-      </Animatable.View>
-      
+      </Animatable.View>   
     );
   }
 }

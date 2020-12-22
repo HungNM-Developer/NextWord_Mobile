@@ -11,3 +11,6 @@ export const USER_DELETE = 'USER_DELETE';
 export const RANK_LOADING = 'RANK_LOADING';
 export const RANK_FAILED = 'RANK_FAILED';
 export const RANK_SUCCESSED = 'RANK_SUCCESSED';
+
+//Game Turn
+export const GAME_NEXTED = 'GAME_NEXTED';

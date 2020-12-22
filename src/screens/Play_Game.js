@@ -11,13 +11,14 @@ import { Menu, Provider, Button, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, ListItem, Input, Text, Divider } from 'react-native-elements';
 import fetchRank from '../redux/action/RankAction';
+import nextUser from '../redux/action/GameAction';
 import * as Animatable from 'react-native-animatable';
 
 //component
 import MenuButton from '../Components/MenuButton';
 import ListCard_PlayGame from '../Components/playGame/ListCard_PlayGame';
-import ListCard from '../Components/Player/ListCard';
-import ModalCard from '../Components/Player/ModalCard';
+// import ListCard from '../Components/Player/ListCard';
+// import ModalCard from '../Components/Player/ModalCard';
 import TimeComponent from '../Components/playGame/TimeComponent';
 import { connect } from "react-redux";
 import { socket } from "./New_Join_Game";
@@ -26,12 +27,14 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const mapDispatchToProps = dispatch => ({
-    fetchRank : (rid) => dispatch(fetchRank(rid))
+    fetchRank : (rid) => dispatch(fetchRank(rid)),
+    nextUser: (turnUser) => dispatch(nextUser(turnUser))
 })
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
-        room: state.roomReducer.roomPin
+        room: state.roomReducer.roomPin,
+        turnUser: state.gameReducer.turnUser
     }
 }
 
@@ -52,11 +55,13 @@ class Play_Game extends React.Component {
             flagSubmit: false,
             colorTurn: '',
         }
+        
     }
-    // componentDidMount(){
-    //     const userCount = this.props.route.params;
-    //     this.setState({userCount: userCount})
-    // }
+    componentDidMount(){
+        console.log('check redux add');
+        console.log(this.state.turnUser);
+        this.props.nextUser(this.state.turnUser);
+    }
 
     submitAnswer() {
         Keyboard.dismiss();
@@ -117,15 +122,15 @@ class Play_Game extends React.Component {
             {
                 this.trueAnwer();
             }
-            this.setState({
-                turnUser: msg,
-            })
+            console.log("turnUser")
+            console.log(msg);
+            this.props.nextUser(msg);
         });
         socket.on("endGame", async msg => {
             console.log(msg);
             let rid = msg.rid;
             // await this.props.fetchRank(rid);
-            this.props.navigation.navigate('Waiting_Rank', {rid: rid});
+            //this.props.navigation.navigate('Waiting_Rank', {rid: rid});
         });
     }
     render() {
@@ -135,7 +140,8 @@ class Play_Game extends React.Component {
         const { navigate, state } = this.props.navigation;
         //const userTotal = this.props.route.params.userCount;
         let y = (height * 0.014 * 2) + (height * 0.04) + (height * 0.03);
-        //console.log(y);
+        //console.log("test state play game");
+        //console.log(this.state.turnUser);
         return (
             <Animatable.View style={styles.container}>
                 <ImageBackground
@@ -233,10 +239,11 @@ class Play_Game extends React.Component {
 
                     >
                         {
-                            this.state.usersLeft.map((item, index) => (
-                                <ListCard key={index} turnUser={this.state.turnUser} you={this.props.user.id} item={item}>
+                            this.state.usersLeft.map((item, index) => {
+                                //console.log(this.state.turnUser);
+                               return <ListCard_PlayGame key={index} you={this.props.user.id} item={item}>
 
-                                </ListCard>))
+                                </ListCard_PlayGame>})
                         }
                     </ScrollView>
 

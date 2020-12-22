@@ -1,71 +1,124 @@
 import React from "react";
-import { View, Text, TouchableOpacity,Image,Dimensions } from "react-native";
-import * as Animatable from 'react-native-animatable';
+import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+import * as Animatable from 'react-native-animatable';
+//import { connect } from "react-redux";
+// const mapStateToProps = (state) => {
+//   return {
+//       turnUser: state.gameReducer.turnUser
+//   }
+// }
+ class ListCard_PlayGame extends React.Component {
+  constructor(props){
+    super(props);
+    // console.log("test redux");
+    // console.log(this.props.turnUser);
+  }
+  renderYou() {
+    
+    if (this.props.you == this.props.item.id) {
+      return <Text
+        style={{
+          flex: 1,
+          fontFamily: "RobotoBold",
+          color: "#44FEA1",
+          fontSize:width*0.053,//22w
+        }}
+      >
+        You
+    </Text>
+    }
+    else {
+      return <Text
+        style={{
+          flex: 1,
+          fontFamily: "RobotoBold",
+          color: "#44FEA1",
+          fontSize: width*0.053,//22w
+        }}
+      >
+        Friend
+  </Text>
+    }
 
+  }
 
-export default class ListCard_PlayGame extends React.Component {
+  renderName()
+  {
+    let name = this.props.item.name;
+    if(name.length > 4)
+    {
+      name = name.slice(0,4) + '...';
+    }
+    else
+    {
+      name = name;
+    }
+    return  <Text
+    style={{
+      flex: 1,
+      fontFamily: "RobotoBold",
+      color: "#ffffff",
+      fontSize: width*0.053,//22w
+    }}
+  >
+    {name}
+  </Text>
+  }
   render() {
+    // let id = this.props.turnUser.user;
+    console.log("test id");
+    console.log(this.props.turnUser);
     return (
-      <Animatable.View animation="pulse" duration={2000} delay={1000}>
+      <Animatable.View animation="bounceInRight" duration={2000} delay={1000}>
         <TouchableOpacity
-        onPress={this.props.onPress}
-        style={{         
+        onPress={() => { }}
+        style={{
+          
           alignSelf: "center",
-          marginTop: height*0.015,
-          marginBottom: height*0.015,
-          backgroundColor: "#FFF",
-          elevation: 1,
+          
+          backgroundColor: "#5450bb",
+          elevation: 8,
           width: '90%',
-          borderRadius: 15,
-          elevation: 10,
+          borderRadius: 50,
+          marginVertical:height*0.0146,//10h
         }}
       >
         <View
           style={{
+            flex: 1,
             flexDirection: "row",
-            paddingVertical:height*0.014,
+            paddingVertical:height*0.0146,//10h
+            
             alignSelf: "center",
+            
           }}
         >
-        <Image
-        style={{width: width*0.07, height: height*0.04,}}
-        source={require('../../images/logo-small.png')}
-        />
+          <View style={{flex: 1, paddingLeft:width*0.0486}}>
+             <Image
+            style={{ width: width*0.0729,
+               height: height*0.0439,               
+               borderRadius: 30 ,}}
+            source={{ uri: this.props.item.photoURL }}
+          />
+          </View>
+         {this.renderName()}
           <Text
             style={{
-              fontFamily: "RobotoBold",
-              color: "#5454bd",
-              fontSize: width*0.05,
+              flex: 1,
+              fontSize: width*0.053,//22w
+              color: "#b1a7b9",
+              paddingHorizontal: width*0.036,//15w
             }}
           >
-            Name (You)
+            - - - - - - 
           </Text>
-
-          <Text
-            style={{
-              fontSize: width*0.05,
-              color: "#a2a2db",
-              paddingHorizontal: 14,
-            }}
-          >
-            {" "}
-            - - - - - - - - - -
-          </Text>
-          <Text
-            style={{
-              fontFamily: "RobotoBold",
-              color: "#4dd163",
-              fontSize: width*0.05,
-            }}
-          >
-            Ready
-          </Text>
+          {this.renderYou()}
         </View>
       </TouchableOpacity>
-      </Animatable.View>
-      
+      </Animatable.View>   
     );
   }
 }
+export default ListCard_PlayGame;
