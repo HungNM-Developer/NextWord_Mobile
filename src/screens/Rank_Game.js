@@ -48,7 +48,7 @@ class Rank_Game extends Component {
         console.log(this.props.route.params.rid);
         await this.props.fetchRank(this.props.route.params.rid);
         //console.log(this.props.rank)
-        //this.props.rank.users.sort((a, b) => a.places - b.places);
+        this.props.rank.users.sort((a, b) => a.places - b.places);
         //console.log("test");
         //console.log(this.props.rank.users[0].name);
         //fix error can not get undifine array object
