@@ -78,7 +78,7 @@ class Join_Game extends React.Component {
                             style={styles.ViewContent}>
                             <Image
                                 source={require("../images/search.png")}
-                                style={{ height: height * 0.022, width: width * 0.036 }}
+                                style={{ height: width * 0.06083, width: width * 0.0486 }}
                             />
                             <TextInput
                                 onChangeText={(value) => this.setState({ value })}
